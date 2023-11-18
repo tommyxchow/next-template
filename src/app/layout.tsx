@@ -1,6 +1,7 @@
 import { type Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
+import { Providers } from './providers';
 
 const fontSans = Inter({ subsets: ['latin'], variable: '--font-sans' });
 
@@ -15,9 +16,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang='en'>
-      <body>
-        <main className={`${fontSans.variable} font-sans`}>{children}</main>
+    <html lang='en' suppressHydrationWarning>
+      <body className={`${fontSans.variable} min-h-screen font-sans`}>
+        <Providers>
+          <main>{children}</main>
+        </Providers>
       </body>
     </html>
   );
