@@ -1,5 +1,7 @@
 import { type Metadata } from 'next';
 import { Inter } from 'next/font/google';
+import { Footer } from './components/Footer';
+import { Header } from './components/Header';
 import './globals.css';
 import { Providers } from './providers';
 
@@ -17,9 +19,13 @@ export default function RootLayout({
 }) {
   return (
     <html lang='en' suppressHydrationWarning>
-      <body className={`${fontSans.variable} min-h-screen font-sans`}>
+      <body
+        className={`${fontSans.variable} flex min-h-screen flex-col gap-4 divide-y p-4 font-sans`}
+      >
         <Providers>
-          <main>{children}</main>
+          <Header />
+          <main className='grow'>{children}</main>
+          <Footer />
         </Providers>
       </body>
     </html>
