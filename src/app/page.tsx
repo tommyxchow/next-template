@@ -1,7 +1,7 @@
 export default function Home() {
   return (
-    <main>
+    <div>
       <h1>next-template</h1>
-    </main>
+    </div>
   );
 }
