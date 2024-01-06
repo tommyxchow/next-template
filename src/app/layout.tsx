@@ -20,7 +20,7 @@ export default function RootLayout({
   return (
     <html lang='en' suppressHydrationWarning>
       <body
-        className={`${fontSans.variable} flex min-h-screen flex-col gap-4 divide-y p-4 font-sans`}
+        className={`${fontSans.variable} flex min-h-dvh flex-col gap-4 divide-y p-4 font-sans`}
       >
         <Providers>
           <Header />
