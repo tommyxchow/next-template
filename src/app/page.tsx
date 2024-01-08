@@ -1,6 +1,6 @@
 import { githubRepoUrl } from '@/lib/constants';
 
-export default function Home() {
+export default function HomePage() {
   return (
     <article>
       <h1>
