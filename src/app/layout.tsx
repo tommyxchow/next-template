@@ -18,10 +18,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang='en' suppressHydrationWarning>
-      <body
-        className={`${fontSans.variable} flex min-h-dvh flex-col gap-4 divide-y p-4 font-sans`}
-      >
+    <html className={fontSans.variable} lang='en' suppressHydrationWarning>
+      <body className='flex min-h-dvh flex-col gap-4 p-4 font-sans'>
         <Providers>
           <Header />
           <main className='grow'>{children}</main>
