@@ -1,8 +1,8 @@
+import { Footer } from '@/components/Footer';
+import { Header } from '@/components/Header';
+import { Providers } from '@/components/Providers';
 import { type Metadata } from 'next';
 import { Inter } from 'next/font/google';
-import { Footer } from './components/Footer';
-import { Header } from './components/Header';
-import { Providers } from './components/Providers';
 import './globals.css';
 
 const fontSans = Inter({ subsets: ['latin'], variable: '--font-sans' });
