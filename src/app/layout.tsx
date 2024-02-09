@@ -14,9 +14,9 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-}: {
+}: Readonly<{
   children: React.ReactNode;
-}) {
+}>) {
   return (
     <html className={fontSans.variable} lang='en' suppressHydrationWarning>
       <body className='flex min-h-dvh flex-col gap-4 p-4 font-sans'>
