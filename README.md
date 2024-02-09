@@ -20,6 +20,7 @@ I spend a bit of tme repeating the same steps when setting up Next.js projects. 
 - [next-themes](https://github.com/pacocoursey/next-themes)
 - [Tailwind CSS](https://tailwindcss.com/) (with [Forms](https://github.com/tailwindlabs/tailwindcss-forms) and [Typography](https://tailwindcss.com/docs/typography-plugin) plugins)
 - [tailwind-merge](https://github.com/dcastil/tailwind-merge)
+- [react-icons](https://react-icons.github.io/react-icons/)
 
 ## Setup
 
