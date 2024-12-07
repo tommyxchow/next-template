@@ -7,6 +7,7 @@ A tailored Next.js template project for getting started quickly.
 I spend a bit of time repeating the same steps when setting up Next.js projects. This template builds upon [`create-next-app`](https://nextjs.org/docs/pages/api-reference/create-next-app) to include my essential packages, configurations, linting rules, and more by default.
 
 ## Features
+
 - Preconfigured packages
 - Preconfigured ESLint and Prettier rules
 - Default boilerplate removed
