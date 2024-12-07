@@ -1,4 +1,4 @@
-import { ThemeToggle } from './ThemeToggle';
+import { ThemeToggle } from './ThemeToggle'
 
 export function Header() {
   return (
@@ -6,5 +6,5 @@ export function Header() {
       <p>Header</p>
       <ThemeToggle />
     </header>
-  );
+  )
 }

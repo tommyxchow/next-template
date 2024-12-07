@@ -3,5 +3,5 @@ export function Footer() {
     <footer>
       <p>Footer</p>
     </footer>
-  );
+  )
 }

@@ -1,4 +1,4 @@
-import { githubRepoUrl } from '@/lib/constants';
+import { githubRepoUrl } from '@/lib/constants'
 
 export default function HomePage() {
   return (
@@ -10,5 +10,5 @@ export default function HomePage() {
         </a>
       </h1>
     </article>
-  );
+  )
 }
