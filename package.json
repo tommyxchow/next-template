@@ -42,13 +42,5 @@
     "typescript": "^5.8.3",
     "typescript-eslint": "^8.35.1"
   },
-  "packageManager": "pnpm@10.12.4",
-  "pnpm": {
-    "onlyBuiltDependencies": [
-      "@tailwindcss/oxide",
-      "esbuild",
-      "sharp",
-      "unrs-resolver"
-    ]
-  }
+  "packageManager": "pnpm@10.12.4"
 }
