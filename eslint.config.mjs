@@ -1,6 +1,9 @@
+// @ts-check
+import eslintReact from '@eslint-react/eslint-plugin'
 import { FlatCompat } from '@eslint/eslintrc'
-import js from '@eslint/js'
+import eslintJs from '@eslint/js'
 import prettier from 'eslint-config-prettier/flat'
+import reactRefresh from 'eslint-plugin-react-refresh'
 import { dirname } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import tseslint from 'typescript-eslint'
@@ -13,9 +16,11 @@ const compat = new FlatCompat({
 })
 
 export default tseslint.config(
-  js.configs.recommended,
+  eslintJs.configs.recommended,
   ...tseslint.configs.recommendedTypeChecked,
   ...tseslint.configs.stylisticTypeChecked,
+  eslintReact.configs['recommended-type-checked'],
+  reactRefresh.configs.recommended,
   ...compat.extends('next/core-web-vitals', 'plugin:jsx-a11y/recommended'),
   {
     languageOptions: {
@@ -26,20 +31,30 @@ export default tseslint.config(
       },
     },
     rules: {
-      eqeqeq: ['warn', 'smart'],
-      'jsx-a11y/control-has-associated-label': 'warn',
+      eqeqeq: ['error', 'smart'],
+      'no-console': ['warn', { allow: ['warn', 'error'] }],
       '@typescript-eslint/consistent-type-imports': [
-        'warn',
+        'error',
         { fixStyle: 'inline-type-imports' },
-      ],
-      '@typescript-eslint/no-unused-vars': [
-        'warn',
-        { argsIgnorePattern: '^_' },
       ],
       '@typescript-eslint/no-misused-promises': [
         'error',
         { checksVoidReturn: { attributes: false } },
       ],
+      '@typescript-eslint/no-unused-vars': [
+        'error',
+        {
+          args: 'all',
+          argsIgnorePattern: '^_',
+          caughtErrors: 'all',
+          caughtErrorsIgnorePattern: '^_',
+          destructuredArrayIgnorePattern: '^_',
+          varsIgnorePattern: '^_',
+          ignoreRestSiblings: true,
+        },
+      ],
+      '@typescript-eslint/switch-exhaustiveness-check': 'error',
+      'jsx-a11y/control-has-associated-label': 'warn',
     },
   },
   prettier,
