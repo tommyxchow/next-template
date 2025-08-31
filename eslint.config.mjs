@@ -3,6 +3,7 @@ import eslintReact from '@eslint-react/eslint-plugin'
 import { FlatCompat } from '@eslint/eslintrc'
 import eslintJs from '@eslint/js'
 import prettier from 'eslint-config-prettier/flat'
+import reactYouMightNotNeedAnEffect from 'eslint-plugin-react-you-might-not-need-an-effect'
 import { dirname } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import tseslint from 'typescript-eslint'
@@ -19,6 +20,7 @@ export default tseslint.config(
   ...tseslint.configs.recommendedTypeChecked,
   ...tseslint.configs.stylisticTypeChecked,
   eslintReact.configs['recommended-type-checked'],
+  reactYouMightNotNeedAnEffect.configs.recommended,
   ...compat.extends('next/core-web-vitals', 'plugin:jsx-a11y/recommended'),
   {
     languageOptions: {
