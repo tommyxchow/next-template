@@ -1,33 +1,24 @@
-// @ts-check
 import eslintReact from '@eslint-react/eslint-plugin'
-import { FlatCompat } from '@eslint/eslintrc'
 import eslintJs from '@eslint/js'
+import nextVitals from 'eslint-config-next/core-web-vitals'
+import nextTs from 'eslint-config-next/typescript'
 import prettier from 'eslint-config-prettier/flat'
 import reactYouMightNotNeedAnEffect from 'eslint-plugin-react-you-might-not-need-an-effect'
-import { dirname } from 'node:path'
-import { fileURLToPath } from 'node:url'
+import { defineConfig, globalIgnores } from 'eslint/config'
 import tseslint from 'typescript-eslint'
 
-const __filename = fileURLToPath(import.meta.url)
-const __dirname = dirname(__filename)
-
-const compat = new FlatCompat({
-  baseDirectory: __dirname,
-})
-
-export default tseslint.config(
+const eslintConfig = defineConfig([
   eslintJs.configs.recommended,
+  ...nextVitals,
+  ...nextTs,
   ...tseslint.configs.recommendedTypeChecked,
   ...tseslint.configs.stylisticTypeChecked,
   eslintReact.configs['recommended-type-checked'],
   reactYouMightNotNeedAnEffect.configs.recommended,
-  ...compat.extends('next/core-web-vitals', 'plugin:jsx-a11y/recommended'),
   {
     languageOptions: {
-      parser: tseslint.parser,
       parserOptions: {
         projectService: true,
-        tsconfigRootDir: __dirname,
       },
     },
     rules: {
@@ -54,8 +45,17 @@ export default tseslint.config(
         },
       ],
       '@typescript-eslint/switch-exhaustiveness-check': 'error',
-      'jsx-a11y/control-has-associated-label': 'warn',
     },
   },
   prettier,
-)
+  // Override default ignores of eslint-config-next.
+  globalIgnores([
+    // Default ignores of eslint-config-next:
+    '.next/**',
+    'out/**',
+    'build/**',
+    'next-env.d.ts',
+  ]),
+])
+
+export default eslintConfig
