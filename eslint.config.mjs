@@ -48,9 +48,16 @@ export default defineConfig(
         },
       ],
       '@typescript-eslint/switch-exhaustiveness-check': 'error',
+      '@typescript-eslint/strict-boolean-expressions': [
+        'error',
+        {
+          allowNullableBoolean: true,
+          allowNullableString: true,
+        },
+      ],
       '@typescript-eslint/no-unnecessary-condition': 'error',
-      '@typescript-eslint/strict-boolean-expressions': 'error',
       '@eslint-react/jsx-shorthand-boolean': 'error',
+      '@eslint-react/no-array-index-key': 'off',
 
       // Redundant with react-you-might-not-need-an-effect
       '@eslint-react/hooks-extra/no-direct-set-state-in-use-effect': 'off',
