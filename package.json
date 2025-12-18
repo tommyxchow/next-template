@@ -7,6 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
+    "typecheck": "tsc --noEmit",
     "format": "prettier . --write",
     "clean": "rimraf .next node_modules",
     "nuke": "rimraf .next node_modules pnpm-lock.yaml"
