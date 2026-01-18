@@ -6,14 +6,17 @@ import { Inter, JetBrains_Mono } from 'next/font/google'
 import { twJoin } from 'tailwind-merge'
 import './globals.css'
 
-const fontSans = Inter({ subsets: ['latin'], variable: '--font-inter-sans' })
+const fontSans = Inter({ subsets: ['latin'], variable: '--font-sans' })
 const fontMono = JetBrains_Mono({
   subsets: ['latin'],
-  variable: '--font-jetbrains-mono',
+  variable: '--font-mono',
 })
 
 export const metadata: Metadata = {
-  title: 'next-template',
+  title: {
+    default: 'next-template',
+    template: '%s | next-template',
+  },
   description: 'next-template',
 }
 
@@ -26,7 +29,7 @@ export default function RootLayout({
     <html lang='en' suppressHydrationWarning>
       <body
         className={twJoin(
-          'flex min-h-dvh flex-col gap-4 p-4 font-sans antialiased',
+          'selection:bg-primary selection:text-primary-foreground flex min-h-dvh flex-col font-sans underline-offset-4 antialiased',
           fontSans.variable,
           fontMono.variable,
         )}
