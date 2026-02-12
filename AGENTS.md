@@ -10,7 +10,7 @@ pnpm typecheck    # TypeScript type checking (tsc --noEmit)
 pnpm format       # Format with Prettier
 pnpm test         # Run unit tests (Vitest, watch mode)
 pnpm test:run     # Run unit tests (single run, CI)
-pnpm verify       # Full check: typecheck + lint + build
+pnpm verify       # Full check: typecheck + lint + test + build
 pnpm clean        # Delete .next and node_modules
 ```
 
@@ -23,7 +23,7 @@ Next.js 16 template using the App Router with React 19.
 - **React Compiler**: Enabled in `next.config.ts` for automatic memoization
 - **Typed Routes**: Enabled for type-safe navigation (use `Route` type from `next/navigation`)
 - **Path Alias**: `@/*` maps to `./src/*`
-- **Strict TypeScript**: `noUncheckedIndexedAccess`, `noImplicitReturns`, `noFallthroughCasesInSwitch`
+- **Strict TypeScript**: `noUncheckedIndexedAccess`, `noImplicitReturns`, `noFallthroughCasesInSwitch`, `noImplicitOverride`, `verbatimModuleSyntax`
 
 ### Source Structure
 
@@ -80,6 +80,7 @@ Use `.env.local` for local development (gitignored by default).
 
 - **Server-only keys** (never prefix with `NEXT_PUBLIC_`): API keys, database URLs, secrets
 - **Public variables** (`NEXT_PUBLIC_*`): Values accessible in client-side code
+- **AI providers**: Add provider-specific SDK packages and env vars per project (for example `OPENAI_API_KEY`, `ANTHROPIC_API_KEY`)
 
 ## ESLint Rules
 

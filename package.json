@@ -12,7 +12,7 @@
     "clean": "node -e \"['.next','node_modules'].forEach(p=>require('fs').rmSync(p,{recursive:true,force:true}))\"",
     "test": "vitest",
     "test:run": "vitest run",
-    "verify": "pnpm typecheck && pnpm lint && pnpm build"
+    "verify": "pnpm typecheck && pnpm lint && pnpm test:run && pnpm build"
   },
   "dependencies": {
     "@base-ui/react": "^1.1.0",
@@ -40,7 +40,6 @@
     "@types/node": "^25.0.9",
     "@types/react": "19.2.8",
     "@types/react-dom": "19.2.3",
-    "babel-plugin-react-compiler": "^1.0.0",
     "eslint": "^9.39.2",
     "eslint-config-next": "16.1.3",
     "eslint-config-prettier": "^10.1.8",

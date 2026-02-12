@@ -12,7 +12,7 @@ A tailored Next.js starter for shipping fast with AI-ready defaults.
 - [lucide-react](https://lucide.dev/) (icons)
 - [motion](https://motion.dev/) (animations)
 - [next-themes](https://github.com/pacocoursey/next-themes) (dark mode)
-- [Vercel AI SDK](https://ai-sdk.dev/) (AI integration)
+- [Vercel AI SDK](https://ai-sdk.dev/) (AI integration core; add provider packages per project)
 - [Zod](https://zod.dev/) (schema validation)
 - [React Hook Form](https://react-hook-form.com/) (forms)
 - [sonner](https://sonner.emilkowal.ski/) (toasts)
@@ -23,7 +23,8 @@ A tailored Next.js starter for shipping fast with AI-ready defaults.
 
 1. Clone or use as template
 2. `pnpm install`
-3. `pnpm dev`
+3. Create `.env.local` for any server-only keys your app needs
+4. `pnpm dev`
 
 ## License
 
