@@ -1,14 +1,12 @@
-import { githubRepoUrl } from '@/lib/constants'
-
 export default function HomePage() {
   return (
-    <article>
-      <h1>
-        Welcome to{' '}
-        <a className='underline' href={githubRepoUrl} target='_blank'>
-          next-template
-        </a>
+    <section className='container mx-auto flex flex-col items-center px-4 py-24 text-center sm:py-32'>
+      <h1 className='text-4xl font-semibold tracking-tight sm:text-5xl'>
+        next-template
       </h1>
-    </article>
+      <p className='text-muted-foreground mt-4 text-pretty text-lg'>
+        A Next.js starter template.
+      </p>
+    </section>
   )
 }

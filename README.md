@@ -1,36 +1,29 @@
 # [next-template](https://github.com/tommyxchow/next-template)
 
-A tailored Next.js template project for getting started quickly.
-
-## Why
-
-I spend a bit of time repeating the same steps when setting up Next.js projects. This template builds upon [`create-next-app`](https://nextjs.org/docs/pages/api-reference/create-next-app) to include my essential packages, configurations, linting rules, and more by default.
-
-## Features
-
-- Preconfigured packages
-- Preconfigured ESLint and Prettier rules
-- Default boilerplate removed
-- Dark mode support
-- Formatted README
+A tailored Next.js starter for shipping fast with AI-ready defaults.
 
 ## Stack
 
-- [Next.js](https://nextjs.org/)
-- [next-themes](https://github.com/pacocoursey/next-themes)
-- [Tailwind CSS](https://tailwindcss.com/) (with [Forms](https://github.com/tailwindlabs/tailwindcss-forms) and [Typography](https://tailwindcss.com/docs/typography-plugin) plugins)
-- [tailwind-merge](https://github.com/dcastil/tailwind-merge)
-- [react-icons](https://react-icons.github.io/react-icons/)
+- [Next.js 16](https://nextjs.org/) (App Router, React Compiler, Typed Routes)
+- [React 19](https://react.dev/)
+- [TypeScript](https://www.typescriptlang.org/) (strict mode + `noUncheckedIndexedAccess`)
+- [Tailwind CSS v4](https://tailwindcss.com/) (CSS-first config, [Typography](https://tailwindcss.com/docs/typography-plugin) plugin)
+- [shadcn/ui](https://ui.shadcn.com/) (base-vega style)
+- [lucide-react](https://lucide.dev/) (icons)
+- [motion](https://motion.dev/) (animations)
+- [next-themes](https://github.com/pacocoursey/next-themes) (dark mode)
+- [Vercel AI SDK](https://ai-sdk.dev/) (AI integration)
+- [Zod](https://zod.dev/) (schema validation)
+- [React Hook Form](https://react-hook-form.com/) (forms)
+- [sonner](https://sonner.emilkowal.ski/) (toasts)
+- [Vitest](https://vitest.dev/) (unit tests)
+- [ESLint](https://eslint.org/) (strict type-aware rules) + [Prettier](https://prettier.io/)
 
 ## Setup
 
-Setup instructions are here if necessary. Usually adding environment variables like so:
-
-```plaintext
-# .env.local
-CLIENT_ID=
-SECRET=
-```
+1. Clone or use as template
+2. `pnpm install`
+3. `pnpm dev`
 
 ## License
 

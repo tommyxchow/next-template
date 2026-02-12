@@ -1,7 +1,6 @@
 'use client'
-// react-scan must be imported before react
-import { scan } from 'react-scan'
 
+import { Toaster } from '@/components/ui/sonner'
 import { ThemeProvider } from 'next-themes'
 import { useEffect } from 'react'
 
@@ -11,14 +10,17 @@ interface ProvidersProps {
 
 export function Providers({ children }: ProvidersProps) {
   useEffect(() => {
-    scan({
-      enabled: true,
-    })
+    if (process.env.NODE_ENV === 'development') {
+      void import('react-scan').then(({ scan }) => {
+        scan({ enabled: true })
+      })
+    }
   }, [])
 
   return (
     <ThemeProvider attribute='class' disableTransitionOnChange>
       {children}
+      <Toaster />
     </ThemeProvider>
   )
 }
