@@ -1,6 +1,12 @@
 'use client'
 
 import { useState } from 'react'
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from '@/components/ui/accordion'
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
 import {
   AlertDialog,
@@ -13,8 +19,20 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from '@/components/ui/alert-dialog'
+import { AspectRatio } from '@/components/ui/aspect-ratio'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Badge } from '@/components/ui/badge'
+import {
+  ButtonGroup,
+  ButtonGroupSeparator,
+} from '@/components/ui/button-group'
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from '@/components/ui/carousel'
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -32,7 +50,37 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card'
+import { Calendar } from '@/components/ui/calendar'
 import { Checkbox } from '@/components/ui/checkbox'
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from '@/components/ui/collapsible'
+import {
+  Combobox,
+  ComboboxContent,
+  ComboboxEmpty,
+  ComboboxInput,
+  ComboboxItem,
+  ComboboxList,
+} from '@/components/ui/combobox'
+import {
+  ContextMenu,
+  ContextMenuContent,
+  ContextMenuItem,
+  ContextMenuSeparator,
+  ContextMenuTrigger,
+} from '@/components/ui/context-menu'
+import {
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+  CommandSeparator,
+} from '@/components/ui/command'
 import {
   Dialog,
   DialogClose,
@@ -60,7 +108,26 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 import { Input } from '@/components/ui/input'
+import {
+  InputOTP,
+  InputOTPGroup,
+  InputOTPSeparator,
+  InputOTPSlot,
+} from '@/components/ui/input-otp'
 import { Label } from '@/components/ui/label'
+import {
+  Menubar,
+  MenubarContent,
+  MenubarItem,
+  MenubarMenu,
+  MenubarSeparator,
+  MenubarShortcut,
+  MenubarTrigger,
+} from '@/components/ui/menubar'
+import {
+  NativeSelect,
+  NativeSelectOption,
+} from '@/components/ui/native-select'
 import {
   Popover,
   PopoverContent,
@@ -70,6 +137,11 @@ import {
 } from '@/components/ui/popover'
 import { Progress } from '@/components/ui/progress'
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
+import {
+  ResizableHandle,
+  ResizablePanel,
+  ResizablePanelGroup,
+} from '@/components/ui/resizable'
 import { ScrollArea } from '@/components/ui/scroll-area'
 import {
   Select,
@@ -112,7 +184,35 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from '@/components/ui/drawer'
+import {
+  Empty,
+  EmptyDescription,
+  EmptyHeader,
+  EmptyMedia,
+  EmptyTitle,
+} from '@/components/ui/empty'
+import {
+  HoverCard,
+  HoverCardContent,
+  HoverCardTrigger,
+} from '@/components/ui/hover-card'
+import {
+  InputGroup,
+  InputGroupAddon,
+  InputGroupInput,
+} from '@/components/ui/input-group'
+import { Kbd } from '@/components/ui/kbd'
+import {
+  Pagination,
+  PaginationContent,
+  PaginationEllipsis,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+} from '@/components/ui/pagination'
 import { Slider } from '@/components/ui/slider'
+import { Spinner } from '@/components/ui/spinner'
 import { Toggle } from '@/components/ui/toggle'
 import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group'
 import {
@@ -121,12 +221,18 @@ import {
   AlignRight,
   ArrowRight,
   Bold,
+  Calculator,
+  Calendar as CalendarIcon,
   ChevronDown,
+  ChevronsUpDown,
+  Clipboard,
   Cloud,
+  Copy,
   CreditCard,
   Download,
   Github,
   Heart,
+  Inbox,
   Italic,
   Keyboard,
   LifeBuoy,
@@ -134,7 +240,9 @@ import {
   Mail,
   MessageSquare,
   Plus,
+  Search,
   Settings,
+  Smile,
   Star,
   Terminal,
   Trash2,
@@ -756,7 +864,133 @@ export function KitchenSink() {
         </div>
       </Section>
 
-      {/* Separator | Scroll Area */}
+      {/* Accordion | Collapsible | Command */}
+      <Section title='Accordion'>
+        <Accordion>
+          <AccordionItem value='item-1'>
+            <AccordionTrigger>Is it accessible?</AccordionTrigger>
+            <AccordionContent>
+              Yes. It adheres to the WAI-ARIA design pattern.
+            </AccordionContent>
+          </AccordionItem>
+          <AccordionItem value='item-2'>
+            <AccordionTrigger>Is it styled?</AccordionTrigger>
+            <AccordionContent>
+              Yes. It comes with default styles that match the other
+              components&apos; aesthetic.
+            </AccordionContent>
+          </AccordionItem>
+          <AccordionItem value='item-3'>
+            <AccordionTrigger>Is it animated?</AccordionTrigger>
+            <AccordionContent>
+              Yes. It&apos;s animated by default, but you can disable it if you
+              prefer.
+            </AccordionContent>
+          </AccordionItem>
+        </Accordion>
+      </Section>
+
+      <Section title='Collapsible'>
+        <Collapsible>
+          <div className='flex items-center justify-between'>
+            <span className='text-sm font-medium'>3 items</span>
+            <CollapsibleTrigger render={<Button variant='ghost' size='icon-sm' />}>
+              <ChevronsUpDown />
+            </CollapsibleTrigger>
+          </div>
+          <div className='border-border rounded-md border px-3 py-2 text-sm'>
+            Always visible
+          </div>
+          <CollapsibleContent>
+            <div className='mt-2 space-y-2'>
+              <div className='border-border rounded-md border px-3 py-2 text-sm'>
+                Hidden item 1
+              </div>
+              <div className='border-border rounded-md border px-3 py-2 text-sm'>
+                Hidden item 2
+              </div>
+            </div>
+          </CollapsibleContent>
+        </Collapsible>
+      </Section>
+
+      <Section title='Command'>
+        <Command className='border-border rounded-lg border'>
+          <CommandInput placeholder='Type a command or search...' />
+          <CommandList>
+            <CommandEmpty>No results found.</CommandEmpty>
+            <CommandGroup heading='Suggestions'>
+              <CommandItem>
+                <CalendarIcon /> Calendar
+              </CommandItem>
+              <CommandItem>
+                <Smile /> Search Emoji
+              </CommandItem>
+              <CommandItem>
+                <Calculator /> Calculator
+              </CommandItem>
+            </CommandGroup>
+            <CommandSeparator />
+            <CommandGroup heading='Settings'>
+              <CommandItem>
+                <User /> Profile
+              </CommandItem>
+              <CommandItem>
+                <Settings /> Settings
+              </CommandItem>
+            </CommandGroup>
+          </CommandList>
+        </Command>
+      </Section>
+
+      {/* Input Group | Kbd & Spinner | Empty */}
+      <Section title='Input Group'>
+        <div className='space-y-3'>
+          <InputGroup>
+            <InputGroupAddon>
+              <Search />
+            </InputGroupAddon>
+            <InputGroupInput placeholder='Search...' />
+          </InputGroup>
+          <InputGroup>
+            <InputGroupAddon>https://</InputGroupAddon>
+            <InputGroupInput placeholder='example.com' />
+          </InputGroup>
+        </div>
+      </Section>
+
+      <Section title='Kbd &amp; Spinner'>
+        <div className='space-y-4'>
+          <div className='flex flex-wrap items-center gap-2'>
+            <Kbd>&#x2318;K</Kbd>
+            <Kbd>Ctrl</Kbd>
+            <Kbd>Shift</Kbd>
+            <Kbd>Enter</Kbd>
+          </div>
+          <Separator />
+          <div className='flex items-center gap-3'>
+            <Spinner />
+            <Spinner className='size-6' />
+            <Spinner className='size-8' />
+          </div>
+        </div>
+      </Section>
+
+      <Section title='Empty'>
+        <Empty>
+          <EmptyHeader>
+            <EmptyMedia variant='icon'>
+              <Inbox />
+            </EmptyMedia>
+            <EmptyTitle>No items yet</EmptyTitle>
+            <EmptyDescription>
+              Get started by creating your first item.
+            </EmptyDescription>
+          </EmptyHeader>
+        </Empty>
+      </Section>
+
+      {/* Separator | Scroll Area | Pagination */}
       <Section title='Separator'>
         <div className='space-y-4'>
           <div className='space-y-1'>
@@ -783,6 +1017,240 @@ export function KitchenSink() {
             ))}
           </div>
         </ScrollArea>
+      </Section>
+
+      {/* Context Menu | Hover Card | Combobox */}
+      <Section title='Context Menu'>
+        <ContextMenu>
+          <ContextMenuTrigger className='border-border flex h-24 items-center justify-center rounded-md border border-dashed text-sm'>
+            Right click here
+          </ContextMenuTrigger>
+          <ContextMenuContent>
+            <ContextMenuItem>
+              <Clipboard /> Cut
+            </ContextMenuItem>
+            <ContextMenuItem>
+              <Copy /> Copy
+            </ContextMenuItem>
+            <ContextMenuItem>
+              <Clipboard /> Paste
+            </ContextMenuItem>
+            <ContextMenuSeparator />
+            <ContextMenuItem variant='destructive'>
+              <Trash2 /> Delete
+            </ContextMenuItem>
+          </ContextMenuContent>
+        </ContextMenu>
+      </Section>
+
+      <Section title='Hover Card'>
+        <HoverCard>
+          <HoverCardTrigger
+            render={<a href='#' />}
+            className='text-sm underline underline-offset-4'
+          >
+            @nextjs
+          </HoverCardTrigger>
+          <HoverCardContent>
+            <div className='space-y-2'>
+              <h4 className='text-sm font-semibold'>@nextjs</h4>
+              <p className='text-muted-foreground text-sm'>
+                The React Framework — created and maintained by @vercel.
+              </p>
+              <div className='text-muted-foreground flex items-center gap-1 text-xs'>
+                <CalendarIcon className='size-3' /> Joined December 2021
+              </div>
+            </div>
+          </HoverCardContent>
+        </HoverCard>
+      </Section>
+
+      <Section title='Combobox'>
+        <Combobox>
+          <ComboboxInput placeholder='Search framework...' />
+          <ComboboxContent>
+            <ComboboxList>
+              <ComboboxEmpty>No framework found.</ComboboxEmpty>
+              <ComboboxItem value='next'>Next.js</ComboboxItem>
+              <ComboboxItem value='remix'>Remix</ComboboxItem>
+              <ComboboxItem value='astro'>Astro</ComboboxItem>
+              <ComboboxItem value='nuxt'>Nuxt</ComboboxItem>
+              <ComboboxItem value='svelte'>SvelteKit</ComboboxItem>
+            </ComboboxList>
+          </ComboboxContent>
+        </Combobox>
+      </Section>
+
+      {/* Aspect Ratio | Button Group | Native Select */}
+      <Section title='Aspect Ratio'>
+        <AspectRatio ratio={16 / 9} className='bg-muted rounded-md'>
+          <div className='flex size-full items-center justify-center text-sm text-muted-foreground'>
+            16:9
+          </div>
+        </AspectRatio>
+      </Section>
+
+      <Section title='Button Group'>
+        <div className='space-y-3'>
+          <ButtonGroup>
+            <Button variant='outline'>Left</Button>
+            <ButtonGroupSeparator />
+            <Button variant='outline'>Center</Button>
+            <ButtonGroupSeparator />
+            <Button variant='outline'>Right</Button>
+          </ButtonGroup>
+          <ButtonGroup orientation='vertical'>
+            <Button variant='outline' size='sm'>Top</Button>
+            <ButtonGroupSeparator orientation='horizontal' />
+            <Button variant='outline' size='sm'>Bottom</Button>
+          </ButtonGroup>
+        </div>
+      </Section>
+
+      <Section title='Native Select'>
+        <NativeSelect>
+          <NativeSelectOption value=''>Select a fruit...</NativeSelectOption>
+          <NativeSelectOption value='apple'>Apple</NativeSelectOption>
+          <NativeSelectOption value='banana'>Banana</NativeSelectOption>
+          <NativeSelectOption value='cherry'>Cherry</NativeSelectOption>
+          <NativeSelectOption value='grape'>Grape</NativeSelectOption>
+        </NativeSelect>
+      </Section>
+
+      {/* Input OTP | Menubar | Carousel */}
+      <Section title='Input OTP'>
+        <InputOTP maxLength={6}>
+          <InputOTPGroup>
+            <InputOTPSlot index={0} />
+            <InputOTPSlot index={1} />
+            <InputOTPSlot index={2} />
+          </InputOTPGroup>
+          <InputOTPSeparator />
+          <InputOTPGroup>
+            <InputOTPSlot index={3} />
+            <InputOTPSlot index={4} />
+            <InputOTPSlot index={5} />
+          </InputOTPGroup>
+        </InputOTP>
+      </Section>
+
+      <Section title='Menubar'>
+        <Menubar>
+          <MenubarMenu>
+            <MenubarTrigger>File</MenubarTrigger>
+            <MenubarContent>
+              <MenubarItem>
+                New Tab <MenubarShortcut>&#x2318;T</MenubarShortcut>
+              </MenubarItem>
+              <MenubarItem>
+                New Window <MenubarShortcut>&#x2318;N</MenubarShortcut>
+              </MenubarItem>
+              <MenubarSeparator />
+              <MenubarItem>Print <MenubarShortcut>&#x2318;P</MenubarShortcut></MenubarItem>
+            </MenubarContent>
+          </MenubarMenu>
+          <MenubarMenu>
+            <MenubarTrigger>Edit</MenubarTrigger>
+            <MenubarContent>
+              <MenubarItem>
+                Undo <MenubarShortcut>&#x2318;Z</MenubarShortcut>
+              </MenubarItem>
+              <MenubarItem>
+                Redo <MenubarShortcut>&#x21E7;&#x2318;Z</MenubarShortcut>
+              </MenubarItem>
+              <MenubarSeparator />
+              <MenubarItem>Cut</MenubarItem>
+              <MenubarItem>Copy</MenubarItem>
+              <MenubarItem>Paste</MenubarItem>
+            </MenubarContent>
+          </MenubarMenu>
+          <MenubarMenu>
+            <MenubarTrigger>View</MenubarTrigger>
+            <MenubarContent>
+              <MenubarItem>Zoom In</MenubarItem>
+              <MenubarItem>Zoom Out</MenubarItem>
+              <MenubarSeparator />
+              <MenubarItem>Full Screen</MenubarItem>
+            </MenubarContent>
+          </MenubarMenu>
+        </Menubar>
+      </Section>
+
+      <Section title='Carousel'>
+        <Carousel className='mx-auto w-full max-w-xs'>
+          <CarouselContent>
+            {Array.from({ length: 5 }, (_, i) => (
+              <CarouselItem key={i}>
+                <div className='border-border flex aspect-square items-center justify-center rounded-md border text-3xl font-semibold'>
+                  {String(i + 1)}
+                </div>
+              </CarouselItem>
+            ))}
+          </CarouselContent>
+          <CarouselPrevious />
+          <CarouselNext />
+        </Carousel>
+      </Section>
+
+      {/* Resizable (full width) */}
+      <section className='flex flex-col gap-2 md:col-span-2 lg:col-span-3'>
+        <h3 className='text-muted-foreground px-1 text-sm font-medium'>
+          Resizable
+        </h3>
+        <div className='border-border rounded-lg border'>
+          <ResizablePanelGroup className='min-h-32 rounded-lg'>
+            <ResizablePanel defaultSize={50}>
+              <div className='flex h-full items-center justify-center p-4'>
+                <span className='text-sm font-medium'>Panel A</span>
+              </div>
+            </ResizablePanel>
+            <ResizableHandle withHandle />
+            <ResizablePanel defaultSize={25}>
+              <div className='flex h-full items-center justify-center p-4'>
+                <span className='text-sm font-medium'>Panel B</span>
+              </div>
+            </ResizablePanel>
+            <ResizableHandle withHandle />
+            <ResizablePanel defaultSize={25}>
+              <div className='flex h-full items-center justify-center p-4'>
+                <span className='text-sm font-medium'>Panel C</span>
+              </div>
+            </ResizablePanel>
+          </ResizablePanelGroup>
+        </div>
+      </section>
+
+      {/* Calendar */}
+      <Section title='Calendar'>
+        <Calendar />
+      </Section>
+
+      {/* Pagination */}
+      <Section title='Pagination'>
+        <Pagination>
+          <PaginationContent>
+            <PaginationItem>
+              <PaginationPrevious href='#' />
+            </PaginationItem>
+            <PaginationItem>
+              <PaginationLink href='#'>1</PaginationLink>
+            </PaginationItem>
+            <PaginationItem>
+              <PaginationLink href='#' isActive>
+                2
+              </PaginationLink>
+            </PaginationItem>
+            <PaginationItem>
+              <PaginationLink href='#'>3</PaginationLink>
+            </PaginationItem>
+            <PaginationItem>
+              <PaginationEllipsis />
+            </PaginationItem>
+            <PaginationItem>
+              <PaginationNext href='#' />
+            </PaginationItem>
+          </PaginationContent>
+        </Pagination>
       </Section>
 
       {/* Table (full width) */}

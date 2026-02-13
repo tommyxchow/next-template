@@ -7,7 +7,7 @@ import { defineConfig } from 'eslint/config'
 import tseslint from 'typescript-eslint'
 
 export default defineConfig(
-  { ignores: ['src/components/ui/'] },
+  { ignores: ['src/components/ui/', 'src/hooks/use-mobile.ts'] },
   eslintJs.configs.recommended,
   nextVitals,
 
