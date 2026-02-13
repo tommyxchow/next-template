@@ -1,8 +1,28 @@
 'use client'
 
 import { useState } from 'react'
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from '@/components/ui/alert-dialog'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Badge } from '@/components/ui/badge'
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from '@/components/ui/breadcrumb'
 import { Button } from '@/components/ui/button'
 import {
   Card,
@@ -42,6 +62,16 @@ import {
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import {
+  Popover,
+  PopoverContent,
+  PopoverHeader,
+  PopoverTitle,
+  PopoverTrigger,
+} from '@/components/ui/popover'
+import { Progress } from '@/components/ui/progress'
+import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
+import { ScrollArea } from '@/components/ui/scroll-area'
+import {
   Select,
   SelectContent,
   SelectItem,
@@ -49,6 +79,14 @@ import {
   SelectValue,
 } from '@/components/ui/select'
 import { Separator } from '@/components/ui/separator'
+import {
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from '@/components/ui/sheet'
 import { Skeleton } from '@/components/ui/skeleton'
 import { Switch } from '@/components/ui/switch'
 import {
@@ -67,13 +105,29 @@ import {
   TooltipTrigger,
 } from '@/components/ui/tooltip'
 import {
+  Drawer,
+  DrawerContent,
+  DrawerDescription,
+  DrawerHeader,
+  DrawerTitle,
+  DrawerTrigger,
+} from '@/components/ui/drawer'
+import { Slider } from '@/components/ui/slider'
+import { Toggle } from '@/components/ui/toggle'
+import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group'
+import {
+  AlignCenter,
+  AlignLeft,
+  AlignRight,
   ArrowRight,
+  Bold,
   ChevronDown,
   Cloud,
   CreditCard,
   Download,
   Github,
   Heart,
+  Italic,
   Keyboard,
   LifeBuoy,
   LogOut,
@@ -82,7 +136,10 @@ import {
   Plus,
   Settings,
   Star,
+  Terminal,
   Trash2,
+  TriangleAlert,
+  Underline,
   User,
   UserPlus,
   Users,
@@ -387,7 +444,7 @@ export function KitchenSink() {
         </div>
       </Section>
 
-      {/* Card | Dialog | Tabs */}
+      {/* Card | Dialog | Alert Dialog */}
       <section className='flex flex-col gap-2'>
         <h3 className='text-muted-foreground px-1 text-sm font-medium'>
           Card
@@ -413,22 +470,46 @@ export function KitchenSink() {
           </DialogTrigger>
           <DialogContent>
             <DialogHeader>
-              <DialogTitle>Are you sure?</DialogTitle>
+              <DialogTitle>Edit Profile</DialogTitle>
               <DialogDescription>
-                This action cannot be undone. This will permanently delete your
-                account and remove your data from our servers.
+                Make changes to your profile here. Click save when you&apos;re
+                done.
               </DialogDescription>
             </DialogHeader>
             <DialogFooter>
               <DialogClose render={<Button variant='outline' />}>
                 Cancel
               </DialogClose>
-              <DialogClose render={<Button />}>Continue</DialogClose>
+              <DialogClose render={<Button />}>Save</DialogClose>
             </DialogFooter>
           </DialogContent>
         </Dialog>
       </Section>
 
+      <Section title='Alert Dialog'>
+        <AlertDialog>
+          <AlertDialogTrigger render={<Button variant='outline' />}>
+            Delete Account
+          </AlertDialogTrigger>
+          <AlertDialogContent>
+            <AlertDialogHeader>
+              <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+              <AlertDialogDescription>
+                This action cannot be undone. This will permanently delete your
+                account and remove your data from our servers.
+              </AlertDialogDescription>
+            </AlertDialogHeader>
+            <AlertDialogFooter>
+              <AlertDialogCancel>Cancel</AlertDialogCancel>
+              <AlertDialogAction variant='destructive'>
+                Delete
+              </AlertDialogAction>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialog>
+      </Section>
+
+      {/* Tabs | Sheet | Popover */}
       <Section title='Tabs'>
         <Tabs defaultValue='account'>
           <TabsList>
@@ -442,6 +523,45 @@ export function KitchenSink() {
             Change your password here.
           </TabsContent>
         </Tabs>
+      </Section>
+
+      <Section title='Sheet'>
+        <Sheet>
+          <SheetTrigger render={<Button variant='outline' />}>
+            Open Sheet
+          </SheetTrigger>
+          <SheetContent>
+            <SheetHeader>
+              <SheetTitle>Sheet Title</SheetTitle>
+              <SheetDescription>
+                This is a slide-in panel from the edge of the screen.
+              </SheetDescription>
+            </SheetHeader>
+          </SheetContent>
+        </Sheet>
+      </Section>
+
+      <Section title='Popover'>
+        <Popover>
+          <PopoverTrigger render={<Button variant='outline' />}>
+            Open Popover
+          </PopoverTrigger>
+          <PopoverContent>
+            <PopoverHeader>
+              <PopoverTitle>Dimensions</PopoverTitle>
+            </PopoverHeader>
+            <div className='grid gap-2'>
+              <div className='grid grid-cols-3 items-center gap-4'>
+                <Label htmlFor='width'>Width</Label>
+                <Input id='width' defaultValue='100%' className='col-span-2' />
+              </div>
+              <div className='grid grid-cols-3 items-center gap-4'>
+                <Label htmlFor='height'>Height</Label>
+                <Input id='height' defaultValue='25px' className='col-span-2' />
+              </div>
+            </div>
+          </PopoverContent>
+        </Popover>
       </Section>
 
       {/* Input | Textarea | Select */}
@@ -482,7 +602,7 @@ export function KitchenSink() {
         </div>
       </Section>
 
-      {/* Checkbox & Switch | Tooltip | Separator */}
+      {/* Checkbox & Switch | Radio Group | Tooltip */}
       <Section title='Checkbox &amp; Switch'>
         <div className='space-y-4'>
           <Label className='flex items-center gap-2'>
@@ -505,6 +625,23 @@ export function KitchenSink() {
         </div>
       </Section>
 
+      <Section title='Radio Group'>
+        <RadioGroup defaultValue='comfortable'>
+          <Label className='flex items-center gap-2'>
+            <RadioGroupItem value='default' />
+            Default
+          </Label>
+          <Label className='flex items-center gap-2'>
+            <RadioGroupItem value='comfortable' />
+            Comfortable
+          </Label>
+          <Label className='flex items-center gap-2'>
+            <RadioGroupItem value='compact' />
+            Compact
+          </Label>
+        </RadioGroup>
+      </Section>
+
       <Section title='Tooltip'>
         <div className='flex gap-2'>
           <Tooltip>
@@ -522,6 +659,104 @@ export function KitchenSink() {
         </div>
       </Section>
 
+      {/* Alert | Progress | Breadcrumb */}
+      <Section title='Alert'>
+        <div className='space-y-3'>
+          <Alert>
+            <Terminal />
+            <AlertTitle>Heads up!</AlertTitle>
+            <AlertDescription>
+              You can add components using the CLI.
+            </AlertDescription>
+          </Alert>
+          <Alert variant='destructive'>
+            <TriangleAlert />
+            <AlertTitle>Error</AlertTitle>
+            <AlertDescription>
+              Your session has expired. Please log in again.
+            </AlertDescription>
+          </Alert>
+        </div>
+      </Section>
+
+      <Section title='Progress'>
+        <div className='space-y-4'>
+          <Progress value={25} />
+          <Progress value={60} />
+          <Progress value={100} />
+        </div>
+      </Section>
+
+      <Section title='Breadcrumb'>
+        <Breadcrumb>
+          <BreadcrumbList>
+            <BreadcrumbItem>
+              <BreadcrumbLink href='#'>Home</BreadcrumbLink>
+            </BreadcrumbItem>
+            <BreadcrumbSeparator />
+            <BreadcrumbItem>
+              <BreadcrumbLink href='#'>Components</BreadcrumbLink>
+            </BreadcrumbItem>
+            <BreadcrumbSeparator />
+            <BreadcrumbItem>
+              <BreadcrumbPage>Breadcrumb</BreadcrumbPage>
+            </BreadcrumbItem>
+          </BreadcrumbList>
+        </Breadcrumb>
+      </Section>
+
+      {/* Toggle | Drawer | Slider */}
+      <Section title='Toggle &amp; Toggle Group'>
+        <div className='space-y-3'>
+          <div className='flex gap-2'>
+            <Toggle aria-label='Toggle bold'>
+              <Bold />
+            </Toggle>
+            <Toggle aria-label='Toggle italic'>
+              <Italic />
+            </Toggle>
+            <Toggle aria-label='Toggle underline'>
+              <Underline />
+            </Toggle>
+          </div>
+          <ToggleGroup variant='outline'>
+            <ToggleGroupItem value='left' aria-label='Align left'>
+              <AlignLeft />
+            </ToggleGroupItem>
+            <ToggleGroupItem value='center' aria-label='Align center'>
+              <AlignCenter />
+            </ToggleGroupItem>
+            <ToggleGroupItem value='right' aria-label='Align right'>
+              <AlignRight />
+            </ToggleGroupItem>
+          </ToggleGroup>
+        </div>
+      </Section>
+
+      <Section title='Drawer'>
+        <Drawer>
+          <DrawerTrigger asChild>
+            <Button variant='outline'>Open Drawer</Button>
+          </DrawerTrigger>
+          <DrawerContent>
+            <DrawerHeader>
+              <DrawerTitle>Drawer Title</DrawerTitle>
+              <DrawerDescription>
+                A bottom sheet that slides up from the edge of the screen.
+              </DrawerDescription>
+            </DrawerHeader>
+          </DrawerContent>
+        </Drawer>
+      </Section>
+
+      <Section title='Slider'>
+        <div className='space-y-6'>
+          <Slider defaultValue={[50]} />
+          <Slider defaultValue={[25, 75]} />
+        </div>
+      </Section>
+
+      {/* Separator | Scroll Area */}
       <Section title='Separator'>
         <div className='space-y-4'>
           <div className='space-y-1'>
@@ -536,6 +771,18 @@ export function KitchenSink() {
             <span className='text-sm'>Source</span>
           </div>
         </div>
+      </Section>
+
+      <Section title='Scroll Area'>
+        <ScrollArea className='h-40 rounded-md border p-4'>
+          <div className='space-y-4'>
+            {Array.from({ length: 20 }, (_, i) => (
+              <div key={i} className='text-sm'>
+                Item {String(i + 1)}
+              </div>
+            ))}
+          </div>
+        </ScrollArea>
       </Section>
 
       {/* Table (full width) */}
