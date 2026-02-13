@@ -263,10 +263,10 @@ function Section({
 }) {
   return (
     <section className='flex flex-col gap-2'>
-      <h3 className='text-muted-foreground px-1 text-sm font-medium'>
+      <h3 className='text-muted-foreground px-1 font-mono text-xs font-medium uppercase tracking-widest'>
         {title}
       </h3>
-      <div className='border-border rounded-lg border p-4'>{children}</div>
+      <div className='border-border/60 rounded-lg border p-4'>{children}</div>
     </section>
   )
 }
@@ -278,7 +278,7 @@ export function KitchenSink() {
   const [position, setPosition] = useState('bottom')
 
   return (
-    <div className='grid grid-cols-1 items-start gap-4 md:grid-cols-2 lg:grid-cols-3'>
+    <div className='grid grid-cols-1 items-start gap-6 md:grid-cols-2 lg:grid-cols-3'>
       {/* Badge | Avatar | Skeleton */}
       <Section title='Badge'>
         <div className='flex flex-wrap gap-2'>
@@ -554,7 +554,7 @@ export function KitchenSink() {
 
       {/* Card | Dialog | Alert Dialog */}
       <section className='flex flex-col gap-2'>
-        <h3 className='text-muted-foreground px-1 text-sm font-medium'>
+        <h3 className='text-muted-foreground px-1 font-mono text-xs font-medium uppercase tracking-widest'>
           Card
         </h3>
         <Card>
@@ -1194,10 +1194,10 @@ export function KitchenSink() {
 
       {/* Resizable (full width) */}
       <section className='flex flex-col gap-2 md:col-span-2 lg:col-span-3'>
-        <h3 className='text-muted-foreground px-1 text-sm font-medium'>
+        <h3 className='text-muted-foreground px-1 font-mono text-xs font-medium uppercase tracking-widest'>
           Resizable
         </h3>
-        <div className='border-border rounded-lg border'>
+        <div className='border-border/60 rounded-lg border'>
           <ResizablePanelGroup className='min-h-32 rounded-lg'>
             <ResizablePanel defaultSize={50}>
               <div className='flex h-full items-center justify-center p-4'>
@@ -1255,7 +1255,7 @@ export function KitchenSink() {
 
       {/* Table (full width) */}
       <section className='flex flex-col gap-2 md:col-span-2 lg:col-span-3'>
-        <h3 className='text-muted-foreground px-1 text-sm font-medium'>
+        <h3 className='text-muted-foreground px-1 font-mono text-xs font-medium uppercase tracking-widest'>
           Table
         </h3>
         <Table>
