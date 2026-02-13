@@ -2,11 +2,11 @@ import { Footer } from '@/components/Footer'
 import { Header } from '@/components/Header'
 import { Providers } from '@/components/Providers'
 import { type Metadata } from 'next'
-import { Figtree, JetBrains_Mono } from 'next/font/google'
+import { Inter, JetBrains_Mono } from 'next/font/google'
 import { twJoin } from 'tailwind-merge'
 import './globals.css'
 
-const fontSans = Figtree({ subsets: ['latin'], variable: '--font-sans' })
+const fontSans = Inter({ subsets: ['latin'], variable: '--font-sans' })
 const fontMono = JetBrains_Mono({
   subsets: ['latin'],
   variable: '--font-mono',
