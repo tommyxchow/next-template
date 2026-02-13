@@ -10,6 +10,7 @@
     "typecheck": "tsc --noEmit",
     "format": "prettier . --write",
     "clean": "node -e \"['.next','node_modules'].forEach(p=>require('fs').rmSync(p,{recursive:true,force:true}))\"",
+    "nuke": "node -e \"['.next','node_modules','pnpm-lock.yaml'].forEach(p=>require('fs').rmSync(p,{recursive:true,force:true}))\"",
     "test": "vitest",
     "test:run": "vitest run",
     "verify": "pnpm typecheck && pnpm lint && pnpm test:run && pnpm build"
