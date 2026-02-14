@@ -21,7 +21,7 @@ export function ThemeToggle() {
     setMounted(true)
   }, [])
 
-  if (!mounted) return <div className='w-4' />
+  if (!mounted) return <div className='size-9' />
 
   return (
     <DropdownMenu>

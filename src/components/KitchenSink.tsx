@@ -1,6 +1,5 @@
 'use client'
 
-import { useState } from 'react'
 import {
   Accordion,
   AccordionContent,
@@ -23,17 +22,6 @@ import { AspectRatio } from '@/components/ui/aspect-ratio'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Badge } from '@/components/ui/badge'
 import {
-  ButtonGroup,
-  ButtonGroupSeparator,
-} from '@/components/ui/button-group'
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from '@/components/ui/carousel'
-import {
   Breadcrumb,
   BreadcrumbItem,
   BreadcrumbLink,
@@ -42,6 +30,8 @@ import {
   BreadcrumbSeparator,
 } from '@/components/ui/breadcrumb'
 import { Button } from '@/components/ui/button'
+import { ButtonGroup, ButtonGroupSeparator } from '@/components/ui/button-group'
+import { Calendar } from '@/components/ui/calendar'
 import {
   Card,
   CardContent,
@@ -50,7 +40,13 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card'
-import { Calendar } from '@/components/ui/calendar'
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from '@/components/ui/carousel'
 import { Checkbox } from '@/components/ui/checkbox'
 import {
   Collapsible,
@@ -66,13 +62,6 @@ import {
   ComboboxList,
 } from '@/components/ui/combobox'
 import {
-  ContextMenu,
-  ContextMenuContent,
-  ContextMenuItem,
-  ContextMenuSeparator,
-  ContextMenuTrigger,
-} from '@/components/ui/context-menu'
-import {
   Command,
   CommandEmpty,
   CommandGroup,
@@ -81,6 +70,13 @@ import {
   CommandList,
   CommandSeparator,
 } from '@/components/ui/command'
+import {
+  ContextMenu,
+  ContextMenuContent,
+  ContextMenuItem,
+  ContextMenuSeparator,
+  ContextMenuTrigger,
+} from '@/components/ui/context-menu'
 import {
   Dialog,
   DialogClose,
@@ -91,6 +87,14 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog'
+import {
+  Drawer,
+  DrawerContent,
+  DrawerDescription,
+  DrawerHeader,
+  DrawerTitle,
+  DrawerTrigger,
+} from '@/components/ui/drawer'
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
@@ -107,13 +111,31 @@ import {
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
+import {
+  Empty,
+  EmptyDescription,
+  EmptyHeader,
+  EmptyMedia,
+  EmptyTitle,
+} from '@/components/ui/empty'
+import {
+  HoverCard,
+  HoverCardContent,
+  HoverCardTrigger,
+} from '@/components/ui/hover-card'
 import { Input } from '@/components/ui/input'
+import {
+  InputGroup,
+  InputGroupAddon,
+  InputGroupInput,
+} from '@/components/ui/input-group'
 import {
   InputOTP,
   InputOTPGroup,
   InputOTPSeparator,
   InputOTPSlot,
 } from '@/components/ui/input-otp'
+import { Kbd } from '@/components/ui/kbd'
 import { Label } from '@/components/ui/label'
 import {
   Menubar,
@@ -124,10 +146,16 @@ import {
   MenubarShortcut,
   MenubarTrigger,
 } from '@/components/ui/menubar'
+import { NativeSelect, NativeSelectOption } from '@/components/ui/native-select'
 import {
-  NativeSelect,
-  NativeSelectOption,
-} from '@/components/ui/native-select'
+  Pagination,
+  PaginationContent,
+  PaginationEllipsis,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+} from '@/components/ui/pagination'
 import {
   Popover,
   PopoverContent,
@@ -160,6 +188,8 @@ import {
   SheetTrigger,
 } from '@/components/ui/sheet'
 import { Skeleton } from '@/components/ui/skeleton'
+import { Slider } from '@/components/ui/slider'
+import { Spinner } from '@/components/ui/spinner'
 import { Switch } from '@/components/ui/switch'
 import {
   Table,
@@ -171,50 +201,13 @@ import {
 } from '@/components/ui/table'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { Textarea } from '@/components/ui/textarea'
+import { Toggle } from '@/components/ui/toggle'
+import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group'
 import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
 } from '@/components/ui/tooltip'
-import {
-  Drawer,
-  DrawerContent,
-  DrawerDescription,
-  DrawerHeader,
-  DrawerTitle,
-  DrawerTrigger,
-} from '@/components/ui/drawer'
-import {
-  Empty,
-  EmptyDescription,
-  EmptyHeader,
-  EmptyMedia,
-  EmptyTitle,
-} from '@/components/ui/empty'
-import {
-  HoverCard,
-  HoverCardContent,
-  HoverCardTrigger,
-} from '@/components/ui/hover-card'
-import {
-  InputGroup,
-  InputGroupAddon,
-  InputGroupInput,
-} from '@/components/ui/input-group'
-import { Kbd } from '@/components/ui/kbd'
-import {
-  Pagination,
-  PaginationContent,
-  PaginationEllipsis,
-  PaginationItem,
-  PaginationLink,
-  PaginationNext,
-  PaginationPrevious,
-} from '@/components/ui/pagination'
-import { Slider } from '@/components/ui/slider'
-import { Spinner } from '@/components/ui/spinner'
-import { Toggle } from '@/components/ui/toggle'
-import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group'
 import {
   AlignCenter,
   AlignLeft,
@@ -252,6 +245,7 @@ import {
   UserPlus,
   Users,
 } from 'lucide-react'
+import { useState } from 'react'
 import { toast } from 'sonner'
 
 function Section({
@@ -263,7 +257,7 @@ function Section({
 }) {
   return (
     <section className='flex flex-col gap-2'>
-      <h3 className='text-muted-foreground px-1 font-mono text-xs font-medium uppercase tracking-widest'>
+      <h3 className='text-muted-foreground px-1 font-mono text-xs font-medium tracking-widest uppercase'>
         {title}
       </h3>
       <div className='border-border/60 rounded-lg border p-4'>{children}</div>
@@ -292,7 +286,7 @@ export function KitchenSink() {
       <Section title='Avatar'>
         <div className='flex items-center gap-3'>
           <Avatar>
-            <AvatarImage src='https://github.com/shadcn.png' />
+            <AvatarImage src='https://github.com/shadcn.png' alt='' />
             <AvatarFallback>CN</AvatarFallback>
           </Avatar>
           <Avatar>
@@ -379,9 +373,7 @@ export function KitchenSink() {
               <DropdownMenuGroup>
                 <DropdownMenuItem>
                   <User /> Profile
-                  <DropdownMenuShortcut>
-                    &#x21E7;&#x2318;P
-                  </DropdownMenuShortcut>
+                  <DropdownMenuShortcut>&#x21E7;&#x2318;P</DropdownMenuShortcut>
                 </DropdownMenuItem>
                 <DropdownMenuItem>
                   <CreditCard /> Billing
@@ -554,7 +546,7 @@ export function KitchenSink() {
 
       {/* Card | Dialog | Alert Dialog */}
       <section className='flex flex-col gap-2'>
-        <h3 className='text-muted-foreground px-1 font-mono text-xs font-medium uppercase tracking-widest'>
+        <h3 className='text-muted-foreground px-1 font-mono text-xs font-medium tracking-widest uppercase'>
           Card
         </h3>
         <Card>
@@ -894,7 +886,9 @@ export function KitchenSink() {
         <Collapsible>
           <div className='flex items-center justify-between'>
             <span className='text-sm font-medium'>3 items</span>
-            <CollapsibleTrigger render={<Button variant='ghost' size='icon-sm' />}>
+            <CollapsibleTrigger
+              render={<Button variant='ghost' size='icon-sm' />}
+            >
               <ChevronsUpDown />
             </CollapsibleTrigger>
           </div>
@@ -1084,7 +1078,7 @@ export function KitchenSink() {
       {/* Aspect Ratio | Button Group | Native Select */}
       <Section title='Aspect Ratio'>
         <AspectRatio ratio={16 / 9} className='bg-muted rounded-md'>
-          <div className='flex size-full items-center justify-center text-sm text-muted-foreground'>
+          <div className='text-muted-foreground flex size-full items-center justify-center text-sm'>
             16:9
           </div>
         </AspectRatio>
@@ -1100,9 +1094,13 @@ export function KitchenSink() {
             <Button variant='outline'>Right</Button>
           </ButtonGroup>
           <ButtonGroup orientation='vertical'>
-            <Button variant='outline' size='sm'>Top</Button>
+            <Button variant='outline' size='sm'>
+              Top
+            </Button>
             <ButtonGroupSeparator orientation='horizontal' />
-            <Button variant='outline' size='sm'>Bottom</Button>
+            <Button variant='outline' size='sm'>
+              Bottom
+            </Button>
           </ButtonGroup>
         </div>
       </Section>
@@ -1146,7 +1144,9 @@ export function KitchenSink() {
                 New Window <MenubarShortcut>&#x2318;N</MenubarShortcut>
               </MenubarItem>
               <MenubarSeparator />
-              <MenubarItem>Print <MenubarShortcut>&#x2318;P</MenubarShortcut></MenubarItem>
+              <MenubarItem>
+                Print <MenubarShortcut>&#x2318;P</MenubarShortcut>
+              </MenubarItem>
             </MenubarContent>
           </MenubarMenu>
           <MenubarMenu>
@@ -1194,7 +1194,7 @@ export function KitchenSink() {
 
       {/* Resizable (full width) */}
       <section className='flex flex-col gap-2 md:col-span-2 lg:col-span-3'>
-        <h3 className='text-muted-foreground px-1 font-mono text-xs font-medium uppercase tracking-widest'>
+        <h3 className='text-muted-foreground px-1 font-mono text-xs font-medium tracking-widest uppercase'>
           Resizable
         </h3>
         <div className='border-border/60 rounded-lg border'>
@@ -1255,7 +1255,7 @@ export function KitchenSink() {
 
       {/* Table (full width) */}
       <section className='flex flex-col gap-2 md:col-span-2 lg:col-span-3'>
-        <h3 className='text-muted-foreground px-1 font-mono text-xs font-medium uppercase tracking-widest'>
+        <h3 className='text-muted-foreground px-1 font-mono text-xs font-medium tracking-widest uppercase'>
           Table
         </h3>
         <Table>

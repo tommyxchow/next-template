@@ -12,6 +12,7 @@ pnpm test         # Run unit tests (Vitest, watch mode)
 pnpm test:run     # Run unit tests (single run, CI)
 pnpm verify       # Full check: typecheck + lint + test + build
 pnpm clean        # Delete .next and node_modules
+pnpm nuke         # Delete .next, node_modules, and pnpm-lock.yaml
 ```
 
 ## Architecture
@@ -31,7 +32,6 @@ Next.js 16 template using the App Router with React 19.
 - `src/components/` - React components (`ui/` subdirectory for shadcn — add with `pnpm dlx shadcn@latest add <component>`)
 - `src/lib/` - Utilities (`cn()` for className merging)
 - `src/hooks/` - Custom React hooks
-- `src/actions/` - Server Actions
 - `__tests__/` - Vitest unit tests
 
 ## File Conventions
