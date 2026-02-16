@@ -11,6 +11,5 @@
   },
   "enabledMcpjsonServers": [
     "next-devtools"
-  ],
-  "verbose": true
+  ]
 }
