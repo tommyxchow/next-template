@@ -8,6 +8,8 @@ pnpm build        # Production build
 pnpm start        # Start production server (Node.js)
 pnpm preview      # Build and preview on local Cloudflare Workers
 pnpm deploy       # Build and deploy to Cloudflare Workers
+pnpm upload       # Build and upload to Cloudflare Workers (no deploy)
+pnpm cf-typegen   # Generate CloudflareEnv types from wrangler.jsonc
 pnpm lint         # Run ESLint
 pnpm typecheck    # TypeScript type checking (tsc --noEmit)
 pnpm format       # Format with Prettier
@@ -37,14 +39,12 @@ Next.js 16 template using the App Router with React 19. Deployed on **Cloudflare
 - `src/hooks/` - Custom React hooks
 - `__tests__/` - Vitest unit tests
 
-## File Conventions
+### Cloudflare Workers
 
-- `page.tsx` - Route pages (Server Components by default)
-- `layout.tsx` - Shared layouts
-- `loading.tsx` - Loading UI (Suspense boundary)
-- `error.tsx` - Error boundaries (`'use client'` required)
-- `not-found.tsx` - 404 pages
-- `route.ts` - API routes (Route Handlers)
+- `wrangler.jsonc` - Cloudflare Workers configuration (bindings, R2, KV, etc.)
+- `open-next.config.ts` - OpenNext adapter config (ISR requires uncommenting R2 incremental cache)
+- `cloudflare-env.d.ts` - Generated types for Cloudflare bindings (run `pnpm cf-typegen` to regenerate)
+- Dev mode calls `initOpenNextCloudflareForDev()` in `next.config.ts` for local Cloudflare emulation
 
 ## Naming Conventions
 
@@ -54,48 +54,28 @@ Next.js 16 template using the App Router with React 19. Deployed on **Cloudflare
 - Hooks: `use` prefix (`useDebounce.ts`)
 - Types: PascalCase (`UserProfile`)
 
-## Adding Routes
-
-Create `src/app/<route>/page.tsx` for a new page:
-
-```tsx
-export default function MyPage() {
-  return <div>My page content</div>
-}
-```
-
-Dynamic routes use `src/app/posts/[id]/page.tsx`:
-
-```tsx
-interface Props {
-  params: Promise<{ id: string }>
-}
-
-export default async function PostPage({ params }: Props) {
-  const { id } = await params
-  return <div>Post {id}</div>
-}
-```
-
-## Environment Variables
-
-Use `.env.local` for local development (gitignored by default).
-
-- **Server-only keys** (never prefix with `NEXT_PUBLIC_`): API keys, database URLs, secrets
-- **Public variables** (`NEXT_PUBLIC_*`): Values accessible in client-side code
-- **AI providers**: Add provider-specific SDK packages and env vars per project (for example `OPENAI_API_KEY`, `ANTHROPIC_API_KEY`)
-
 ## ESLint Rules
+
+Config: `eslint.config.mjs`. Ignores `src/components/ui/` and `src/hooks/use-mobile.ts`.
 
 Notable strict rules enforced:
 
-- `@typescript-eslint/strict-boolean-expressions` - No implicit boolean coercion
+- `eqeqeq: 'smart'` - Strict equality (except `== null`)
+- `no-console` - Warn on console usage (allows `console.warn` and `console.error`)
+- `@typescript-eslint/strict-boolean-expressions` - No implicit boolean coercion (but `allowNullableBoolean` and `allowNullableString` are enabled)
 - `@typescript-eslint/switch-exhaustiveness-check` - Exhaustive switch statements
-- `@typescript-eslint/consistent-type-imports` - Use `import type` for types
+- `@typescript-eslint/consistent-type-imports` - Use `import type` for types (`fixStyle: 'inline-type-imports'`)
 - `@typescript-eslint/no-unnecessary-condition` - No redundant conditions
+- `@typescript-eslint/no-misused-promises` - Prevent floating promises (`checksVoidReturn.attributes` disabled for JSX)
+- `@eslint-react/jsx-shorthand-boolean` - Use shorthand boolean JSX props
 - `react-you-might-not-need-an-effect` - Avoid unnecessary useEffect
 - Unused variables must be prefixed with `_`
 
 ## Testing
 
 - **Unit tests**: Vitest in `__tests__/`
+
+## Dev Tooling
+
+- **Prettier**: Auto-sorts imports (`prettier-plugin-organize-imports`) and Tailwind classes (`prettier-plugin-tailwindcss`)
+- **react-scan**: Runtime render performance visualization (dev only)
