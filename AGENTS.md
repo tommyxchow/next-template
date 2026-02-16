@@ -5,19 +5,22 @@
 ```bash
 pnpm dev          # Start development server
 pnpm build        # Production build
+pnpm start        # Start production server (Node.js)
+pnpm preview      # Build and preview on local Cloudflare Workers
+pnpm deploy       # Build and deploy to Cloudflare Workers
 pnpm lint         # Run ESLint
 pnpm typecheck    # TypeScript type checking (tsc --noEmit)
 pnpm format       # Format with Prettier
 pnpm test         # Run unit tests (Vitest, watch mode)
 pnpm test:run     # Run unit tests (single run, CI)
 pnpm verify       # Full check: typecheck + lint + test + build
-pnpm clean        # Delete .next and node_modules
-pnpm nuke         # Delete .next, node_modules, and pnpm-lock.yaml
+pnpm clean        # Delete .next, .open-next, and node_modules
+pnpm nuke         # Delete .next, .open-next, node_modules, and pnpm-lock.yaml
 ```
 
 ## Architecture
 
-Next.js 16 template using the App Router with React 19.
+Next.js 16 template using the App Router with React 19. Deployed on **Cloudflare Workers** via `@opennextjs/cloudflare`.
 
 ### Key Configuration
 
