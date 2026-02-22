@@ -19,8 +19,10 @@ A tailored Next.js starter for shipping fast with AI-ready defaults. Optimized f
 - [next-themes](https://github.com/pacocoursey/next-themes) — dark mode
 - [sonner](https://sonner.emilkowal.ski/) — toasts
 
-**Data & Forms**
+**Data & State**
 
+- [TanStack Query](https://tanstack.com/query) — client-side data fetching and caching
+- [nuqs](https://nuqs.47ng.com/) — type-safe URL search params
 - [Zod](https://zod.dev/) — schema validation
 - [React Hook Form](https://react-hook-form.com/) — forms
 - [Vercel AI SDK](https://ai-sdk.dev/) — AI integration core; add provider packages per project
@@ -63,6 +65,7 @@ A tailored Next.js starter for shipping fast with AI-ready defaults. Optimized f
 | `pnpm format`     | Format with Prettier                          |
 | `pnpm test`       | Run unit tests (Vitest)                       |
 | `pnpm check`      | Full check: typecheck + lint + test + build   |
+| `pnpm ui:update`  | Regenerate all shadcn components to latest     |
 | `pnpm clean`      | Delete `.next`, `.open-next`, `node_modules`  |
 | `pnpm nuke`       | Clean + delete `pnpm-lock.yaml`               |
 
