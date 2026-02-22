@@ -1,23 +1,39 @@
 # [next-template](https://github.com/tommyxchow/next-template)
 
-A tailored Next.js starter for shipping fast with AI-ready defaults.
+A tailored Next.js starter for shipping fast with AI-ready defaults. Deployed on Cloudflare Workers.
 
 ## Stack
+
+**Framework**
 
 - [Next.js 16](https://nextjs.org/) (App Router, React Compiler, Typed Routes)
 - [React 19](https://react.dev/)
 - [TypeScript](https://www.typescriptlang.org/) (strict mode + `noUncheckedIndexedAccess`)
+
+**Styling & UI**
+
 - [Tailwind CSS v4](https://tailwindcss.com/) (CSS-first config, [Typography](https://tailwindcss.com/docs/typography-plugin) plugin)
 - [shadcn/ui](https://ui.shadcn.com/) (base-vega style)
 - [lucide-react](https://lucide.dev/) (icons)
 - [motion](https://motion.dev/) (animations)
 - [next-themes](https://github.com/pacocoursey/next-themes) (dark mode)
-- [Vercel AI SDK](https://ai-sdk.dev/) (AI integration core; add provider packages per project)
+- [sonner](https://sonner.emilkowal.ski/) (toasts)
+
+**Data & Forms**
+
 - [Zod](https://zod.dev/) (schema validation)
 - [React Hook Form](https://react-hook-form.com/) (forms)
-- [sonner](https://sonner.emilkowal.ski/) (toasts)
+- [Vercel AI SDK](https://ai-sdk.dev/) (AI integration core; add provider packages per project)
+
+**Tooling**
+
 - [Vitest](https://vitest.dev/) (unit tests)
 - [ESLint](https://eslint.org/) (strict type-aware rules) + [Prettier](https://prettier.io/)
+- [react-scan](https://github.com/nicolo-ribaudo/react-scan) (runtime render performance visualization, dev only)
+
+**Infrastructure**
+
+- [Cloudflare Workers](https://developers.cloudflare.com/workers/) via [@opennextjs/cloudflare](https://opennext.js.org/cloudflare)
 
 ## Setup
 
@@ -25,6 +41,47 @@ A tailored Next.js starter for shipping fast with AI-ready defaults.
 2. `pnpm install`
 3. Create `.env.local` for any server-only keys your app needs
 4. `pnpm dev`
+
+## Scripts
+
+| Command          | Description                                   |
+| ---------------- | --------------------------------------------- |
+| `pnpm dev`       | Start development server                      |
+| `pnpm build`     | Production build                              |
+| `pnpm preview`   | Build and preview on local Cloudflare Workers |
+| `pnpm deploy`    | Build and deploy to Cloudflare Workers        |
+| `pnpm lint`      | Run ESLint                                    |
+| `pnpm typecheck` | TypeScript type checking                      |
+| `pnpm format`    | Format with Prettier                          |
+| `pnpm test`      | Run unit tests (watch mode)                   |
+| `pnpm test:run`  | Run unit tests (single run)                   |
+| `pnpm verify`    | Full check: typecheck + lint + test + build   |
+
+## Deployment
+
+### Via dashboard (recommended)
+
+1. Go to the [Cloudflare dashboard](https://dash.cloudflare.com/) > Workers & Pages > Create
+2. Connect your GitHub repo
+3. Set the build and deploy commands:
+
+| Field          | Value                                    |
+| -------------- | ---------------------------------------- |
+| Build command  | `pnpm exec opennextjs-cloudflare build`  |
+| Deploy command | `pnpm exec opennextjs-cloudflare deploy` |
+
+4. Push to your branch to trigger the first build and deploy
+
+### Via CLI
+
+Alternatively, deploy directly from your machine:
+
+```sh
+pnpm exec wrangler login
+pnpm deploy
+```
+
+This creates the Worker on Cloudflare using the `name` field in `wrangler.jsonc`. You can then connect your Git repo in the dashboard under Settings > Build for CI/CD.
 
 ## License
 
