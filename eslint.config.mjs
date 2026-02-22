@@ -69,6 +69,14 @@ export default defineConfig(
       '@eslint-react/jsx-shorthand-boolean': 'error',
       '@eslint-react/no-array-index-key': 'warn',
 
+      'no-restricted-syntax': [
+        'error',
+        {
+          selector: 'TSEnumDeclaration',
+          message: 'Use `as const` objects or union types instead of enums.',
+        },
+      ],
+
       // Redundant with react-you-might-not-need-an-effect
       '@eslint-react/hooks-extra/no-direct-set-state-in-use-effect': 'off',
       '@eslint-react/hooks-extra/no-direct-set-state-in-use-layout-effect':
