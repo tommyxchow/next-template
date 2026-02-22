@@ -6,34 +6,36 @@ A tailored Next.js starter for shipping fast with AI-ready defaults. Optimized f
 
 **Framework**
 
-- [Next.js 16](https://nextjs.org/) (App Router, React Compiler, Typed Routes)
+- [Next.js 16](https://nextjs.org/) — App Router, React Compiler, Typed Routes
 - [React 19](https://react.dev/)
-- [TypeScript](https://www.typescriptlang.org/) (strict mode + `noUncheckedIndexedAccess`)
+- [TypeScript](https://www.typescriptlang.org/) — strict mode + `noUncheckedIndexedAccess`
 
 **Styling & UI**
 
-- [Tailwind CSS v4](https://tailwindcss.com/) (CSS-first config, [Typography](https://tailwindcss.com/docs/typography-plugin) plugin)
-- [shadcn/ui](https://ui.shadcn.com/) (base-vega style, includes [Base UI](https://base-ui.com/), [Recharts](https://recharts.org/), [date-fns](https://date-fns.org/), and more)
-- [lucide-react](https://lucide.dev/) (icons)
-- [motion](https://motion.dev/) (animations)
-- [next-themes](https://github.com/pacocoursey/next-themes) (dark mode)
-- [sonner](https://sonner.emilkowal.ski/) (toasts)
+- [Tailwind CSS v4](https://tailwindcss.com/) — CSS-first config, [Typography](https://tailwindcss.com/docs/typography-plugin) plugin
+- [shadcn/ui](https://ui.shadcn.com/) — base-vega style, includes [Base UI](https://base-ui.com/), [Recharts](https://recharts.org/), [date-fns](https://date-fns.org/), and more
+- [lucide-react](https://lucide.dev/) — icons
+- [motion](https://motion.dev/) — animations
+- [next-themes](https://github.com/pacocoursey/next-themes) — dark mode
+- [sonner](https://sonner.emilkowal.ski/) — toasts
 
 **Data & Forms**
 
-- [Zod](https://zod.dev/) (schema validation)
-- [React Hook Form](https://react-hook-form.com/) (forms)
-- [Vercel AI SDK](https://ai-sdk.dev/) (AI integration core; add provider packages per project)
+- [Zod](https://zod.dev/) — schema validation
+- [React Hook Form](https://react-hook-form.com/) — forms
+- [Vercel AI SDK](https://ai-sdk.dev/) — AI integration core; add provider packages per project
 
 **Tooling**
 
-- [Vitest](https://vitest.dev/) (unit tests)
-- [ESLint](https://eslint.org/) (strict type-aware rules) + [Prettier](https://prettier.io/)
-- [react-scan](https://github.com/aidenybai/react-scan) (runtime render performance visualization, dev only)
+- [Vitest](https://vitest.dev/) — unit tests
+- [ESLint](https://eslint.org/) — strict type-aware rules + [Prettier](https://prettier.io/)
+- [react-scan](https://github.com/aidenybai/react-scan) — runtime render performance visualization, dev only
 
 **Infrastructure**
 
 - [Cloudflare Workers](https://developers.cloudflare.com/workers/) via [@opennextjs/cloudflare](https://opennext.js.org/cloudflare)
+
+---
 
 ## Setup
 
@@ -43,10 +45,12 @@ A tailored Next.js starter for shipping fast with AI-ready defaults. Optimized f
 4. Optionally create `.dev.vars` for [Cloudflare bindings](https://developers.cloudflare.com/workers/testing/local-development/#local-only-environment-variables) during local dev
 5. `pnpm dev`
 
+---
+
 ## Scripts
 
 | Command           | Description                                   |
-| ----------------- | --------------------------------------------- |
+| :---------------- | :-------------------------------------------- |
 | `pnpm dev`        | Start development server                      |
 | `pnpm build`      | Production build (Next.js)                    |
 | `pnpm start`      | Start production server (Node.js)             |
@@ -63,18 +67,23 @@ A tailored Next.js starter for shipping fast with AI-ready defaults. Optimized f
 | `pnpm clean`      | Delete `.next`, `.open-next`, `node_modules`  |
 | `pnpm nuke`       | Clean + delete `pnpm-lock.yaml`               |
 
+> [!TIP]
+> Run `pnpm verify` before pushing to catch type errors, lint issues, test failures, and build errors in one shot.
+
+---
+
 ## Deployment
 
 ### Via dashboard (recommended)
 
-1. Go to the [Cloudflare dashboard](https://dash.cloudflare.com/) > Workers & Pages > Create
+1. Go to the [Cloudflare dashboard](https://dash.cloudflare.com/) > **Workers & Pages** > **Create**
 2. Connect your GitHub repo
 3. Set the build and deploy commands:
 
-| Field          | Value                                    |
-| -------------- | ---------------------------------------- |
-| Build command  | `pnpm exec opennextjs-cloudflare build`  |
-| Deploy command | `pnpm exec opennextjs-cloudflare deploy` |
+   | Field          | Value                                    |
+   | :------------- | :--------------------------------------- |
+   | Build command  | `pnpm exec opennextjs-cloudflare build`  |
+   | Deploy command | `pnpm exec opennextjs-cloudflare deploy` |
 
 4. Push to your branch to trigger the first build and deploy
 
@@ -87,29 +96,51 @@ pnpm exec wrangler login
 pnpm deploy
 ```
 
-This creates the Worker on Cloudflare using the `name` field in `wrangler.jsonc`. You can then connect your Git repo in the dashboard under Settings > Build for CI/CD.
+This creates the Worker on Cloudflare using the `name` field in `wrangler.jsonc`. You can then connect your Git repo in the dashboard under **Settings > Build** for CI/CD.
 
-### Caching (ISR)
+<details>
+<summary><strong>Caching (ISR)</strong></summary>
 
-ISR and caching require additional Cloudflare bindings. The R2 incremental cache is pre-configured but commented out in `wrangler.jsonc` and `open-next.config.ts` — uncomment both to enable. For time-based revalidation or on-demand revalidation (`revalidateTag`/`revalidatePath`), you'll also need a DO queue and/or tag cache. See the [OpenNext caching docs](https://opennext.js.org/cloudflare/caching) for full setup.
+<br>
 
-### Image optimization
+ISR and caching require additional Cloudflare bindings. The R2 incremental cache is pre-configured but commented out in `wrangler.jsonc` and `open-next.config.ts` — uncomment both to enable.
+
+For time-based revalidation or on-demand revalidation (`revalidateTag` / `revalidatePath`), you'll also need a DO queue and/or tag cache. See the [OpenNext caching docs](https://opennext.js.org/cloudflare/caching) for full setup.
+
+</details>
+
+<details>
+<summary><strong>Image optimization</strong></summary>
+
+<br>
 
 [Cloudflare Images](https://developers.cloudflare.com/images/) is pre-configured for `next/image` optimization via the `images` binding in `wrangler.jsonc`. See the [OpenNext image docs](https://opennext.js.org/cloudflare/howtos/image) for details.
 
-### Static asset caching
+</details>
+
+<details>
+<summary><strong>Static asset caching</strong></summary>
+
+<br>
 
 `public/_headers` sets immutable caching for `/_next/static/*` assets. See the [OpenNext static assets docs](https://opennext.js.org/cloudflare/caching#static-assets-caching) for more info.
 
+</details>
+
 ### Other platforms
 
-The app source (`src/`) is fully platform-agnostic and should work on Vercel or other platforms as-is. To clean up unused Cloudflare-specific config:
+The app source (`src/`) is fully platform-agnostic and should work on Vercel or other platforms as-is.
 
-1. Delete Cloudflare files: `wrangler.jsonc`, `open-next.config.ts`
-2. Remove the `initOpenNextCloudflareForDev` block in `next.config.ts`
-3. Remove devDependencies: `@opennextjs/cloudflare`, `wrangler`
-4. Remove scripts: `preview`, `deploy`, `upload`, `cf-typegen`
+> [!NOTE]
+> To clean up unused Cloudflare-specific config:
+>
+> 1. Delete `wrangler.jsonc` and `open-next.config.ts`
+> 2. Remove the `initOpenNextCloudflareForDev` block in `next.config.ts`
+> 3. Remove devDependencies: `@opennextjs/cloudflare`, `wrangler`
+> 4. Remove scripts: `preview`, `deploy`, `upload`, `cf-typegen`
+
+---
 
 ## License
 
-next-template is licensed under [MIT](LICENSE).
+[MIT](LICENSE)
