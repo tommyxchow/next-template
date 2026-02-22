@@ -30,11 +30,15 @@ export default defineConfig(
       reactYouMightNotNeedAnEffect.configs.recommended,
     ],
     rules: {
-      eqeqeq: ['error', 'smart'],
+      eqeqeq: ['error', 'always', { null: 'ignore' }],
       'no-console': ['warn', { allow: ['warn', 'error'] }],
       '@typescript-eslint/consistent-type-imports': [
         'error',
         { fixStyle: 'inline-type-imports' },
+      ],
+      '@typescript-eslint/consistent-type-exports': [
+        'error',
+        { fixMixedExportsWithInlineTypeSpecifier: true },
       ],
       '@typescript-eslint/no-unused-vars': [
         'error',
@@ -49,14 +53,15 @@ export default defineConfig(
         },
       ],
       '@typescript-eslint/switch-exhaustiveness-check': 'error',
-      '@typescript-eslint/strict-boolean-expressions': [
+      '@typescript-eslint/no-explicit-any': 'warn',
+      '@typescript-eslint/no-unnecessary-condition': [
         'error',
-        {
-          allowNullableBoolean: true,
-          allowNullableString: true,
-        },
+        { allowConstantLoopConditions: 'only-allowed-literals' },
       ],
-      '@typescript-eslint/no-unnecessary-condition': 'error',
+      '@typescript-eslint/prefer-nullish-coalescing': [
+        'error',
+        { ignorePrimitives: { string: true } },
+      ],
       '@typescript-eslint/no-misused-promises': [
         'error',
         { checksVoidReturn: { attributes: false } },
