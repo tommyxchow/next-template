@@ -24,6 +24,8 @@ pnpm nuke         # Delete .next, .open-next, node_modules, and pnpm-lock.yaml
 
 Next.js 16 template using the App Router with React 19. Deployed on **Cloudflare Workers** via `@opennextjs/cloudflare`.
 
+**Runtime**: Node.js >= 24, pnpm 10
+
 ### Key Configuration
 
 - **React Compiler**: Enabled in `next.config.ts` for automatic memoization
@@ -45,6 +47,21 @@ Next.js 16 template using the App Router with React 19. Deployed on **Cloudflare
 - `open-next.config.ts` - OpenNext adapter config (ISR requires uncommenting R2 incremental cache)
 - `cloudflare-env.d.ts` - Generated types for Cloudflare bindings (run `pnpm cf-typegen` to regenerate)
 - Dev mode calls `initOpenNextCloudflareForDev()` in `next.config.ts` for local Cloudflare emulation
+
+### Environment Variables
+
+- `SITE_URL` — Base URL for the site (defaults to `http://localhost:3000`). Used in `src/lib/constants.ts` for SEO routes and metadata.
+
+### Key Libraries
+
+- **TanStack Query** — Server state management; wrapped in `Providers.tsx`
+- **nuqs** — Type-safe URL search params (`useQueryState`, `useQueryStates`)
+- **Vercel AI SDK** (`ai`) — AI/LLM integration utilities
+- **Zod** — Schema validation (v4)
+- **react-hook-form** + `@hookform/resolvers` — Form handling with Zod validation
+- **motion** — Animation library (Framer Motion v12+)
+- **sonner** — Toast notifications
+- **next-themes** — Dark/light theme switching
 
 ## Naming Conventions
 
