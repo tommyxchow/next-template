@@ -1,6 +1,6 @@
 # [next-template](https://github.com/tommyxchow/next-template)
 
-A tailored Next.js starter for shipping fast with AI-ready defaults. Deployed on Cloudflare Workers.
+A tailored Next.js starter for shipping fast with AI-ready defaults. Optimized for Cloudflare Workers, but the app source is platform-agnostic — see [Other platforms](#other-platforms) for deploying elsewhere.
 
 ## Stack
 
@@ -29,7 +29,7 @@ A tailored Next.js starter for shipping fast with AI-ready defaults. Deployed on
 
 - [Vitest](https://vitest.dev/) (unit tests)
 - [ESLint](https://eslint.org/) (strict type-aware rules) + [Prettier](https://prettier.io/)
-- [react-scan](https://github.com/nicolo-ribaudo/react-scan) (runtime render performance visualization, dev only)
+- [react-scan](https://github.com/aidenybai/react-scan) (runtime render performance visualization, dev only)
 
 **Infrastructure**
 
@@ -44,18 +44,23 @@ A tailored Next.js starter for shipping fast with AI-ready defaults. Deployed on
 
 ## Scripts
 
-| Command          | Description                                   |
-| ---------------- | --------------------------------------------- |
-| `pnpm dev`       | Start development server                      |
-| `pnpm build`     | Production build                              |
-| `pnpm preview`   | Build and preview on local Cloudflare Workers |
-| `pnpm deploy`    | Build and deploy to Cloudflare Workers        |
-| `pnpm lint`      | Run ESLint                                    |
-| `pnpm typecheck` | TypeScript type checking                      |
-| `pnpm format`    | Format with Prettier                          |
-| `pnpm test`      | Run unit tests (watch mode)                   |
-| `pnpm test:run`  | Run unit tests (single run)                   |
-| `pnpm verify`    | Full check: typecheck + lint + test + build   |
+| Command           | Description                                   |
+| ----------------- | --------------------------------------------- |
+| `pnpm dev`        | Start development server                      |
+| `pnpm build`      | Production build (Next.js)                    |
+| `pnpm start`      | Start production server (Node.js)             |
+| `pnpm preview`    | Build and preview on local Cloudflare Workers |
+| `pnpm deploy`     | Build and deploy to Cloudflare Workers        |
+| `pnpm upload`     | Build and upload to Cloudflare Workers        |
+| `pnpm cf-typegen` | Generate types from Cloudflare bindings       |
+| `pnpm lint`       | Run ESLint                                    |
+| `pnpm typecheck`  | TypeScript type checking                      |
+| `pnpm format`     | Format with Prettier                          |
+| `pnpm test`       | Run unit tests (watch mode)                   |
+| `pnpm test:run`   | Run unit tests (single run)                   |
+| `pnpm verify`     | Full check: typecheck + lint + test + build   |
+| `pnpm clean`      | Delete `.next`, `.open-next`, `node_modules`  |
+| `pnpm nuke`       | Clean + delete `pnpm-lock.yaml`               |
 
 ## Deployment
 
@@ -82,6 +87,15 @@ pnpm deploy
 ```
 
 This creates the Worker on Cloudflare using the `name` field in `wrangler.jsonc`. You can then connect your Git repo in the dashboard under Settings > Build for CI/CD.
+
+### Other platforms
+
+The app source (`src/`) is fully platform-agnostic and should work on Vercel or other platforms as-is. To clean up unused Cloudflare-specific config:
+
+1. Delete Cloudflare files: `wrangler.jsonc`, `open-next.config.ts`
+2. Remove the `initOpenNextCloudflareForDev` block in `next.config.ts`
+3. Remove devDependencies: `@opennextjs/cloudflare`, `wrangler`
+4. Remove scripts: `preview`, `deploy`, `upload`, `cf-typegen`
 
 ## License
 
