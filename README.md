@@ -61,14 +61,13 @@ A tailored Next.js starter for shipping fast with AI-ready defaults. Optimized f
 | `pnpm lint`       | Run ESLint                                    |
 | `pnpm typecheck`  | TypeScript type checking                      |
 | `pnpm format`     | Format with Prettier                          |
-| `pnpm test`       | Run unit tests (watch mode)                   |
-| `pnpm test:run`   | Run unit tests (single run)                   |
-| `pnpm verify`     | Full check: typecheck + lint + test + build   |
+| `pnpm test`       | Run unit tests (Vitest)                       |
+| `pnpm check`      | Full check: typecheck + lint + test + build   |
 | `pnpm clean`      | Delete `.next`, `.open-next`, `node_modules`  |
 | `pnpm nuke`       | Clean + delete `pnpm-lock.yaml`               |
 
 > [!TIP]
-> Run `pnpm verify` before pushing to catch type errors, lint issues, test failures, and build errors in one shot.
+> Run `pnpm check` before pushing to catch type errors, lint issues, test failures, and build errors in one shot.
 
 ---
 

@@ -13,9 +13,8 @@ pnpm cf-typegen   # Generate CloudflareEnv types from wrangler.jsonc
 pnpm lint         # Run ESLint
 pnpm typecheck    # TypeScript type checking (tsc --noEmit)
 pnpm format       # Format with Prettier
-pnpm test         # Run unit tests (Vitest, watch mode)
-pnpm test:run     # Run unit tests (single run, CI)
-pnpm verify       # Full check: typecheck + lint + test + build
+pnpm test         # Run unit tests (Vitest)
+pnpm check        # Full check: typecheck + lint + test + build
 pnpm clean        # Delete .next, .open-next, and node_modules
 pnpm nuke         # Delete .next, .open-next, node_modules, and pnpm-lock.yaml
 ```

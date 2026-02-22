@@ -1,3 +1,4 @@
+import { BASE_URL } from '@/lib/constants'
 import { Footer } from '@/components/Footer'
 import { Header } from '@/components/Header'
 import { Providers } from '@/components/Providers'
@@ -13,11 +14,15 @@ const fontMono = JetBrains_Mono({
 })
 
 export const metadata: Metadata = {
+  metadataBase: new URL(BASE_URL),
   title: {
     default: 'next-template',
     template: '%s | next-template',
   },
   description: 'next-template',
+  twitter: {
+    card: 'summary_large_image',
+  },
 }
 
 export default function RootLayout({
