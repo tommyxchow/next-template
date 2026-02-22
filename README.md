@@ -129,6 +129,14 @@ For time-based revalidation or on-demand revalidation (`revalidateTag` / `revali
 
 </details>
 
+### Production checklist
+
+Before going live, ensure:
+
+- [ ] `SITE_URL` environment variable is set to your production domain (used by `metadataBase`, `robots.txt`, `sitemap.xml`)
+- [ ] Security headers are configured for your app — either via `public/_headers` or [Cloudflare WAF rules](https://developers.cloudflare.com/waf/). Common headers to consider: `Content-Security-Policy`, `Strict-Transport-Security`, `X-Content-Type-Options`, `Referrer-Policy`, `Permissions-Policy`
+- [ ] Replace the demo home page (`src/app/page.tsx`) with your app content
+
 ### Other platforms
 
 The app source (`src/`) is fully platform-agnostic and should work on Vercel or other platforms as-is.

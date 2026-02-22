@@ -8,7 +8,7 @@ import tseslint from 'typescript-eslint'
 
 export default defineConfig(
   // Managed by shadcn (pnpm ui:update)
-  { ignores: ['src/components/ui/', 'src/hooks/use-mobile.ts'] },
+  { ignores: ['src/components/ui/', 'src/hooks/use-mobile.ts', '.open-next/'] },
   eslintJs.configs.recommended,
   nextVitals,
 
