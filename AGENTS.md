@@ -41,7 +41,7 @@ Next.js 16 template using the App Router with React 19. Deployed on **Cloudflare
 
 ### Cloudflare Workers
 
-- `wrangler.jsonc` - Cloudflare Workers configuration (bindings, R2, KV, etc.)
+- `wrangler.jsonc` - Cloudflare Workers configuration (bindings, R2, services, etc.)
 - `open-next.config.ts` - OpenNext adapter config (ISR requires uncommenting R2 incremental cache)
 - `cloudflare-env.d.ts` - Generated types for Cloudflare bindings (run `pnpm cf-typegen` to regenerate)
 - Dev mode calls `initOpenNextCloudflareForDev()` in `next.config.ts` for local Cloudflare emulation
@@ -60,15 +60,16 @@ Config: `eslint.config.mjs`. Ignores `src/components/ui/` and `src/hooks/use-mob
 
 Notable strict rules enforced:
 
-- `eqeqeq: 'smart'` - Strict equality (except `== null`)
+- `eqeqeq: 'always'` - Strict equality (except `== null` via `null: 'ignore'`)
 - `no-console` - Warn on console usage (allows `console.warn` and `console.error`)
-- `@typescript-eslint/strict-boolean-expressions` - No implicit boolean coercion (but `allowNullableBoolean` and `allowNullableString` are enabled)
 - `@typescript-eslint/switch-exhaustiveness-check` - Exhaustive switch statements
 - `@typescript-eslint/consistent-type-imports` - Use `import type` for types (`fixStyle: 'inline-type-imports'`)
+- `@typescript-eslint/consistent-type-exports` - Use `export type` for types (`fixMixedExportsWithInlineTypeSpecifier`)
 - `@typescript-eslint/no-unnecessary-condition` - No redundant conditions
 - `@typescript-eslint/no-misused-promises` - Prevent floating promises (`checksVoidReturn.attributes` disabled for JSX)
 - `@eslint-react/jsx-shorthand-boolean` - Use shorthand boolean JSX props
 - `react-you-might-not-need-an-effect` - Avoid unnecessary useEffect
+- `no-restricted-syntax` - Enums are banned; use `as const` objects or union types instead
 - Unused variables must be prefixed with `_`
 
 ## Testing

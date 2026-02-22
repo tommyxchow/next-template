@@ -13,7 +13,7 @@ A tailored Next.js starter for shipping fast with AI-ready defaults. Optimized f
 **Styling & UI**
 
 - [Tailwind CSS v4](https://tailwindcss.com/) (CSS-first config, [Typography](https://tailwindcss.com/docs/typography-plugin) plugin)
-- [shadcn/ui](https://ui.shadcn.com/) (base-vega style)
+- [shadcn/ui](https://ui.shadcn.com/) (base-vega style, includes [Base UI](https://base-ui.com/), [Recharts](https://recharts.org/), [date-fns](https://date-fns.org/), and more)
 - [lucide-react](https://lucide.dev/) (icons)
 - [motion](https://motion.dev/) (animations)
 - [next-themes](https://github.com/pacocoursey/next-themes) (dark mode)
@@ -40,7 +40,8 @@ A tailored Next.js starter for shipping fast with AI-ready defaults. Optimized f
 1. Clone or use as template
 2. `pnpm install`
 3. Create `.env.local` for any server-only keys your app needs
-4. `pnpm dev`
+4. Optionally create `.dev.vars` for [Cloudflare bindings](https://developers.cloudflare.com/workers/testing/local-development/#local-only-environment-variables) during local dev
+5. `pnpm dev`
 
 ## Scripts
 
@@ -87,6 +88,18 @@ pnpm deploy
 ```
 
 This creates the Worker on Cloudflare using the `name` field in `wrangler.jsonc`. You can then connect your Git repo in the dashboard under Settings > Build for CI/CD.
+
+### Caching (ISR)
+
+ISR and caching require additional Cloudflare bindings. The R2 incremental cache is pre-configured but commented out in `wrangler.jsonc` and `open-next.config.ts` — uncomment both to enable. For time-based revalidation or on-demand revalidation (`revalidateTag`/`revalidatePath`), you'll also need a DO queue and/or tag cache. See the [OpenNext caching docs](https://opennext.js.org/cloudflare/caching) for full setup.
+
+### Image optimization
+
+[Cloudflare Images](https://developers.cloudflare.com/images/) is pre-configured for `next/image` optimization via the `images` binding in `wrangler.jsonc`. See the [OpenNext image docs](https://opennext.js.org/cloudflare/howtos/image) for details.
+
+### Static asset caching
+
+`public/_headers` sets immutable caching for `/_next/static/*` assets. See the [OpenNext static assets docs](https://opennext.js.org/cloudflare/caching#static-assets-caching) for more info.
 
 ### Other platforms
 
