@@ -41,7 +41,15 @@ A tailored Next.js starter for shipping fast with AI-ready defaults. Optimized f
 
 ## Setup
 
-1. Clone or use as template
+1. Create a new repo from this template:
+
+   ```sh
+   gh repo create my-app --template tommyxchow/next-template --private --clone
+   cd my-app
+   ```
+
+   Or use the **"Use this template"** button on GitHub.
+
 2. `pnpm install`
 3. Create `.env.local` for any server-only keys your app needs
 4. Optionally create `.dev.vars` for [Cloudflare bindings](https://developers.cloudflare.com/workers/testing/local-development/#local-only-environment-variables) during local dev
