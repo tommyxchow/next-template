@@ -90,6 +90,7 @@ Next.js 16 template using the App Router with React 19. Deployed on **Cloudflare
 - `src/app/` - App Router pages and layouts
 - `src/components/` - React components (`ui/` subdirectory for shadcn — add with `pnpm dlx shadcn@latest add <component>`)
   - **shadcn components are pre-installed.** Before building custom UI, check `src/components/ui/` for existing components and consult [shadcn docs](https://ui.shadcn.com/docs/components) for usage patterns, composition examples, and any newer components that can be added.
+  - To style non-button elements (e.g. `<Link>`) as buttons, use `buttonVariants()` instead of `<Button asChild>` — it avoids pulling in a client component.
 - `src/lib/` - Utilities (`cn()` for className merging)
 - `src/hooks/` - Custom React hooks
 - `__tests__/` - Vitest unit tests
