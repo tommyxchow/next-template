@@ -1,5 +1,57 @@
 # AGENTS.md
 
+---
+
+# Author Preferences
+
+## Code Opinions
+
+- Prefer production-ready solutions over toy examples
+- Named exports only — no default exports except where required by Next.js (page, layout, route, etc.)
+- `satisfies` over `as` for type validation
+- `UPPER_SNAKE_CASE` for constants
+- Derive state where possible — avoid duplicating what can be computed
+- Avoid `useRef` unless DOM access or imperative work
+- Inline until a pattern repeats 3+ times, then extract
+- For new components/hooks/APIs: include a usage example
+
+## Workflow
+
+- In plan mode, interview thoroughly — ask about technical implementation, UI/UX, tradeoffs, and edge cases before coding. Don't begin implementation until all important details are resolved.
+- When implementing new code, search the codebase for existing usages and follow established patterns.
+- When new code supersedes existing functionality, find and remove everything it makes redundant.
+- Favor parallel tool calls and subagents when tasks are independent.
+- For refactors: summary → trade-offs → next steps.
+
+## Testing
+
+- Suggest tests when changes touch logic, but don't write tests unless asked.
+- Run targeted tests for relevant files, not the full suite.
+
+## Code Review
+
+- Label severity: `critical` / `major` / `minor`
+- Prefer minimal, tightly scoped diffs
+- Flag security issues (XSS, CSRF, injection, auth gaps) with fixes
+- Flag unnecessary complexity with a simpler alternative
+
+## Commit Convention
+
+Commits use lowercase, descriptive messages without prefixes (e.g., `fix landscape bottom padding`, `add swipe gesture support`). Keep commits tightly scoped.
+
+## Verification
+
+When asked to "verify", always use web search to check current documentation and sources before responding. Do not rely solely on training data.
+
+## Never
+
+- Never use `npm`, `npx`, or `yarn` — always use `pnpm` / `pnpx`
+- Never install a new dependency without asking first
+
+---
+
+# Project
+
 ## Commands
 
 ```bash
@@ -37,6 +89,7 @@ Next.js 16 template using the App Router with React 19. Deployed on **Cloudflare
 
 - `src/app/` - App Router pages and layouts
 - `src/components/` - React components (`ui/` subdirectory for shadcn — add with `pnpm dlx shadcn@latest add <component>`)
+  - **shadcn components are pre-installed.** Before building custom UI, check `src/components/ui/` for existing components and consult [shadcn docs](https://ui.shadcn.com/docs/components) for usage patterns, composition examples, and any newer components that can be added.
 - `src/lib/` - Utilities (`cn()` for className merging)
 - `src/hooks/` - Custom React hooks
 - `__tests__/` - Vitest unit tests
@@ -63,37 +116,11 @@ Next.js 16 template using the App Router with React 19. Deployed on **Cloudflare
 - **sonner** — Toast notifications
 - **next-themes** — Dark/light theme switching
 
-## Naming Conventions
+## Code Style
 
-- Components: PascalCase (`Button.tsx`)
-- Utilities: camelCase (`formatDate.ts`)
-- Server Actions: camelCase (`createTodo.ts`)
-- Hooks: `use` prefix (`useDebounce.ts`)
-- Types: PascalCase (`UserProfile`)
+Enforced by `pnpm lint` (ESLint) and `pnpm format` (Prettier). Non-obvious decisions:
 
-## ESLint Rules
-
-Config: `eslint.config.mjs`. Ignores `src/components/ui/` and `src/hooks/use-mobile.ts`.
-
-Notable strict rules enforced:
-
-- `eqeqeq: 'always'` - Strict equality (except `== null` via `null: 'ignore'`)
-- `no-console` - Warn on console usage (allows `console.warn` and `console.error`)
-- `@typescript-eslint/switch-exhaustiveness-check` - Exhaustive switch statements
-- `@typescript-eslint/consistent-type-imports` - Use `import type` for types (`fixStyle: 'inline-type-imports'`)
-- `@typescript-eslint/consistent-type-exports` - Use `export type` for types (`fixMixedExportsWithInlineTypeSpecifier`)
-- `@typescript-eslint/no-unnecessary-condition` - No redundant conditions
-- `@typescript-eslint/no-misused-promises` - Prevent floating promises (`checksVoidReturn.attributes` disabled for JSX)
-- `@eslint-react/jsx-shorthand-boolean` - Use shorthand boolean JSX props
-- `react-you-might-not-need-an-effect` - Avoid unnecessary useEffect
-- `no-restricted-syntax` - Enums are banned; use `as const` objects or union types instead
-- Unused variables must be prefixed with `_`
-
-## Testing
-
-- **Unit tests**: Vitest in `__tests__/`
-
-## Dev Tooling
-
-- **Prettier**: Auto-sorts imports (`prettier-plugin-organize-imports`) and Tailwind classes (`prettier-plugin-tailwindcss`)
-- **react-scan**: Runtime render performance visualization (dev only)
+- Enums are banned — use `as const` objects or union types
+- Use `import type` / `export type` with inline style (`import { type Foo }`)
+- Prefix unused variables with `_`
+- Prettier auto-sorts imports and Tailwind classes — don't sort manually
