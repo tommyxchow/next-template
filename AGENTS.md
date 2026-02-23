@@ -103,7 +103,7 @@ Next.js 16 template using the App Router with React 19. Deployed on **Cloudflare
 
 ### Environment Variables
 
-- `SITE_URL` — Base URL for the site (defaults to `http://localhost:3000`). Used in `src/lib/constants.ts` for SEO routes and metadata.
+- `SITE_URL` — Base URL for the site. Declared in `wrangler.jsonc`, defaults to `http://localhost:3000` for local dev. Used in `src/lib/constants.ts` for `metadataBase`, sitemap, and robots.txt. Update in `wrangler.jsonc` when the production domain is set.
 
 ### Key Libraries
 
