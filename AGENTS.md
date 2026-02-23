@@ -4,6 +4,11 @@
 
 # Author Preferences
 
+## Behavior
+
+- For quick questions, give a concise answer. Don't over-research straightforward decisions.
+- When asked to add items to a list (models, emotes, constants, etc.), be thorough on the first pass. Read the source data completely and add ALL relevant items, not just the first few.
+
 ## Code Opinions
 
 - Prefer production-ready solutions over toy examples
@@ -31,7 +36,7 @@
 ## Code Review
 
 - Label severity: `critical` / `major` / `minor`
-- Prefer minimal, tightly scoped diffs
+- Prefer minimal, tightly scoped diffs — don't switch layout strategies (e.g., grid to flex) unless explicitly asked, as it often breaks dependent sizing
 - Flag security issues (XSS, CSRF, injection, auth gaps) with fixes
 - Flag unnecessary complexity with a simpler alternative
 
@@ -130,3 +135,6 @@ Enforced by `pnpm lint` (ESLint) and `pnpm format` (Prettier). Non-obvious decis
 ## Gotchas
 
 - **shadcn uses @base-ui/react**: Not Radix UI — component primitives differ from older shadcn examples
+- **`useSearchParams()` needs Suspense**: Always wrap components using `useSearchParams()` in a `<Suspense>` boundary — required for production builds.
+- **Never remove `tw-animate-css`**: Required by shadcn/ui components for animations. Check shadcn dependencies before removing any package.
+- **No `pnpm` prefix inside package.json scripts**: The package manager is already the script runner. Use bare commands (e.g., `next build`, not `pnpm next build`).
