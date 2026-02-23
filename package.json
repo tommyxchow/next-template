@@ -61,6 +61,7 @@
     "eslint": "^9.39.3",
     "eslint-config-next": "^16.1.6",
     "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-better-tailwindcss": "^4.3.0",
     "eslint-plugin-react-you-might-not-need-an-effect": "^0.8.5",
     "next-devtools-mcp": "^0.3.10",
     "postcss": "^8.5.6",

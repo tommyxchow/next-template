@@ -2,6 +2,7 @@ import eslintReact from '@eslint-react/eslint-plugin'
 import eslintJs from '@eslint/js'
 import nextVitals from 'eslint-config-next/core-web-vitals'
 import prettier from 'eslint-config-prettier/flat'
+import betterTailwindcss from 'eslint-plugin-better-tailwindcss'
 import reactYouMightNotNeedAnEffect from 'eslint-plugin-react-you-might-not-need-an-effect'
 import { defineConfig } from 'eslint/config'
 import tseslint from 'typescript-eslint'
@@ -85,5 +86,27 @@ export default defineConfig(
     },
   },
 
+  // Tailwind CSS v4 linting
+  {
+    files: ['**/*.{ts,tsx}'],
+    ignores: ['__tests__/**'],
+    extends: [betterTailwindcss.configs['recommended-warn']],
+    settings: {
+      'better-tailwindcss': {
+        entryPoint: 'src/app/globals.css',
+      },
+    },
+    rules: {
+      // Handled by prettier-plugin-tailwindcss
+      'better-tailwindcss/enforce-consistent-class-order': 'off',
+      'better-tailwindcss/enforce-consistent-line-wrapping': 'off',
+      'better-tailwindcss/no-unnecessary-whitespace': 'off',
+      // Not in recommended — opt-in
+      'better-tailwindcss/enforce-consistent-important-position': 'warn',
+      'better-tailwindcss/enforce-shorthand-classes': 'warn',
+    },
+  },
+
+  // Must be last — disables formatting rules from all preceding configs
   prettier,
 )
