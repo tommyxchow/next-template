@@ -1,7 +1,7 @@
-import { BASE_URL } from '@/lib/constants'
 import { Footer } from '@/components/Footer'
 import { Header } from '@/components/Header'
 import { Providers } from '@/components/Providers'
+import { BASE_URL } from '@/lib/constants'
 import { type Metadata } from 'next'
 import { Inter, JetBrains_Mono } from 'next/font/google'
 import { twJoin } from 'tailwind-merge'

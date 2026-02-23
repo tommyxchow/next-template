@@ -13,7 +13,7 @@ A tailored Next.js starter for shipping fast with AI-ready defaults. Optimized f
 **Styling & UI**
 
 - [Tailwind CSS v4](https://tailwindcss.com/) — CSS-first config, [Typography](https://tailwindcss.com/docs/typography-plugin) plugin
-- [shadcn/ui](https://ui.shadcn.com/) — base-vega style, includes [Base UI](https://base-ui.com/), [Recharts](https://recharts.org/), [date-fns](https://date-fns.org/), and more
+- [shadcn/ui](https://ui.shadcn.com/) — base-mira style, includes [Base UI](https://base-ui.com/), [Recharts](https://recharts.org/), [date-fns](https://date-fns.org/), and more
 - [lucide-react](https://lucide.dev/) — icons
 - [motion](https://motion.dev/) — animations
 - [next-themes](https://github.com/pacocoursey/next-themes) — dark mode
@@ -65,7 +65,7 @@ A tailored Next.js starter for shipping fast with AI-ready defaults. Optimized f
 | `pnpm format`     | Format with Prettier                          |
 | `pnpm test`       | Run unit tests (Vitest)                       |
 | `pnpm check`      | Full check: typecheck + lint + test + build   |
-| `pnpm ui:update`  | Regenerate all shadcn components to latest     |
+| `pnpm ui:update`  | Regenerate all shadcn components to latest    |
 | `pnpm clean`      | Delete `.next`, `.open-next`, `node_modules`  |
 | `pnpm nuke`       | Clean + delete `pnpm-lock.yaml`               |
 
