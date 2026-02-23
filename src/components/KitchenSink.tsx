@@ -257,10 +257,10 @@ function Section({
 }) {
   return (
     <section className='flex flex-col gap-2'>
-      <h3 className='text-muted-foreground px-1 font-mono text-xs font-medium tracking-widest uppercase'>
+      <h3 className='px-1 font-mono text-xs font-medium tracking-widest text-muted-foreground uppercase'>
         {title}
       </h3>
-      <div className='border-border/60 rounded-lg border p-4'>{children}</div>
+      <div className='rounded-lg border border-border/60 p-4'>{children}</div>
     </section>
   )
 }
@@ -546,7 +546,7 @@ export function KitchenSink() {
 
       {/* Card | Dialog | Alert Dialog */}
       <section className='flex flex-col gap-2'>
-        <h3 className='text-muted-foreground px-1 font-mono text-xs font-medium tracking-widest uppercase'>
+        <h3 className='px-1 font-mono text-xs font-medium tracking-widest text-muted-foreground uppercase'>
           Card
         </h3>
         <Card>
@@ -616,10 +616,10 @@ export function KitchenSink() {
             <TabsTrigger value='account'>Account</TabsTrigger>
             <TabsTrigger value='password'>Password</TabsTrigger>
           </TabsList>
-          <TabsContent value='account' className='text-muted-foreground pt-3'>
+          <TabsContent value='account' className='pt-3 text-muted-foreground'>
             Make changes to your account here.
           </TabsContent>
-          <TabsContent value='password' className='text-muted-foreground pt-3'>
+          <TabsContent value='password' className='pt-3 text-muted-foreground'>
             Change your password here.
           </TabsContent>
         </Tabs>
@@ -892,15 +892,15 @@ export function KitchenSink() {
               <ChevronsUpDown />
             </CollapsibleTrigger>
           </div>
-          <div className='border-border rounded-md border px-3 py-2 text-sm'>
+          <div className='rounded-md border border-border px-3 py-2 text-sm'>
             Always visible
           </div>
           <CollapsibleContent>
             <div className='mt-2 space-y-2'>
-              <div className='border-border rounded-md border px-3 py-2 text-sm'>
+              <div className='rounded-md border border-border px-3 py-2 text-sm'>
                 Hidden item 1
               </div>
-              <div className='border-border rounded-md border px-3 py-2 text-sm'>
+              <div className='rounded-md border border-border px-3 py-2 text-sm'>
                 Hidden item 2
               </div>
             </div>
@@ -909,7 +909,7 @@ export function KitchenSink() {
       </Section>
 
       <Section title='Command'>
-        <Command className='border-border rounded-lg border'>
+        <Command className='rounded-lg border border-border'>
           <CommandInput placeholder='Type a command or search...' />
           <CommandList>
             <CommandEmpty>No results found.</CommandEmpty>
@@ -1016,7 +1016,7 @@ export function KitchenSink() {
       {/* Context Menu | Hover Card | Combobox */}
       <Section title='Context Menu'>
         <ContextMenu>
-          <ContextMenuTrigger className='border-border flex h-24 items-center justify-center rounded-md border border-dashed text-sm'>
+          <ContextMenuTrigger className='flex h-24 items-center justify-center rounded-md border border-dashed border-border text-sm'>
             Right click here
           </ContextMenuTrigger>
           <ContextMenuContent>
@@ -1048,10 +1048,10 @@ export function KitchenSink() {
           <HoverCardContent>
             <div className='space-y-2'>
               <h4 className='text-sm font-semibold'>@nextjs</h4>
-              <p className='text-muted-foreground text-sm'>
+              <p className='text-sm text-muted-foreground'>
                 The React Framework — created and maintained by @vercel.
               </p>
-              <div className='text-muted-foreground flex items-center gap-1 text-xs'>
+              <div className='flex items-center gap-1 text-xs text-muted-foreground'>
                 <CalendarIcon className='size-3' /> Joined December 2021
               </div>
             </div>
@@ -1077,8 +1077,8 @@ export function KitchenSink() {
 
       {/* Aspect Ratio | Button Group | Native Select */}
       <Section title='Aspect Ratio'>
-        <AspectRatio ratio={16 / 9} className='bg-muted rounded-md'>
-          <div className='text-muted-foreground flex size-full items-center justify-center text-sm'>
+        <AspectRatio ratio={16 / 9} className='rounded-md bg-muted'>
+          <div className='flex size-full items-center justify-center text-sm text-muted-foreground'>
             16:9
           </div>
         </AspectRatio>
@@ -1181,7 +1181,7 @@ export function KitchenSink() {
           <CarouselContent>
             {Array.from({ length: 5 }, (_, i) => (
               <CarouselItem key={i}>
-                <div className='border-border flex aspect-square items-center justify-center rounded-md border text-3xl font-semibold'>
+                <div className='flex aspect-square items-center justify-center rounded-md border border-border text-3xl font-semibold'>
                   {String(i + 1)}
                 </div>
               </CarouselItem>
@@ -1194,10 +1194,10 @@ export function KitchenSink() {
 
       {/* Resizable (full width) */}
       <section className='flex flex-col gap-2 md:col-span-2 lg:col-span-3'>
-        <h3 className='text-muted-foreground px-1 font-mono text-xs font-medium tracking-widest uppercase'>
+        <h3 className='px-1 font-mono text-xs font-medium tracking-widest text-muted-foreground uppercase'>
           Resizable
         </h3>
-        <div className='border-border/60 rounded-lg border'>
+        <div className='rounded-lg border border-border/60'>
           <ResizablePanelGroup className='min-h-32 rounded-lg'>
             <ResizablePanel defaultSize={50}>
               <div className='flex h-full items-center justify-center p-4'>
@@ -1255,7 +1255,7 @@ export function KitchenSink() {
 
       {/* Table (full width) */}
       <section className='flex flex-col gap-2 md:col-span-2 lg:col-span-3'>
-        <h3 className='text-muted-foreground px-1 font-mono text-xs font-medium tracking-widest uppercase'>
+        <h3 className='px-1 font-mono text-xs font-medium tracking-widest text-muted-foreground uppercase'>
           Table
         </h3>
         <Table>

@@ -3,7 +3,7 @@ import { ThemeToggle } from './ThemeToggle'
 
 export function Header() {
   return (
-    <header className='border-border border-b'>
+    <header className='border-b border-border'>
       <div className='container mx-auto flex h-16 items-center justify-between px-4'>
         <Link href='/' className='text-lg font-semibold'>
           next-template

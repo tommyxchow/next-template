@@ -35,7 +35,7 @@
     "binding": "IMAGES",
   },
   "vars": {
-    "SITE_URL": "http://localhost:3000"
+    "SITE_URL": "http://localhost:3000",
   },
   "minify": true,
   "keep_names": false,

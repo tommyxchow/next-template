@@ -7,7 +7,7 @@ export default function HomePage() {
         <h1 className='text-4xl font-semibold tracking-tight sm:text-5xl'>
           next-template
         </h1>
-        <p className='text-muted-foreground text-lg'>
+        <p className='text-lg text-muted-foreground'>
           A Next.js starter template.
         </p>
       </div>
