@@ -1,20 +1,34 @@
 import eslintReact from '@eslint-react/eslint-plugin'
 import eslintJs from '@eslint/js'
-import nextVitals from 'eslint-config-next/core-web-vitals'
+import nextPlugin from '@next/eslint-plugin-next'
 import prettier from 'eslint-config-prettier/flat'
 import betterTailwindcss from 'eslint-plugin-better-tailwindcss'
 import reactYouMightNotNeedAnEffect from 'eslint-plugin-react-you-might-not-need-an-effect'
-import { defineConfig } from 'eslint/config'
+import { defineConfig, globalIgnores } from 'eslint/config'
 import tseslint from 'typescript-eslint'
 
 export default defineConfig(
-  // Managed by shadcn (pnpm ui:update)
-  { ignores: ['src/components/ui/', 'src/hooks/use-mobile.ts', '.open-next/'] },
-  eslintJs.configs.recommended,
-  nextVitals,
+  globalIgnores([
+    'src/components/ui/', // Managed by shadcn (pnpm ui:update)
+    'src/hooks/use-mobile.ts',
+    '.next/',
+    '.open-next/',
+    'out/**',
+    'build/**',
+    'next-env.d.ts',
+  ]),
 
-  // Next.js bundles eslint-plugin-react; disable its rules that overlap with @eslint-react
-  eslintReact.configs['disable-conflict-eslint-plugin-react'],
+  eslintJs.configs.recommended,
+
+  // Next.js-specific rules (no-html-link-for-pages, no-img-element, etc.)
+  {
+    files: ['**/*.{ts,tsx}'],
+    plugins: { '@next/next': nextPlugin },
+    rules: {
+      ...nextPlugin.configs.recommended.rules,
+      ...nextPlugin.configs['core-web-vitals'].rules,
+    },
+  },
 
   {
     files: ['**/*.{ts,tsx}'],
@@ -81,8 +95,6 @@ export default defineConfig(
 
       // Redundant with react-you-might-not-need-an-effect
       '@eslint-react/hooks-extra/no-direct-set-state-in-use-effect': 'off',
-      '@eslint-react/hooks-extra/no-direct-set-state-in-use-layout-effect':
-        'off',
     },
   },
 
