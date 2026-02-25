@@ -157,8 +157,3 @@ The app source (`src/`) is fully platform-agnostic and should work on Vercel or 
 > 3. Remove devDependencies: `@opennextjs/cloudflare`, `wrangler`
 > 4. Remove scripts: `preview`, `deploy`, `upload`, `cf-typegen`
 
----
-
-## License
-
-[MIT](LICENSE)

@@ -85,6 +85,7 @@ Next.js 16 template using the App Router with React 19. Deployed on **Cloudflare
 
 ### Key Configuration
 
+- **Cache Components**: Enabled ([docs](https://nextjs.org/docs/app/getting-started/cache-components)) — everything is dynamic (SSR) by default. Opt into caching with `"use cache"` + `cacheLife()`, wrap async work in `<Suspense>` for PPR. Old `revalidate`/`dynamic`/`fetchCache` exports are replaced. Use `cacheTag()` + `revalidateTag()`/`updateTag()` for on-demand invalidation.
 - **React Compiler**: Enabled in `next.config.ts` for automatic memoization
 - **Typed Routes**: Enabled for type-safe navigation (use `Route` type from `next/navigation`)
 - **Path Alias**: `@/*` maps to `./src/*`
@@ -106,6 +107,7 @@ Next.js 16 template using the App Router with React 19. Deployed on **Cloudflare
 - `open-next.config.ts` - OpenNext adapter config (ISR requires uncommenting R2 incremental cache)
 - `cloudflare-env.d.ts` - Generated types for Cloudflare bindings (run `pnpm cf-typegen` to regenerate)
 - Dev mode calls `initOpenNextCloudflareForDev()` in `next.config.ts` for local Cloudflare emulation
+- Durable `"use cache"` at runtime requires R2 incremental cache — without it, runtime cache is in-memory only (per-Worker-instance). Build-time prerendering works regardless.
 
 ### Environment Variables
 
@@ -113,7 +115,7 @@ Next.js 16 template using the App Router with React 19. Deployed on **Cloudflare
 
 ### Key Libraries
 
-- **TanStack Query** — Server state management; wrapped in `Providers.tsx`
+- **TanStack Query** — Client-side data caching (polling, optimistic updates, refetch-on-focus); wrapped in `Providers.tsx`. Server-side caching uses `"use cache"` instead.
 - **nuqs** — Type-safe URL search params (`useQueryState`, `useQueryStates`)
 - **Vercel AI SDK** (`ai`) — AI/LLM integration utilities
 - **Zod** — Schema validation (v4)

@@ -3,7 +3,7 @@ import { describe, expect, test } from 'vitest'
 
 describe('cn', () => {
   test('merges class names', () => {
-    expect(cn('foo', 'bar')).toBe('foo bar')
+    expect(cn('flex', 'gap-4')).toBe('flex gap-4')
   })
 
   test('resolves Tailwind conflicts', () => {
@@ -11,7 +11,7 @@ describe('cn', () => {
   })
 
   test('handles falsy inputs', () => {
-    expect(cn('base', undefined, 'visible')).toBe('base visible')
+    expect(cn('flex', undefined, 'gap-4')).toBe('flex gap-4')
     expect(cn('')).toBe('')
     expect(cn(undefined, null)).toBe('')
   })

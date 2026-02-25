@@ -23,11 +23,7 @@ export default defineConfig(
   // Next.js-specific rules (no-html-link-for-pages, no-img-element, etc.)
   {
     files: ['**/*.{ts,tsx}'],
-    plugins: { '@next/next': nextPlugin },
-    rules: {
-      ...nextPlugin.configs.recommended.rules,
-      ...nextPlugin.configs['core-web-vitals'].rules,
-    },
+    extends: [nextPlugin.configs['core-web-vitals']],
   },
 
   {
@@ -101,7 +97,6 @@ export default defineConfig(
   // Tailwind CSS v4 linting
   {
     files: ['**/*.{ts,tsx}'],
-    ignores: ['__tests__/**'],
     extends: [betterTailwindcss.configs['recommended-warn']],
     settings: {
       'better-tailwindcss': {
