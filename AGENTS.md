@@ -98,7 +98,7 @@ Next.js 16 template using the App Router with React 19. Deployed on **Cloudflare
   - `button.tsx` is a `'use client'` module — `buttonVariants()` and `<Button>` can only be used in client components. There is no `asChild` prop (Base UI, not Radix).
 - `src/lib/` - Utilities (`cn()` for className merging), constants, and server-only code
 - `src/hooks/` - Custom React hooks
-- `__tests__/` - Vitest unit tests
+- Tests are colocated next to source files (e.g., `src/lib/utils.test.ts`)
 
 ### Cloudflare Workers
 
