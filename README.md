@@ -1,6 +1,6 @@
 # [next-template](https://github.com/tommyxchow/next-template)
 
-A tailored Next.js starter for shipping fast with AI-ready defaults. Optimized for Cloudflare Workers, but the app source is platform-agnostic — see [Other platforms](#other-platforms) for deploying elsewhere.
+A tailored Next.js starter for shipping fast with AI-ready defaults. Deploys to [Vercel](https://vercel.com/) with zero config or [Cloudflare Workers](https://developers.cloudflare.com/workers/) with included configuration.
 
 ## Stack
 
@@ -35,6 +35,7 @@ A tailored Next.js starter for shipping fast with AI-ready defaults. Optimized f
 
 **Infrastructure**
 
+- [Vercel](https://vercel.com/) — zero-config deployment
 - [Cloudflare Workers](https://developers.cloudflare.com/workers/) via [@opennextjs/cloudflare](https://opennext.js.org/cloudflare)
 
 ---
@@ -52,7 +53,7 @@ A tailored Next.js starter for shipping fast with AI-ready defaults. Optimized f
 
 2. `pnpm install`
 3. Create `.env.local` for any server-only keys your app needs
-4. Optionally create `.dev.vars` for [Cloudflare bindings](https://developers.cloudflare.com/workers/testing/local-development/#local-only-environment-variables) during local dev
+4. Optionally create `.dev.vars` for [Cloudflare bindings](https://developers.cloudflare.com/workers/testing/local-development/#local-only-environment-variables) during local dev (Cloudflare only)
 5. `pnpm dev`
 
 ---
@@ -84,7 +85,21 @@ A tailored Next.js starter for shipping fast with AI-ready defaults. Optimized f
 
 ## Deployment
 
-### Via dashboard (recommended)
+### Vercel
+
+No configuration needed — connect your GitHub repo on [Vercel](https://vercel.com/) and push.
+
+> [!NOTE]
+> To clean up unused Cloudflare-specific config:
+>
+> 1. Delete `wrangler.jsonc`, `open-next.config.ts`, and `cloudflare-env.d.ts`
+> 2. Remove the `initOpenNextCloudflareForDev` block in `next.config.ts`
+> 3. Remove devDependencies: `@opennextjs/cloudflare`, `wrangler`
+> 4. Remove scripts: `preview`, `deploy`, `upload`, `cf-typegen`
+
+### Cloudflare Workers
+
+#### Via dashboard (recommended)
 
 1. Go to the [Cloudflare dashboard](https://dash.cloudflare.com/) > **Workers & Pages** > **Create**
 2. Connect your GitHub repo
@@ -97,7 +112,7 @@ A tailored Next.js starter for shipping fast with AI-ready defaults. Optimized f
 
 4. Push to your branch to trigger the first build and deploy
 
-### Via CLI
+#### Via CLI
 
 Alternatively, deploy directly from your machine:
 
@@ -141,19 +156,7 @@ For time-based revalidation or on-demand revalidation (`revalidateTag` / `revali
 
 Before going live, ensure:
 
-- [ ] `SITE_URL` environment variable is set to your production domain (used by `metadataBase`, `robots.txt`, `sitemap.xml`)
-- [ ] Security headers are configured for your app — either via `public/_headers` or [Cloudflare WAF rules](https://developers.cloudflare.com/waf/). Common headers to consider: `Content-Security-Policy`, `Strict-Transport-Security`, `X-Content-Type-Options`, `Referrer-Policy`, `Permissions-Policy`
+- [ ] `SITE_URL` environment variable is set to your production domain — in `wrangler.jsonc` for Cloudflare or the dashboard for Vercel (used by `metadataBase`, `robots.txt`, `sitemap.xml`)
+- [ ] Security headers are configured for your app (e.g., `Content-Security-Policy`, `Strict-Transport-Security`, `X-Content-Type-Options`, `Referrer-Policy`, `Permissions-Policy`)
 - [ ] Replace the demo home page (`src/app/page.tsx`) with your app content
-
-### Other platforms
-
-The app source (`src/`) is fully platform-agnostic and should work on Vercel or other platforms as-is.
-
-> [!NOTE]
-> To clean up unused Cloudflare-specific config:
->
-> 1. Delete `wrangler.jsonc` and `open-next.config.ts`
-> 2. Remove the `initOpenNextCloudflareForDev` block in `next.config.ts`
-> 3. Remove devDependencies: `@opennextjs/cloudflare`, `wrangler`
-> 4. Remove scripts: `preview`, `deploy`, `upload`, `cf-typegen`
 
