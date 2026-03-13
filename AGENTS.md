@@ -86,6 +86,7 @@ Next.js 16 template using the App Router with React 19. Deployed on **Cloudflare
 ### Key Configuration
 
 - **Cache Components**: Enabled ([docs](https://nextjs.org/docs/app/getting-started/cache-components)) — everything is dynamic (SSR) by default. Opt into caching with `"use cache"` + `cacheLife()`, wrap async work in `<Suspense>` for PPR. Old `revalidate`/`dynamic`/`fetchCache` exports are replaced. Use `cacheTag()` + `revalidateTag()`/`updateTag()` for on-demand invalidation.
+- **Fetch Logging**: `logging.fetches.fullUrl` enabled — dev console shows full URLs for all fetches
 - **React Compiler**: Enabled in `next.config.ts` for automatic memoization
 - **Typed Routes**: Enabled for type-safe navigation (use `Route` type from `next/navigation`)
 - **Path Alias**: `@/*` maps to `./src/*`
@@ -132,6 +133,7 @@ Enforced by `pnpm lint` (ESLint) and `pnpm format` (Prettier). Non-obvious decis
 - Use `import type` / `export type` with inline style (`import { type Foo }`)
 - Prefix unused variables with `_`
 - Prettier auto-sorts imports and Tailwind classes — don't sort manually
+- `better-tailwindcss` ESLint plugin enforces shorthand classes and consistent `!important` position (Tailwind v4)
 - `react-you-might-not-need-an-effect` — flags unnecessary `useEffect`; derive state or use event handlers instead
 
 ## Gotchas
@@ -140,3 +142,4 @@ Enforced by `pnpm lint` (ESLint) and `pnpm format` (Prettier). Non-obvious decis
 - **`useSearchParams()` needs Suspense**: Always wrap components using `useSearchParams()` in a `<Suspense>` boundary — required for production builds.
 - **Never remove `tw-animate-css`**: Required by shadcn/ui components for animations. Check shadcn dependencies before removing any package.
 - **No `pnpm` prefix inside package.json scripts**: The package manager is already the script runner. Use bare commands (e.g., `next build`, not `pnpm next build`).
+- **Dev tools**: `react-scan` (React render debugging) and `next-devtools-mcp` (Next.js MCP server) are available as devDependencies.
