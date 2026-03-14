@@ -13,7 +13,21 @@
       "Write(.env*)",
       "Write(.dev.vars*)",
       "Write(**/*.pem)",
-      "Write(.wrangler/**)"
+      "Write(.wrangler/**)",
+
+      "Bash(npm *)",
+      "Bash(npx *)",
+      "Bash(yarn *)",
+
+      "Bash(find *)",
+      "Bash(head *)",
+      "Bash(tail *)",
+      "Bash(cat *)",
+      "Bash(grep *)",
+      "Bash(rg *)",
+      "Bash(sed *)",
+      "Bash(awk *)",
+      "Bash(echo *)"
     ],
     "ask": [
       "Bash(pnpm deploy *)",
@@ -25,10 +39,14 @@
       "Bash(pnpm add *)",
       "Bash(pnpm remove *)",
       "Bash(pnpm up *)",
-      "Bash(pnpm update *)"
+      "Bash(pnpm update *)",
+
+      "Bash(git push *)",
+      "Bash(git reset *)"
     ],
     "allow": [
       "WebFetch",
+      "WebSearch",
       "Task",
 
       "mcp__next-devtools__*",
@@ -57,14 +75,17 @@
       "Bash(gh issue list *)",
       "Bash(gh repo view *)",
       "Bash(gh run *)",
+      "Bash(gh api *)",
 
       "Bash(pnpm *)",
+      "Bash(corepack *)",
 
       "Bash(ls *)",
       "Bash(pwd)",
       "Bash(which *)",
       "Bash(wc *)",
-      "Bash(mkdir *)"
+      "Bash(mkdir *)",
+      "Bash(test *)"
     ]
   },
   "hooks": {
@@ -74,7 +95,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "jq -r '.tool_input.file_path' | xargs pnpm exec prettier --write --ignore-unknown 2>/dev/null; exit 0",
+            "command": "node -e \"const p=JSON.parse(require('fs').readFileSync(0,'utf8')).tool_input.file_path;require('child_process').execSync('pnpm exec prettier --write --ignore-unknown '+JSON.stringify(p),{stdio:'ignore'})\" 2>/dev/null; exit 0",
             "async": true
           }
         ]
