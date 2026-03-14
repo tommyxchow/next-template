@@ -67,6 +67,20 @@
       "Bash(mkdir *)"
     ]
   },
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "jq -r '.tool_input.file_path' | xargs pnpm exec prettier --write --ignore-unknown 2>/dev/null; exit 0",
+            "async": true
+          }
+        ]
+      }
+    ]
+  },
   "enabledMcpjsonServers": ["next-devtools"],
   "enabledPlugins": {
     "frontend-design@claude-plugins-official": true,
