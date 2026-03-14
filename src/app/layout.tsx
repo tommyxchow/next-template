@@ -2,9 +2,9 @@ import { Footer } from '@/components/Footer'
 import { Header } from '@/components/Header'
 import { Providers } from '@/components/Providers'
 import { BASE_URL } from '@/lib/constants'
+import { cn } from '@/lib/utils'
 import { type Metadata } from 'next'
 import { Inter, JetBrains_Mono } from 'next/font/google'
-import { twJoin } from 'tailwind-merge'
 import './globals.css'
 
 const fontSans = Inter({ subsets: ['latin'], variable: '--font-sans' })
@@ -31,14 +31,12 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang='en' suppressHydrationWarning>
-      <body
-        className={twJoin(
-          'flex min-h-dvh flex-col font-sans underline-offset-4 antialiased selection:bg-primary selection:text-primary-foreground',
-          fontSans.variable,
-          fontMono.variable,
-        )}
-      >
+    <html
+      lang='en'
+      suppressHydrationWarning
+      className={cn(fontSans.variable, fontMono.variable)}
+    >
+      <body className='flex min-h-dvh flex-col underline-offset-4 antialiased selection:bg-primary selection:text-primary-foreground'>
         <Providers>
           <Header />
           <main className='grow'>{children}</main>
