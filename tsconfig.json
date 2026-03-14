@@ -17,6 +17,7 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "verbatimModuleSyntax": true,
+    "types": ["vitest/globals", "@testing-library/jest-dom"],
     "jsx": "react-jsx",
     "incremental": true,
     "plugins": [
