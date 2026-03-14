@@ -159,4 +159,3 @@ Before going live, ensure:
 - [ ] `SITE_URL` environment variable is set to your production domain — in `wrangler.jsonc` for Cloudflare or the dashboard for Vercel (used by `metadataBase`, `robots.txt`, `sitemap.xml`)
 - [ ] Security headers are configured for your app (e.g., `Content-Security-Policy`, `Strict-Transport-Security`, `X-Content-Type-Options`, `Referrer-Policy`, `Permissions-Policy`)
 - [ ] Replace the demo home page (`src/app/page.tsx`) with your app content
-
