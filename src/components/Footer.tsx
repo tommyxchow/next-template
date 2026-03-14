@@ -1,4 +1,4 @@
-const CURRENT_YEAR = 2026
+const CURRENT_YEAR = new Date().getFullYear()
 
 export function Footer() {
   return (

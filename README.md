@@ -13,7 +13,7 @@ A tailored Next.js starter for shipping fast with AI-ready defaults. Deploys to 
 **Styling & UI**
 
 - [Tailwind CSS v4](https://tailwindcss.com/) — CSS-first config, [Typography](https://tailwindcss.com/docs/typography-plugin) plugin
-- [shadcn/ui](https://ui.shadcn.com/) — base-mira style, includes [Base UI](https://base-ui.com/), [Recharts](https://recharts.org/), [date-fns](https://date-fns.org/), and more
+- [shadcn/ui](https://ui.shadcn.com/) — base-vega style, includes [Base UI](https://base-ui.com/), [Recharts](https://recharts.org/), [date-fns](https://date-fns.org/), and more
 - [lucide-react](https://lucide.dev/) — icons
 - [motion](https://motion.dev/) — animations
 - [next-themes](https://github.com/pacocoursey/next-themes) — dark mode
