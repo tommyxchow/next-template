@@ -14,6 +14,7 @@ const nextConfig: NextConfig = {
     fetches: {
       fullUrl: true,
     },
+    browserToTerminal: 'warn',
   },
 }
 
