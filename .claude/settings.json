@@ -87,16 +87,6 @@
           }
         ]
       }
-    ],
-    "WorktreeCreate": [
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "node -e \"const fs=require('fs'),p=require('path'),d=JSON.parse(fs.readFileSync(0,'utf8')),src=p.join(d.cwd,'.env.local'),dst=p.join(d.worktree_path,'.env.local');if(fs.existsSync(src))fs.copyFileSync(src,dst)\" 2>/dev/null; exit 0"
-          }
-        ]
-      }
     ]
   },
   "enabledMcpjsonServers": ["next-devtools", "chrome-devtools", "shadcn"],
