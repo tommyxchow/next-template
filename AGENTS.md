@@ -41,7 +41,7 @@ Not priorities: WCAG compliance (easy wins only), public accessibility, SEO, pro
 
 - Prefer LSP over Grep for semantic navigation:
   - `findReferences` before changing a function/component signature (no false positives)
-  - `hover` to resolve inferred/computed types (tRPC routers, Drizzle schemas, generics)
+  - `hover` to resolve inferred/computed types (Zustand stores, Zod schemas, AI SDK generics)
   - `goToDefinition` to navigate through re-exports and barrel files
   - `incomingCalls`/`outgoingCalls` to trace call chains across routes, hooks, components
 - When debugging third-party libraries, **read the extension source in `node_modules` first** — don't speculate about behavior. Check for validation, protocol restrictions, and attribute filtering before writing code.
@@ -73,7 +73,7 @@ Use [conventional commits](https://www.conventionalcommits.org/en/v1.0.0/): `typ
 
 ## Branching
 
-New branches: prefix with `tommy/` (e.g., `tommy/add-auth-flow`).
+New branches: prefix with your GitHub username (e.g., `tommyxchow/add-auth-flow`). Run `gh api user --jq .login` to find it.
 
 ## Aliases
 
