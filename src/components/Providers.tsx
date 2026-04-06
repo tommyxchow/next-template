@@ -6,7 +6,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { ThemeProvider } from 'next-themes'
 import { NuqsAdapter } from 'nuqs/adapters/next/app'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
 interface ProvidersProps {
   children: React.ReactNode
@@ -14,14 +14,6 @@ interface ProvidersProps {
 
 export function Providers({ children }: ProvidersProps) {
   const [queryClient] = useState(() => new QueryClient())
-
-  useEffect(() => {
-    if (process.env.NODE_ENV === 'development') {
-      void import('react-scan').then(({ scan }) => {
-        scan({ enabled: true })
-      })
-    }
-  }, [])
 
   return (
     <QueryClientProvider client={queryClient}>

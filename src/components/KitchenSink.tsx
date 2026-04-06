@@ -223,7 +223,7 @@ import {
   Copy,
   CreditCard,
   Download,
-  Github,
+  Globe,
   Heart,
   Inbox,
   Italic,
@@ -412,7 +412,7 @@ export function KitchenSink() {
               </DropdownMenuGroup>
               <DropdownMenuSeparator />
               <DropdownMenuItem>
-                <Github /> GitHub
+                <Globe /> GitHub
               </DropdownMenuItem>
               <DropdownMenuItem>
                 <LifeBuoy /> Support

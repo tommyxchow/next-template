@@ -23,7 +23,7 @@ export default defineConfig(
   // Next.js-specific rules (no-html-link-for-pages, no-img-element, etc.)
   {
     files: ['**/*.{ts,tsx}'],
-    extends: [nextPlugin.configs['core-web-vitals']],
+    ...nextPlugin.configs['core-web-vitals'],
   },
 
   {
@@ -78,7 +78,9 @@ export default defineConfig(
         'error',
         { checksVoidReturn: { attributes: false } },
       ],
-      '@eslint-react/jsx-shorthand-boolean': 'error',
+      '@typescript-eslint/only-throw-error': 'error',
+      '@typescript-eslint/return-await': ['error', 'in-try-catch'],
+      '@typescript-eslint/no-array-delete': 'error',
       '@eslint-react/no-array-index-key': 'warn',
 
       'no-restricted-syntax': [
@@ -89,8 +91,10 @@ export default defineConfig(
         },
       ],
 
+      // Server components calling cookies()/headers() are not impure
+      '@eslint-react/purity': 'off',
       // Redundant with react-you-might-not-need-an-effect
-      '@eslint-react/hooks-extra/no-direct-set-state-in-use-effect': 'off',
+      '@eslint-react/set-state-in-effect': 'off',
     },
   },
 
