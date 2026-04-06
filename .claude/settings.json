@@ -41,41 +41,21 @@
       "Bash(pnpm up *)",
       "Bash(pnpm update *)",
 
+      "Bash(rm *)",
+
+      "Bash(git push)",
       "Bash(git push *)",
+      "Bash(git reset)",
       "Bash(git reset *)"
     ],
     "allow": [
       "WebFetch",
       "WebSearch",
-      "Task",
 
       "mcp__next-devtools__*",
 
-      "Bash(git status *)",
-      "Bash(git log *)",
-      "Bash(git diff *)",
-      "Bash(git show *)",
-      "Bash(git add *)",
-      "Bash(git commit *)",
-      "Bash(git branch *)",
-      "Bash(git checkout *)",
-      "Bash(git switch *)",
-      "Bash(git fetch *)",
-      "Bash(git pull *)",
-      "Bash(git stash *)",
-      "Bash(git remote *)",
-      "Bash(git tag *)",
-      "Bash(git blame *)",
-      "Bash(git rev-parse *)",
-      "Bash(git cherry-pick *)",
-      "Bash(git worktree *)",
-
-      "Bash(gh pr *)",
-      "Bash(gh issue view *)",
-      "Bash(gh issue list *)",
-      "Bash(gh repo view *)",
-      "Bash(gh run *)",
-      "Bash(gh api *)",
+      "Bash(git *)",
+      "Bash(gh *)",
 
       "Bash(pnpm *)",
       "Bash(corepack *)",
@@ -85,6 +65,9 @@
       "Bash(which *)",
       "Bash(wc *)",
       "Bash(mkdir *)",
+      "Bash(mv *)",
+      "Bash(cp *)",
+      "Bash(touch *)",
       "Bash(test *)"
     ]
   },
@@ -102,7 +85,7 @@
       }
     ]
   },
-  "enabledMcpjsonServers": ["next-devtools"],
+  "enabledMcpjsonServers": ["next-devtools", "chrome-devtools", "shadcn"],
   "enabledPlugins": {
     "frontend-design@claude-plugins-official": true,
     "feature-dev@claude-plugins-official": true,
