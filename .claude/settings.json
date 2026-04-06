@@ -71,6 +71,10 @@
       "Bash(test *)"
     ]
   },
+  "showThinkingSummaries": true,
+  "worktree": {
+    "symlinkDirectories": ["node_modules"]
+  },
   "hooks": {
     "PostToolUse": [
       {
@@ -80,6 +84,16 @@
             "type": "command",
             "command": "node -e \"const p=JSON.parse(require('fs').readFileSync(0,'utf8')).tool_input.file_path;require('child_process').execSync('pnpm exec prettier --write --ignore-unknown '+JSON.stringify(p),{stdio:'ignore'})\" 2>/dev/null; exit 0",
             "async": true
+          }
+        ]
+      }
+    ],
+    "WorktreeCreate": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node -e \"const fs=require('fs'),p=require('path'),d=JSON.parse(fs.readFileSync(0,'utf8')),src=p.join(d.cwd,'.env.local'),dst=p.join(d.worktree_path,'.env.local');if(fs.existsSync(src))fs.copyFileSync(src,dst)\" 2>/dev/null; exit 0"
           }
         ]
       }
