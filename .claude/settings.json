@@ -5,14 +5,17 @@
       "Read(.env*)",
       "Read(.dev.vars*)",
       "Read(**/*.pem)",
+      "Read(**/*.key)",
       "Read(.wrangler/**)",
       "Edit(.env*)",
       "Edit(.dev.vars*)",
       "Edit(**/*.pem)",
+      "Edit(**/*.key)",
       "Edit(.wrangler/**)",
       "Write(.env*)",
       "Write(.dev.vars*)",
       "Write(**/*.pem)",
+      "Write(**/*.key)",
       "Write(.wrangler/**)",
 
       "Bash(npm *)",
@@ -20,16 +23,27 @@
       "Bash(yarn *)",
 
       "Bash(find *)",
+      "Bash(cat *)",
       "Bash(head *)",
       "Bash(tail *)",
-      "Bash(cat *)",
       "Bash(grep *)",
       "Bash(rg *)",
       "Bash(sed *)",
       "Bash(awk *)",
-      "Bash(echo *)"
+      "Bash(echo *)",
+
+      "Bash(git push --force)",
+      "Bash(git push --force *)",
+      "Bash(git push -f)",
+      "Bash(git push -f *)",
+      "Bash(gh repo delete *)",
+      "Bash(gh issue delete *)",
+      "Bash(gh api -X DELETE *)",
+      "Bash(gh api --method DELETE *)"
     ],
     "ask": [
+      "Bash(rm *)",
+
       "Bash(pnpm deploy *)",
       "Bash(pnpm upload *)",
       "Bash(pnpm nuke *)",
@@ -41,18 +55,57 @@
       "Bash(pnpm up *)",
       "Bash(pnpm update *)",
 
-      "Bash(rm *)",
-
       "Bash(git push)",
       "Bash(git push *)",
       "Bash(git reset)",
-      "Bash(git reset *)"
+      "Bash(git reset *)",
+      "Bash(git reset --hard)",
+      "Bash(git reset --hard *)",
+      "Bash(git clean -f)",
+      "Bash(git clean -f *)",
+      "Bash(git clean -fd)",
+      "Bash(git clean -fd *)",
+
+      "Bash(gh pr merge)",
+      "Bash(gh pr merge *)",
+
+      "Bash(gh pr create)",
+      "Bash(gh pr create *)",
+      "Bash(gh pr close *)",
+      "Bash(gh pr comment *)",
+      "Bash(gh pr edit *)",
+      "Bash(gh pr review *)",
+      "Bash(gh pr ready *)",
+      "Bash(gh pr reopen *)",
+      "Bash(gh issue create)",
+      "Bash(gh issue create *)",
+      "Bash(gh issue close *)",
+      "Bash(gh issue comment *)",
+      "Bash(gh issue edit *)",
+      "Bash(gh repo create *)",
+      "Bash(gh repo edit *)",
+      "Bash(gh release *)",
+      "Bash(gh workflow *)",
+      "Bash(gh label create *)",
+      "Bash(gh label delete *)",
+      "Bash(gh label edit *)",
+      "Bash(gh secret *)",
+      "Bash(gh variable *)",
+      "Bash(gh api -X POST *)",
+      "Bash(gh api -X PATCH *)",
+      "Bash(gh api -X PUT *)",
+      "Bash(gh api --method POST *)",
+      "Bash(gh api --method PATCH *)",
+      "Bash(gh api --method PUT *)",
+      "Bash(gh api *)"
     ],
     "allow": [
       "WebFetch",
       "WebSearch",
 
       "mcp__next-devtools__*",
+      "mcp__chrome-devtools__*",
+      "mcp__shadcn__*",
 
       "Bash(git *)",
       "Bash(gh *)",
@@ -76,14 +129,48 @@
     "symlinkDirectories": ["node_modules"]
   },
   "hooks": {
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash .claude/notify.sh \"Task Complete\" \"Ready for review\" Glass Information 2>/dev/null || true",
+            "timeout": 10
+          }
+        ]
+      }
+    ],
     "PostToolUse": [
       {
         "matcher": "Edit|Write",
         "hooks": [
           {
             "type": "command",
-            "command": "node -e \"const p=JSON.parse(require('fs').readFileSync(0,'utf8')).tool_input.file_path;require('child_process').execSync('pnpm exec prettier --write --ignore-unknown '+JSON.stringify(p),{stdio:'ignore'})\" 2>/dev/null; exit 0",
+            "command": "node -e \"const f=JSON.parse(require('fs').readFileSync(0,'utf8')).tool_input.file_path;const{execSync:r}=require('child_process');try{r('pnpm exec prettier --write --ignore-unknown '+JSON.stringify(f),{stdio:'ignore'})}catch{};try{r('pnpm exec eslint --fix '+JSON.stringify(f),{stdio:'ignore'})}catch{}\" 2>/dev/null; exit 0",
+            "timeout": 10,
             "async": true
+          }
+        ]
+      }
+    ],
+    "Notification": [
+      {
+        "matcher": "permission_prompt",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash .claude/notify.sh \"Permission Needed\" \"Approve or deny\" Ping Warning 2>/dev/null || true",
+            "timeout": 10
+          }
+        ]
+      },
+      {
+        "matcher": "idle_prompt",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash .claude/notify.sh \"Needs Input\" \"Waiting for you\" Pop Question 2>/dev/null || true",
+            "timeout": 10
           }
         ]
       }
