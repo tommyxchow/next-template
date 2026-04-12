@@ -33,6 +33,11 @@ Enabled ([docs](https://nextjs.org/docs/app/getting-started/cache-components)) �
 - `SITE_URL` — Base URL for the site. Declared in `wrangler.jsonc`, defaults to `http://localhost:3000` for local dev. Used in `src/lib/constants.ts` for `metadataBase`, sitemap, and robots.txt.
 - `src/env.d.ts` types `process.env` globally — use `process.env.X` directly, no env validation library needed. Don't declare secrets in `wrangler.jsonc` (committed to git) — set production secrets via Cloudflare dashboard or `pnpx wrangler secret put`.
 
+## Images
+
+- **Static/known images**: pre-generate webp variants at build time (e.g., via `sharp` in a build script) and use plain `<img srcset>`. Don't use `next/image` with the Cloudflare IMAGES binding for static images — it bills per-call with no dedup and `/_next/image` responses aren't edge-cached without a Cache Rule.
+- **Dynamic/user-uploaded images**: uncomment the IMAGES binding in `wrangler.jsonc` and configure a Cache Rule for `/_next/image*` in the Cloudflare dashboard (Caching → Cache Rules → Edge TTL override 1 year). Without it, every cache miss re-bills — the binding has no dedup and responses aren't auto-cached (no file extension in the URL).
+
 ## Gotchas
 
 - **shadcn uses @base-ui/react**: Not Radix UI — component primitives differ from older shadcn examples. `button.tsx` is a `'use client'` module with no `asChild` prop. Check `src/components/ui/` before building custom UI.
