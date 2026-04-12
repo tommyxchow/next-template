@@ -29,11 +29,14 @@
   //     "bucket_name": "<BUCKET_NAME>",
   //   },
   // ],
-  "images": {
-    // Enable image optimization
-    // see https://opennext.js.org/cloudflare/howtos/image
-    "binding": "IMAGES",
-  },
+  // Uncomment to enable runtime image optimization via next/image.
+  // Only needed for user-uploaded or dynamic images — static images
+  // should be pre-generated as webp at build time instead.
+  // Requires a Cache Rule for /_next/image* to avoid quota drain.
+  // See: https://developers.cloudflare.com/images/pricing/
+  // "images": {
+  //   "binding": "IMAGES",
+  // },
   "vars": {
     "SITE_URL": "http://localhost:3000",
   },
