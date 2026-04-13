@@ -1,7 +1,7 @@
 {
-  "typescript.tsdk": "node_modules/typescript/lib",
-  "typescript.updateImportsOnFileMove.enabled": "always",
-  "typescript.preferences.importModuleSpecifier": "non-relative",
+  "js/ts.tsdk.path": "node_modules/typescript/lib",
+  "js/ts.updateImportsOnFileMove.enabled": "always",
+  "js/ts.preferences.importModuleSpecifier": "non-relative",
   "editor.formatOnSave": true,
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.linkedEditing": true,
