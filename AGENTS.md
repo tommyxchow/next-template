@@ -24,14 +24,6 @@ Next.js 16 template using the App Router with React 19. Deployed on **Cloudflare
 
 `src/app/` (pages/layouts), `src/components/` (React components, `ui/` for shadcn), `src/lib/` (utilities, constants), `src/hooks/` (custom hooks). Tests colocated next to source files.
 
-## Conventions
-
-- **Exports**: Named exports only — default exports only where Next.js requires them (`page`, `layout`, `route`, etc.)
-- **TypeScript**: `satisfies` over `as`; `??` over `||`; no enums — use `as const` objects or union types
-- **Constants**: `UPPER_SNAKE_CASE`
-- **React**: Derive state where possible; avoid `useRef` unless DOM/imperative; extract grouped logic into custom hooks when it aids readability
-- **DRY**: Inline until a pattern repeats 3+ times, then extract
-
 ## Cache Components
 
 Enabled ([docs](https://nextjs.org/docs/app/getting-started/cache-components)) — everything is dynamic (SSR) by default. Opt into caching with `"use cache"` + `cacheLife()`, wrap async work in `<Suspense>` for PPR. Old `revalidate`/`dynamic`/`fetchCache` exports are replaced. Use `cacheTag()` + `revalidateTag()`/`updateTag()` for on-demand invalidation. Durable runtime cache requires R2 incremental cache (see `open-next.config.ts`) — without it, cache is in-memory only per Worker instance.
@@ -81,7 +73,3 @@ Preset: `base-vega` + `neutral` (see `components.json`). Update command: `pnpm u
 - **`form` is Radix-only**: The shadcn `form` component depends on `@radix-ui/react-slot` for the `asChild` pattern and has no Base UI variant. `shadcn add form` fails silently at "Checking registry" on this project. For form composition, use `react-hook-form` directly without the shadcn wrapper, or check [basecn.dev](https://basecn.dev) for Base UI ports. `react-hook-form` is already in `package.json` for this reason.
 - **Don't use `shadcn apply`**: It writes files outside `src/components/ui/` (`layout.tsx`, `globals.css`, `lib/utils.ts`, `package.json`) with its own template style, and has a broken dedupe that inserts duplicate imports when quote styles differ. Its one advantage — bringing in new theme tokens automatically — isn't worth the cleanup. `add --all` + manual `globals.css` edits is the only clean path on this project.
 - **Preset name mismatch**: `components.json` stores the style as `"base-vega"` (with prefix), but the CLI `init`/`apply` accepts only `vega` (no prefix) with an explicit `--base base` flag. Used by workflow step 5.
-
-## Commits
-
-Conventional commits: `type(optional scope): description` — lowercase, no period. Types: `feat`, `fix`, `chore`, `refactor`, `style`, `docs`, `test`, `perf`, `ci`, `build`. Append `!` before `:` for breaking changes. Keep commits tightly scoped.
