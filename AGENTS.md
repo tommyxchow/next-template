@@ -62,6 +62,9 @@ This project uses [corepack](https://nodejs.org/api/corepack.html) to manage the
 
 Preset: `base-vega` + `neutral` (see `components.json`). Update command: `pnpm ui:update`. **Never use `shadcn apply`** — see Gotchas.
 
+> [!NOTE]
+> `pnpm ui:update` runs the locally-installed `shadcn` (pinned in `package.json`), not `pnpm dlx shadcn@latest`. To pick up newer shadcn releases, bump `shadcn` in `package.json` first, then `corepack pnpm install`.
+
 ### Workflow
 
 1. Ensure clean working tree: `git status`
