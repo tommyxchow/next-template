@@ -29,9 +29,9 @@ A tailored Next.js starter for shipping fast with AI-ready defaults. Deploys to 
 
 **Tooling**
 
-- [Vitest](https://vitest.dev/) — unit tests
+- [Vitest](https://vitest.dev/) — unit + integration tests
 - [ESLint](https://eslint.org/) — strict type-aware rules + [Prettier](https://prettier.io/)
-- [react-scan](https://github.com/aidenybai/react-scan) — runtime render performance visualization, dev only
+- [Knip](https://knip.dev/) — unused files, exports, and dependency checks
 
 **Infrastructure**
 
@@ -51,35 +51,41 @@ A tailored Next.js starter for shipping fast with AI-ready defaults. Deploys to 
 
    Or use the **"Use this template"** button on GitHub.
 
-2. `pnpm install`
+2. `corepack pnpm install` (this project uses [corepack](https://nodejs.org/api/corepack.html) to pin pnpm 11 — corepack downloads it automatically)
 3. Create `.env.local` for any server-only keys your app needs
 4. Optionally create `.dev.vars` for [Cloudflare bindings](https://developers.cloudflare.com/workers/testing/local-development/#local-only-environment-variables) during local dev (Cloudflare only)
-5. `pnpm dev`
+5. `corepack pnpm dev`
+
+> [!NOTE]
+> On **Windows**, always prefix pnpm commands with `corepack` (e.g., `corepack pnpm install`).
+> Bare `pnpm` may fail due to a corepack shim conflict. On macOS/Linux, `pnpm` works directly.
 
 ---
 
 ## Scripts
 
-| Command           | Description                                   |
-| :---------------- | :-------------------------------------------- |
-| `pnpm dev`        | Start development server                      |
-| `pnpm build`      | Production build (Next.js)                    |
-| `pnpm start`      | Start production server (Node.js)             |
-| `pnpm preview`    | Build and preview on local Cloudflare Workers |
-| `pnpm deploy`     | Build and deploy to Cloudflare Workers        |
-| `pnpm upload`     | Build and upload to Cloudflare Workers        |
-| `pnpm cf-typegen` | Generate types from Cloudflare bindings       |
-| `pnpm lint`       | Run ESLint                                    |
-| `pnpm typecheck`  | TypeScript type checking                      |
-| `pnpm format`     | Format with Prettier                          |
-| `pnpm test`       | Run unit tests (Vitest)                       |
-| `pnpm check`      | Full check: typecheck + lint + test + build   |
-| `pnpm ui:update`  | Regenerate all shadcn components to latest    |
-| `pnpm clean`      | Delete `.next`, `.open-next`, `node_modules`  |
-| `pnpm nuke`       | Clean + delete `pnpm-lock.yaml`               |
+| Command             | Description                                                 |
+| :------------------ | :---------------------------------------------------------- |
+| `pnpm dev`          | Start development server                                    |
+| `pnpm build`        | Production build (Next.js)                                  |
+| `pnpm start`        | Start production server (Node.js)                           |
+| `pnpm preview`      | Build and preview on local Cloudflare Workers               |
+| `pnpm deploy`       | Build and deploy to Cloudflare Workers                      |
+| `pnpm upload`       | Build and upload to Cloudflare Workers                      |
+| `pnpm cf-typegen`   | Generate types from Cloudflare bindings                     |
+| `pnpm lint`         | Run ESLint                                                  |
+| `pnpm typecheck`    | TypeScript type checking                                    |
+| `pnpm format`       | Format with Prettier                                        |
+| `pnpm format:check` | Check formatting with Prettier                              |
+| `pnpm test`         | Run all tests (Vitest)                                      |
+| `pnpm knip`         | Find unused files, exports, and dependencies                |
+| `pnpm check`        | Full check: typecheck + lint + format + Knip + test + build |
+| `pnpm ui:update`    | Regenerate all shadcn components to latest                  |
+| `pnpm clean`        | Delete `.next`, `.open-next`, `node_modules`                |
+| `pnpm nuke`         | Clean + delete `pnpm-lock.yaml`                             |
 
 > [!TIP]
-> Run `pnpm check` before pushing to catch type errors, lint issues, test failures, and build errors in one shot.
+> Run `pnpm check` before pushing to catch type errors, lint issues, formatting drift, unused code/deps, test failures, and build errors in one shot.
 
 ---
 

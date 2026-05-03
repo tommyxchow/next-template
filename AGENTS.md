@@ -12,13 +12,13 @@ Before any Next.js work, find and read the relevant doc in `node_modules/next/di
 
 # Project
 
-Next.js 16 template using the App Router with React 19. Deployed on **Cloudflare Workers** via `@opennextjs/cloudflare`. Runtime: Node.js >= 22, pnpm 10.
+Next.js 16 template using the App Router with React 19. Deployed on **Cloudflare Workers** via `@opennextjs/cloudflare`. Runtime: Node.js >= 22, pnpm 11.
 
 ## Commands
 
 `pnpm dev` / `pnpm build` / `pnpm start` — dev server, production build, production server (Node.js)
 `pnpm preview` / `pnpm deploy` — build and preview/deploy on Cloudflare Workers
-`pnpm check` — full check: typecheck + lint + test + build
+`pnpm check` — full check: typecheck + lint + format check + Knip + test + build
 
 ## Source Structure
 
@@ -26,7 +26,7 @@ Next.js 16 template using the App Router with React 19. Deployed on **Cloudflare
 
 ## Cache Components
 
-Enabled ([docs](https://nextjs.org/docs/app/getting-started/cache-components)) — everything is dynamic (SSR) by default. Opt into caching with `"use cache"` + `cacheLife()`, wrap async work in `<Suspense>` for PPR. Old `revalidate`/`dynamic`/`fetchCache` exports are replaced. Use `cacheTag()` + `revalidateTag()`/`updateTag()` for on-demand invalidation. Durable runtime cache requires R2 incremental cache (see `open-next.config.ts`) — without it, cache is in-memory only per Worker instance.
+Enabled ([docs](https://nextjs.org/docs/app/getting-started/cache-components)) — everything is dynamic (SSR) by default. Opt into caching with `"use cache"` + `cacheLife()`, wrap async work in `<Suspense>` for PPR. Old `revalidate`/`dynamic`/`fetchCache` exports are replaced. Use `cacheTag()` + `revalidateTag()`/`updateTag()` for on-demand invalidation. Durable cache storage uses the R2 incremental cache (see `open-next.config.ts`); time-based and on-demand revalidation may also need OpenNext's DO queue and tag cache pieces.
 
 ## Environment
 
@@ -37,6 +37,16 @@ Enabled ([docs](https://nextjs.org/docs/app/getting-started/cache-components)) �
 
 - **Static/known images**: pre-generate webp variants at build time (e.g., via `sharp` in a build script) and use plain `<img srcset>`. Don't use `next/image` with the Cloudflare IMAGES binding for static images — it bills per-call with no dedup and `/_next/image` responses aren't edge-cached without a Cache Rule.
 - **Dynamic/user-uploaded images**: uncomment the IMAGES binding in `wrangler.jsonc` and configure a Cache Rule for `/_next/image*` in the Cloudflare dashboard (Caching → Cache Rules → Edge TTL override 1 year). Without it, every cache miss re-bills — the binding has no dedup and responses aren't auto-cached (no file extension in the URL).
+
+## pnpm 11
+
+This project uses [corepack](https://nodejs.org/api/corepack.html) to manage the pnpm version via the `packageManager` field in `package.json`. Corepack downloads pnpm 11 automatically — no global install needed.
+
+- **Windows**: Always prefix pnpm commands with `corepack` (e.g., `corepack pnpm install`). Bare `pnpm` may fail due to a corepack shim conflict.
+- **Config migration from v10**: pnpm 11 restricts `.npmrc` to auth/registry settings only. All other config lives in `pnpm-workspace.yaml`:
+  - `allowBuilds` map replaces `onlyBuiltDependencies` / `neverBuiltDependencies` / `ignoredBuiltDependencies`
+  - `publicHoistPattern` and `engineStrict` moved from `.npmrc` to `pnpm-workspace.yaml`
+- **Env vars**: pnpm 11 no longer reads `npm_config_*` variables. Use `pnpm_config_*` instead (e.g., `pnpm_config_registry`).
 
 ## Gotchas
 
