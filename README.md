@@ -28,7 +28,6 @@ A tailored Next.js starter for shipping fast with AI-ready defaults. Deploys to 
 
 - [Vitest](https://vitest.dev/) — unit + integration tests
 - [ESLint](https://eslint.org/) — strict type-aware rules + [Prettier](https://prettier.io/)
-- [Knip](https://knip.dev/) — unused files, exports, and dependency checks
 
 **Infrastructure**
 
@@ -61,29 +60,28 @@ A tailored Next.js starter for shipping fast with AI-ready defaults. Deploys to 
 
 ## Scripts
 
-| Command             | Description                                                 |
-| :------------------ | :---------------------------------------------------------- |
-| `pnpm dev`          | Start development server                                    |
-| `pnpm build`        | Production build (Next.js)                                  |
-| `pnpm start`        | Start production server (Node.js)                           |
-| `pnpm preview`      | Build and preview on local Cloudflare Workers               |
-| `pnpm deploy`       | Build and deploy to Cloudflare Workers                      |
-| `pnpm upload`       | Build and upload to Cloudflare Workers                      |
-| `pnpm cf-typegen`   | Generate types from Cloudflare bindings                     |
-| `pnpm lint`         | Run ESLint                                                  |
-| `pnpm typecheck`    | TypeScript type checking                                    |
-| `pnpm format`       | Format with Prettier                                        |
-| `pnpm format:check` | Check formatting with Prettier                              |
-| `pnpm test`         | Run all tests (Vitest)                                      |
-| `pnpm knip`         | Find unused files, exports, and dependencies                |
-| `pnpm check`        | Full check: typecheck + lint + format + Knip + test + build |
-| `pnpm ui:add`       | Add shadcn components on demand                             |
-| `pnpm ui:update`    | Regenerate named shadcn components                          |
-| `pnpm clean`        | Delete `.next`, `.open-next`, `node_modules`                |
-| `pnpm nuke`         | Clean + delete `pnpm-lock.yaml`                             |
+| Command             | Description                                          |
+| :------------------ | :--------------------------------------------------- |
+| `pnpm dev`          | Start development server                             |
+| `pnpm build`        | Production build (Next.js)                           |
+| `pnpm start`        | Start production server (Node.js)                    |
+| `pnpm preview`      | Build and preview on local Cloudflare Workers        |
+| `pnpm deploy`       | Build and deploy to Cloudflare Workers               |
+| `pnpm upload`       | Build and upload to Cloudflare Workers               |
+| `pnpm cf-typegen`   | Generate types from Cloudflare bindings              |
+| `pnpm lint`         | Run ESLint                                           |
+| `pnpm typecheck`    | TypeScript type checking                             |
+| `pnpm format`       | Format with Prettier                                 |
+| `pnpm format:check` | Check formatting with Prettier                       |
+| `pnpm test`         | Run all tests (Vitest)                               |
+| `pnpm check`        | Full check: typecheck + lint + format + test + build |
+| `pnpm ui:add`       | Add shadcn components on demand                      |
+| `pnpm ui:update`    | Regenerate named shadcn components                   |
+| `pnpm clean`        | Delete `.next`, `.open-next`, `node_modules`         |
+| `pnpm nuke`         | Clean + delete `pnpm-lock.yaml`                      |
 
 > [!TIP]
-> Run `pnpm check` before pushing to catch type errors, lint issues, formatting drift, unused code/deps, test failures, and build errors in one shot.
+> Run `pnpm check` before pushing to catch type errors, lint issues, formatting drift, test failures, and build errors in one shot.
 
 ---
 

@@ -18,8 +18,7 @@ Next.js 16 template using the App Router with React 19. Deployed on **Cloudflare
 
 `pnpm dev` / `pnpm build` / `pnpm start` — dev server, production build, production server (Node.js)
 `pnpm build:worker` / `pnpm preview` / `pnpm deploy` — build and preview/deploy on Cloudflare Workers
-`pnpm check` — full check: typecheck + lint + format check + Knip + test + build
-`pnpm knip:production` — production dead-code/dependency check used by CI
+`pnpm check` — full check: typecheck + lint + format check + test + build
 
 ## Source Structure
 
