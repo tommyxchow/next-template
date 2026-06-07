@@ -1,17 +1,10 @@
-import { KitchenSink } from '@/components/KitchenSink'
-
 export default function HomePage() {
   return (
-    <div className='container mx-auto px-4 py-12 sm:py-16'>
-      <div className='mb-12 space-y-2'>
-        <h1 className='text-4xl font-semibold tracking-tight sm:text-5xl'>
-          next-template
-        </h1>
-        <p className='text-lg text-muted-foreground'>
-          A Next.js starter template.
-        </p>
-      </div>
-      <KitchenSink />
-    </div>
+    <main className='mx-auto flex min-h-dvh max-w-3xl flex-col justify-center px-6 py-16'>
+      <h1 className='text-4xl font-semibold tracking-tight'>next-template</h1>
+      <p className='mt-3 text-lg text-neutral-600 dark:text-neutral-400'>
+        A minimal Next.js starter template.
+      </p>
+    </main>
   )
 }

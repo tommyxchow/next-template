@@ -12,17 +12,14 @@ A tailored Next.js starter for shipping fast with AI-ready defaults. Deploys to 
 
 **Styling & UI**
 
-- [Tailwind CSS v4](https://tailwindcss.com/) — CSS-first config, [Typography](https://tailwindcss.com/docs/typography-plugin) plugin
-- [shadcn/ui](https://ui.shadcn.com/) — base-vega style, includes [Base UI](https://base-ui.com/), [Recharts](https://recharts.org/), [date-fns](https://date-fns.org/), and more
-- [lucide-react](https://lucide.dev/) — icons
+- [Tailwind CSS v4](https://tailwindcss.com/) — CSS-first config
+- [shadcn/ui](https://ui.shadcn.com/) — base-vega style, configured for on-demand component installs
+- [Base UI](https://base-ui.com/) and [lucide-react](https://lucide.dev/) — base dependencies for generated shadcn components
+- [Geist](https://vercel.com/font) — sans and mono font families
 - [motion](https://motion.dev/) — animations
-- [next-themes](https://github.com/pacocoursey/next-themes) — dark mode
-- [sonner](https://sonner.emilkowal.ski/) — toasts
 
 **Data & State**
 
-- [TanStack Query](https://tanstack.com/query) — client-side data fetching and caching
-- [nuqs](https://nuqs.47ng.com/) — type-safe URL search params
 - [Zod](https://zod.dev/) — schema validation
 - [React Hook Form](https://react-hook-form.com/) — forms
 - [Vercel AI SDK](https://ai-sdk.dev/) — AI integration core; add provider packages per project
@@ -80,7 +77,8 @@ A tailored Next.js starter for shipping fast with AI-ready defaults. Deploys to 
 | `pnpm test`         | Run all tests (Vitest)                                      |
 | `pnpm knip`         | Find unused files, exports, and dependencies                |
 | `pnpm check`        | Full check: typecheck + lint + format + Knip + test + build |
-| `pnpm ui:update`    | Regenerate all shadcn components to latest                  |
+| `pnpm ui:add`       | Add shadcn components on demand                             |
+| `pnpm ui:update`    | Regenerate named shadcn components                          |
 | `pnpm clean`        | Delete `.next`, `.open-next`, `node_modules`                |
 | `pnpm nuke`         | Clean + delete `pnpm-lock.yaml`                             |
 

@@ -1,14 +1,15 @@
 {
   "$schema": "https://unpkg.com/knip@6/schema-jsonc.json",
   "entry": ["open-next.config.ts"],
-  "ignoreFiles": ["src/hooks/use-mobile.ts"],
   "ignoreDependencies": [
+    "@base-ui/react",
     "@hookform/resolvers",
     "@testing-library/user-event",
     "ai",
+    "class-variance-authority",
+    "lucide-react",
     "motion",
     "react-hook-form",
-    "recharts",
     "zod",
   ],
   "ignoreIssues": {

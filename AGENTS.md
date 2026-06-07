@@ -58,33 +58,36 @@ This project uses [corepack](https://nodejs.org/api/corepack.html) to manage the
 - **No `pnpm` prefix inside package.json scripts**: The package manager is already the script runner. Use bare commands (e.g., `next build`, not `pnpm next build`).
 - **Dev tools**: `next-devtools-mcp` (Next.js MCP server) is fetched on demand via `pnpm dlx`.
 
-## Updating shadcn
+## shadcn
 
-Preset: `base-vega` + `neutral` (see `components.json`). Update command: `pnpm ui:update`. **Never use `shadcn apply`** — see Gotchas.
+Preset: `base-vega` + `neutral` + `default-translucent` menus + Geist fonts (see `components.json` and `src/app/layout.tsx`). Components are installed lazily with `pnpm ui:add <component>`. Refresh named components with `pnpm ui:update <component...>`. **Never use `shadcn apply`** — see Gotchas.
+
+Keep the Base/Vega style-level dependencies (`@base-ui/react`, `class-variance-authority`, `lucide-react`, `clsx`, `tailwind-merge`, `tw-animate-css`, `shadcn`) even when no components are installed; individual component installs assume the initialized style dependencies already exist.
 
 > [!NOTE]
-> `pnpm ui:update` runs the locally-installed `shadcn` (pinned in `package.json`), not `pnpm dlx shadcn@latest`. To pick up newer shadcn releases, bump `shadcn` in `package.json` first, then `corepack pnpm install`.
+> `pnpm ui:add` and `pnpm ui:update` run the locally-installed `shadcn`, not `pnpm dlx shadcn@latest`. To pick up newer shadcn releases, bump `shadcn` in `package.json` first, then `corepack pnpm install`.
 
 ### Workflow
 
 1. Ensure clean working tree: `git status`
-2. Run `pnpm ui:update`
-3. **Always revert the recharts caret**: `git diff package.json` will show `recharts: "^3.8.0"` → `recharts: "3.8.0"` on every run (not just when `chart.tsx` is touched). Restore the caret, then `pnpm install --lockfile-only` to resync
-4. **Check for silently stripped components**: if the shadcn output says "Skipped N files (might be identical)" for more components than seems right, your `globals.css` is probably missing a new theme token. Proceed to step 5. Otherwise skip to 7
-5. Generate a reference project in a sandbox path:
+2. Add components on demand with `pnpm ui:add <component>`
+3. Refresh existing components explicitly with `pnpm ui:update <component...>`
+4. If `chart.tsx` / `recharts` is installed, check for the shadcn recharts caret bug: `git diff package.json` may show `recharts: "^3.8.0"` → `recharts: "3.8.0"`. Restore the caret, then `pnpm install --lockfile-only` to resync
+5. **Check for silently stripped components**: if the shadcn output says "Skipped N files (might be identical)" for more components than seems right, your `globals.css` is probably missing a new theme token. Proceed to step 6. Otherwise skip to 8
+6. Generate a reference project in a sandbox path:
    ```
    pnpm dlx shadcn@latest init --template next --base base --preset vega --name fresh --yes --cwd "C:/Users/Tommy/Developer/shadcn-fresh-ref"
    ```
    Diff `shadcn-fresh-ref/fresh/app/globals.css` against `src/app/globals.css`. Look for new `--*` tokens in `@theme inline {}` and any chart/color palette changes
-6. Add missing tokens to `src/app/globals.css` manually, then re-run `pnpm ui:update`. Repeat until the skipped count stabilizes. Clean up the sandbox dir after: `rm -rf "C:/Users/Tommy/Developer/shadcn-fresh-ref"`
-7. `git diff` the full changeset, commit
+7. Add missing tokens to `src/app/globals.css` manually, then re-run `pnpm ui:update`. Repeat until the skipped count stabilizes. Clean up the sandbox dir after: `rm -rf "C:/Users/Tommy/Developer/shadcn-fresh-ref"`
+8. `git diff` the full changeset, commit
 
 ### Gotchas
 
-- **`add --all` scope**: `shadcn add --all --overwrite --yes` iterates through components already installed in `src/components/ui/` and re-renders each from the registry. It does NOT install brand-new components from the registry — for those, use `shadcn add <name>` explicitly. Base-incompatible components (see `form` below) are silently excluded.
+- **`add --all` scope**: `shadcn add --all` installs every available registry component. Do not use it for this lazy template; add or refresh named components explicitly.
 - **`add` is config-aware**: If a newer component references a CSS variable missing from `globals.css`, shadcn silently strips the class from the rendered output and skips the file as "identical". That's why workflow step 5 exists — your `globals.css` gates which component classes actually make it to disk.
 - **Misleading skip hint**: `"use --overwrite to overwrite"` is printed even when `--overwrite` is already passed. It means "rendered output matches disk", not "you forgot a flag".
-- **Recharts caret bug**: Every `pnpm ui:update` strips the `^` from `recharts` in `package.json`, regardless of whether any component was updated. Triggered on every run. Caught by workflow step 3.
+- **Recharts caret bug**: If `chart.tsx` / `recharts` is installed, `pnpm ui:update` may strip the `^` from `recharts` in `package.json`. Caught by workflow step 4.
 - **`form` is Radix-only**: The shadcn `form` component depends on `@radix-ui/react-slot` for the `asChild` pattern and has no Base UI variant. `shadcn add form` fails silently at "Checking registry" on this project. For form composition, use `react-hook-form` directly without the shadcn wrapper, or check [basecn.dev](https://basecn.dev) for Base UI ports. `react-hook-form` is already in `package.json` for this reason.
-- **Don't use `shadcn apply`**: It writes files outside `src/components/ui/` (`layout.tsx`, `globals.css`, `lib/utils.ts`, `package.json`) with its own template style, and has a broken dedupe that inserts duplicate imports when quote styles differ. Its one advantage — bringing in new theme tokens automatically — isn't worth the cleanup. `add --all` + manual `globals.css` edits is the only clean path on this project.
+- **Don't use `shadcn apply`**: It writes files outside `src/components/ui/` (`layout.tsx`, `globals.css`, `lib/utils.ts`, `package.json`) with its own template style, and has a broken dedupe that inserts duplicate imports when quote styles differ. Use named `ui:add` / `ui:update` commands and apply any missing `globals.css` tokens manually.
 - **Preset name mismatch**: `components.json` stores the style as `"base-vega"` (with prefix), but the CLI `init`/`apply` accepts only `vega` (no prefix) with an explicit `--base base` flag. Used by workflow step 5.

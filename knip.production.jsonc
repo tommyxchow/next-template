@@ -1,14 +1,18 @@
 {
   "$schema": "https://unpkg.com/knip@6/schema-jsonc.json",
   "entry": ["open-next.config.ts"],
-  "ignoreFiles": ["src/hooks/use-mobile.ts", "vitest.setup.ts"],
+  "ignoreFiles": ["src/lib/utils.ts", "vitest.setup.ts"],
   "ignoreDependencies": [
+    "@base-ui/react",
     "@hookform/resolvers",
     "@testing-library/user-event",
     "ai",
+    "class-variance-authority",
+    "clsx",
+    "lucide-react",
     "motion",
     "react-hook-form",
-    "recharts",
+    "tailwind-merge",
     "zod",
   ],
   "ignoreIssues": {

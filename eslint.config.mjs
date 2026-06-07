@@ -9,8 +9,7 @@ import tseslint from 'typescript-eslint'
 
 export default defineConfig(
   globalIgnores([
-    'src/components/ui/', // Managed by shadcn (pnpm ui:update)
-    'src/hooks/use-mobile.ts',
+    'src/components/ui/', // Managed by shadcn (pnpm ui:add/ui:update)
     '.next/',
     '.open-next/',
     'out/**',
