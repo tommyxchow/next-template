@@ -9,3 +9,16 @@ engineStrict: true
 publicHoistPattern:
   - '*eslint*'
   - '*prettier*'
+overrides:
+  'brace-expansion@>=5.0.0 <5.0.6': 5.0.6
+  fast-uri: 3.1.2
+  fast-xml-builder: 1.1.7
+  fast-xml-parser: 5.7.0
+  hono: 4.12.23
+  ip-address: 10.1.1
+  postcss: ^8.5.15
+  qs: 6.15.2
+  vite: ^7.3.3
+peerDependencyRules:
+  allowedVersions:
+    typescript: '>=6 <6.1'

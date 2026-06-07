@@ -15,7 +15,9 @@ export default defineConfig(
     '.open-next/',
     'out/**',
     'build/**',
+    '.claude/',
     'next-env.d.ts',
+    'cloudflare-env.d.ts',
   ]),
 
   eslintJs.configs.recommended,
