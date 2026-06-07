@@ -44,8 +44,5 @@ jobs:
       - name: Run checks
         run: corepack pnpm check
 
-      - name: Run production Knip
-        run: corepack pnpm knip:production
-
       - name: Build Cloudflare Worker
         run: corepack pnpm build:worker

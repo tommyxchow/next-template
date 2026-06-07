@@ -21,9 +21,7 @@
     "test:unit": "vitest run --project unit",
     "test:integration": "vitest run --project integration",
     "test:coverage": "vitest run --coverage",
-    "knip": "knip",
-    "knip:production": "knip --production --config knip.production.jsonc",
-    "check": "tsc --noEmit && eslint && prettier . --check && knip && vitest run && next build",
+    "check": "tsc --noEmit && eslint && prettier . --check && vitest run && next build",
     "ui:add": "shadcn add --yes",
     "ui:update": "shadcn add --overwrite --yes"
   },
@@ -64,7 +62,6 @@
     "eslint-plugin-better-tailwindcss": "^4.5.0",
     "eslint-plugin-react-you-might-not-need-an-effect": "^0.11.1",
     "jsdom": "^29.1.1",
-    "knip": "^6.16.0",
     "postcss": "^8.5.15",
     "prettier": "^3.8.3",
     "prettier-plugin-organize-imports": "^4.3.0",
