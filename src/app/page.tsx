@@ -10,7 +10,7 @@ export default function HomePage() {
   return (
     <main className='mx-auto flex min-h-dvh max-w-3xl flex-col justify-center px-6 py-16'>
       <h1 className='text-4xl font-semibold tracking-tight'>next-template</h1>
-      <p className='mt-3 text-lg text-neutral-600 dark:text-neutral-400'>
+      <p className='mt-3 text-lg text-muted-foreground'>
         A minimal Next.js starter template.
       </p>
       <div className='mt-8 flex items-center gap-3'>

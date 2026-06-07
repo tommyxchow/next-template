@@ -16,6 +16,7 @@ A tailored Next.js starter for shipping fast with AI-ready defaults. Deploys to 
 - [shadcn/ui](https://ui.shadcn.com/) — base-vega style, configured for on-demand component installs
 - [Base UI](https://base-ui.com/) and [lucide-react](https://lucide.dev/) — base dependencies for generated shadcn components
 - [Geist](https://vercel.com/font) — sans and mono font families
+- [next-themes](https://github.com/pacocoursey/next-themes) — dark mode
 - [motion](https://motion.dev/) — animations
 
 **Data & State**

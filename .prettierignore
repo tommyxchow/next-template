@@ -2,6 +2,5 @@
 pnpm-lock.yaml
 .open-next
 
-# managed by shadcn (pnpm ui:update)
+# managed by shadcn (pnpm ui:add / ui:update)
 src/components/ui/
-src/hooks/use-mobile.ts
