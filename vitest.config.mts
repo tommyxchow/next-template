@@ -1,9 +1,9 @@
 import react from '@vitejs/plugin-react'
-import tsconfigPaths from 'vite-tsconfig-paths'
 import { defineConfig } from 'vitest/config'
 
 export default defineConfig({
-  plugins: [tsconfigPaths()],
+  // Vite 8 resolves tsconfig `paths` natively (replaces vite-tsconfig-paths).
+  resolve: { tsconfigPaths: true },
   test: {
     globals: true,
     coverage: {
