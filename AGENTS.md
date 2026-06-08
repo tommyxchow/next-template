@@ -12,7 +12,7 @@ This version has breaking changes — APIs, conventions, and file structure may 
 
 # Project
 
-Next.js 16 template using the App Router with React 19. Deployed on **Cloudflare Workers** via `@opennextjs/cloudflare`. Runtime: Node.js >= 22, pnpm 11.
+Next.js 16 template using the App Router with React 19. Deployed on **Cloudflare Workers** via `@opennextjs/cloudflare`. Runtime: Node.js >= 24, pnpm 11.
 
 ## Commands
 
