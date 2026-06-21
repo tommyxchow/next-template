@@ -1,5 +1,0 @@
-{
-  "worktree": {
-    "symlinkDirectories": ["node_modules", ".next", ".open-next"]
-  }
-}
