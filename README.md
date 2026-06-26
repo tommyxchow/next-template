@@ -48,14 +48,11 @@ A tailored Next.js starter for shipping fast with AI-ready defaults. Deploys to 
 
    Or use the **"Use this template"** button on GitHub.
 
-2. `corepack pnpm install` (this project uses [corepack](https://nodejs.org/api/corepack.html) to pin pnpm 11 — corepack downloads it automatically)
-3. Create `.env.local` for any server-only keys your app needs
-4. Optionally create `.dev.vars` for [Cloudflare bindings](https://developers.cloudflare.com/workers/testing/local-development/#local-only-environment-variables) during local dev (Cloudflare only)
-5. `corepack pnpm dev`
-
-> [!NOTE]
-> On **Windows**, always prefix pnpm commands with `corepack` (e.g., `corepack pnpm install`).
-> Bare `pnpm` may fail due to a corepack shim conflict. On macOS/Linux, `pnpm` works directly.
+2. `corepack enable` (one-time, if not already enabled)
+3. `pnpm install` — pnpm 11 is pinned via `packageManager` in `package.json`; [corepack](https://nodejs.org/api/corepack.html) downloads the correct version automatically
+4. Create `.env.local` for any server-only keys your app needs
+5. Optionally create `.dev.vars` for [Cloudflare bindings](https://developers.cloudflare.com/workers/testing/local-development/#local-only-environment-variables) during local dev (Cloudflare only)
+6. `pnpm dev`
 
 ---
 
