@@ -10,85 +10,44 @@ This version has breaking changes — APIs, conventions, and file structure may 
 
 ---
 
-# Project
-
-Next.js 16 template using the App Router with React 19. Deployed on **Cloudflare Workers** via `@opennextjs/cloudflare`. Runtime: Node.js >= 24, pnpm 11.
+Next.js 16 (App Router) + React 19 template. Deploys to Vercel (zero-config) or Cloudflare Workers via `@opennextjs/cloudflare`. Node >= 24, pnpm 11. React Compiler and typed routes are on. Deployment, setup, and the full script table live in `README.md`.
 
 ## Commands
 
-`pnpm dev` / `pnpm build` / `pnpm start` — dev server, production build, production server (Node.js)
-`pnpm build:worker` / `pnpm preview` / `pnpm deploy` — build and preview/deploy on Cloudflare Workers
-`pnpm check` — full check: typecheck + lint + format check + test + build
+- `pnpm dev` / `pnpm build` / `pnpm start` — Node.js dev / build / prod server
+- `pnpm preview` / `pnpm deploy` — build + run/ship on Cloudflare Workers
+- `pnpm check` — typecheck + lint + format check + test + build (run before pushing)
+- `pnpm ui:add <name>` / `pnpm ui:update <name...>` — add / refresh shadcn components
 
-## Source Structure
+## Layout
 
-`src/app/` (pages/layouts), `src/components/` (React components, `ui/` for shadcn), `src/lib/` (utilities, constants), `src/hooks/` (custom hooks). Tests colocated next to source files.
+`src/app/` pages & layouts · `src/components/` (`ui/` = shadcn) · `src/lib/` utils & constants · `src/hooks/`. Tests colocated: `*.test.ts` (unit, node), `*.test.tsx` (integration, jsdom).
 
-## Cache Components
+## Caching (Cache Components)
 
-Enabled ([docs](https://nextjs.org/docs/app/getting-started/cache-components)) — everything is dynamic (SSR) by default. Opt into caching with `"use cache"` + `cacheLife()`, wrap async work in `<Suspense>` for PPR. Old `revalidate`/`dynamic`/`fetchCache` exports are replaced. Use `cacheTag()` + `revalidateTag()`/`updateTag()` for on-demand invalidation. Durable cache storage uses the R2 incremental cache (see `open-next.config.ts`); time-based and on-demand revalidation may also need OpenNext's DO queue and tag cache pieces.
+Enabled via `cacheComponents: true`. Everything is dynamic (SSR) by default — opt into caching with `"use cache"` + `cacheLife()`, and wrap async work in `<Suspense>` for PPR. Invalidate with `cacheTag()` + `revalidateTag()`/`updateTag()`. The old `revalidate`/`dynamic`/`fetchCache` route exports no longer exist. On Cloudflare, durable cache needs the R2 binding (commented in `wrangler.jsonc` / `open-next.config.ts`); time-based and on-demand revalidation also need OpenNext's DO queue + tag cache.
 
 ## Environment
 
-- `SITE_URL` — Base URL for the site. Declared in `wrangler.jsonc`, defaults to `http://localhost:3000` for local dev. Used in `src/lib/constants.ts` for `metadataBase`, sitemap, and robots.txt.
-- `src/env.d.ts` types `process.env` globally — use `process.env.X` directly, no env validation library needed. Don't declare secrets in `wrangler.jsonc` (committed to git) — set production secrets via Cloudflare dashboard or `pnpx wrangler secret put`.
-
-## Images
-
-- **Static/known images**: pre-generate webp variants at build time (e.g., via `sharp` in a build script) and use plain `<img srcset>`. Don't use `next/image` with the Cloudflare IMAGES binding for static images — it bills per-call with no dedup and `/_next/image` responses aren't edge-cached without a Cache Rule.
-- **Dynamic/user-uploaded images**: uncomment the IMAGES binding in `wrangler.jsonc` and configure a Cache Rule for `/_next/image*` in the Cloudflare dashboard (Caching → Cache Rules → Edge TTL override 1 year). Without it, every cache miss re-bills — the binding has no dedup and responses aren't auto-cached (no file extension in the URL).
-
-## pnpm 11
-
-This project pins pnpm via the `packageManager` field in `package.json`. [Corepack](https://nodejs.org/api/corepack.html) (bundled with Node.js) reads that field and downloads the correct pnpm version automatically — use bare `pnpm` commands (`pnpm install`, `pnpm dev`, etc.).
-
-One-time setup on a fresh machine: `corepack enable`. After that, `pnpm` should honor `packageManager` without a prefix.
-
-- **Wrong pnpm version?** Usually a PATH conflict — a standalone pnpm install shadowing Node's corepack shim. Run `pnpm --version` (expect 11.5.2) and `where pnpm` / `which pnpm` to see what resolves. Prefer Node's shim or remove the standalone install.
-- **Command config exception**: `package.json` scripts and MCP server configs should use bare executable names because the package manager or launcher provides the execution context.
-- **Config migration from v10**: pnpm 11 restricts `.npmrc` to auth/registry settings only. All other config lives in `pnpm-workspace.yaml`:
-  - `allowBuilds` map replaces `onlyBuiltDependencies` / `neverBuiltDependencies` / `ignoredBuiltDependencies`
-  - `publicHoistPattern` and `engineStrict` moved from `.npmrc` to `pnpm-workspace.yaml`
-- **Env vars**: pnpm 11 no longer reads `npm_config_*` variables. Use `pnpm_config_*` instead (e.g., `pnpm_config_registry`).
+- `process.env.X` is typed globally in `src/env.d.ts` — use it directly, no validation lib.
+- `SITE_URL` (in `wrangler.jsonc`, defaults to `http://localhost:3000`) feeds `metadataBase`, sitemap, and robots via `src/lib/constants.ts`.
+- Never put secrets in `wrangler.jsonc` (it's committed) — use the Cloudflare dashboard or `pnpm exec wrangler secret put`.
 
 ## Gotchas
 
-- **shadcn uses @base-ui/react**: Not Radix UI — imports differ from older shadcn examples, and most components don't expose `asChild`. Check `src/components/ui/` before building custom UI.
-- **`useSearchParams()` needs Suspense**: Always wrap components using `useSearchParams()` in a `<Suspense>` boundary — required for production builds.
-- **Never remove `tw-animate-css`**: Required by shadcn/ui components for animations. Check shadcn dependencies before removing any package.
-- **No `pnpm` prefix inside package.json scripts**: The package manager is already the script runner. Use bare commands (e.g., `next build`, not `pnpm next build`).
-- **Dev tools**: `next-devtools-mcp` (Next.js MCP server) is fetched on demand via `pnpm dlx`.
+- **shadcn = Base UI, not Radix.** Imports differ from older examples and most components have no `asChild`. Check `src/components/ui/` before building custom UI.
+- **`form` has no Base UI port** — `shadcn add form` fails silently. Use `react-hook-form` directly (already installed), or a port from [basecn.dev](https://basecn.dev).
+- **`useSearchParams()` needs a `<Suspense>` boundary**, or the production build fails.
+- **Never remove `tw-animate-css`** — shadcn animations depend on it.
+- **Images on Cloudflare bill per call.** Static images: pre-generate webp at build time and use plain `<img srcset>`, not `next/image`. User uploads: enable the IMAGES binding in `wrangler.jsonc` + a Cache Rule on `/_next/image*` (Edge TTL 1y), or every cache miss re-bills.
+- **pnpm 11 config lives in `pnpm-workspace.yaml`** (`.npmrc` is auth/registry only). `allowBuilds` replaces the old `*BuiltDependencies` keys; env vars are `pnpm_config_*` not `npm_config_*`. The version is pinned in `packageManager` (`package.json`); if `pnpm -v` differs, a standalone install is shadowing corepack's shim.
+- **`package.json` scripts use bare commands** (`next build`, not `pnpm next build`) — pnpm is already the runner.
 
-## shadcn
+## shadcn workflow
 
-Preset: `base-vega` + `neutral` + `default-translucent` menus + Geist fonts (see `components.json` and `src/app/layout.tsx`). Components are installed lazily with `pnpm ui:add <component>`. Refresh named components with `pnpm ui:update <component...>`. **Never use `shadcn apply`** — see Gotchas.
+Style `base-nova` / `neutral` / Geist (`components.json`). Components install lazily — keep the style deps (`@base-ui/react`, `class-variance-authority`, `lucide-react`, `clsx`, `tailwind-merge`, `tw-animate-css`, `shadcn`) even when none are installed. Inspect with `pnpm exec shadcn info` (project config + CSS vars); pull a component's docs into context with `pnpm exec shadcn docs <name>`.
 
-Keep the Base/Vega style-level dependencies (`@base-ui/react`, `class-variance-authority`, `lucide-react`, `clsx`, `tailwind-merge`, `tw-animate-css`, `shadcn`) even when no components are installed; individual component installs assume the initialized style dependencies already exist.
-
-> [!NOTE]
-> `pnpm ui:add` and `pnpm ui:update` run the locally-installed `shadcn`, not `pnpm dlx shadcn@latest`. To pick up newer shadcn releases, bump `shadcn` in `package.json` first, then `pnpm install`.
-
-### Workflow
-
-1. Ensure clean working tree: `git status`
-2. Add components on demand with `pnpm ui:add <component>`
-3. Refresh existing components explicitly with `pnpm ui:update <component...>`
-4. If `chart.tsx` / `recharts` is installed, check for the shadcn recharts caret bug: `git diff package.json` may show `recharts: "^3.8.0"` → `recharts: "3.8.0"`. Restore the caret, then `pnpm install --lockfile-only` to resync
-5. **Check for silently stripped components**: if the shadcn output says "Skipped N files (might be identical)" for more components than seems right, your `globals.css` is probably missing a new theme token. Proceed to step 6. Otherwise skip to 8
-6. Generate a reference project in a sandbox path:
-   ```
-   pnpm dlx shadcn@latest init --template next --base base --preset vega --name fresh --yes --cwd "C:/Users/Tommy/Developer/shadcn-fresh-ref"
-   ```
-   Diff `shadcn-fresh-ref/fresh/app/globals.css` against `src/app/globals.css`. Look for new `--*` tokens in `@theme inline {}` and any chart/color palette changes
-7. Add missing tokens to `src/app/globals.css` manually, then re-run `pnpm ui:update`. Repeat until the skipped count stabilizes. Clean up the sandbox dir after: `rm -rf "C:/Users/Tommy/Developer/shadcn-fresh-ref"`
-8. `git diff` the full changeset, commit
-
-### Gotchas
-
-- **`add --all` scope**: `shadcn add --all` installs every available registry component. Do not use it for this lazy template; add or refresh named components explicitly.
-- **`add` is config-aware**: If a newer component references a CSS variable missing from `globals.css`, shadcn silently strips the class from the rendered output and skips the file as "identical". That's why workflow step 5 exists — your `globals.css` gates which component classes actually make it to disk.
-- **Misleading skip hint**: `"use --overwrite to overwrite"` is printed even when `--overwrite` is already passed. It means "rendered output matches disk", not "you forgot a flag".
-- **Recharts caret bug**: If `chart.tsx` / `recharts` is installed, `pnpm ui:update` may strip the `^` from `recharts` in `package.json`. Caught by workflow step 4.
-- **`form` is Radix-only**: The shadcn `form` component depends on `@radix-ui/react-slot` for the `asChild` pattern and has no Base UI variant. `shadcn add form` fails silently at "Checking registry" on this project. For form composition, use `react-hook-form` directly without the shadcn wrapper, or check [basecn.dev](https://basecn.dev) for Base UI ports. `react-hook-form` is already in `package.json` for this reason.
-- **Don't use `shadcn apply`**: It writes files outside `src/components/ui/` (`layout.tsx`, `globals.css`, `lib/utils.ts`, `package.json`) with its own template style, and has a broken dedupe that inserts duplicate imports when quote styles differ. Use named `ui:add` / `ui:update` commands and apply any missing `globals.css` tokens manually.
-- **Preset name mismatch**: `components.json` stores the style as `"base-vega"` (with prefix), but the CLI `init`/`apply` accepts only `vega` (no prefix) with an explicit `--base base` flag. Used by workflow step 5.
+1. `pnpm ui:add <name>` adds, `pnpm ui:update <name...>` refreshes. These run the local `shadcn` (bump it in `package.json` to upgrade), never `pnpm dlx shadcn@latest`.
+2. **Never `shadcn apply` or `shadcn add --all`** — `apply` rewrites files outside `ui/` with its own style and duplicates imports; `--all` installs the entire registry.
+3. If `ui:update` skips more files than expected, `globals.css` is probably missing a theme token — shadcn silently strips classes that reference unknown `--*` vars. Check `shadcn info` for CSS vars, then diff `globals.css` against a fresh reference (`pnpm dlx shadcn@latest init --template next --base base --preset nova ...` — the CLI wants the bare preset name `nova` + `--base base`, not the combined `base-nova` from `components.json`), add the missing tokens, re-run.
+4. If `recharts`/`chart.tsx` is installed, `ui:update` may strip the `^` off `recharts` in `package.json` — restore it, then `pnpm install --lockfile-only`.
