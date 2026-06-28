@@ -40,7 +40,7 @@ Enabled via `cacheComponents: true`. Everything is dynamic (SSR) by default — 
 - **`useSearchParams()` needs a `<Suspense>` boundary**, or the production build fails.
 - **Never remove `tw-animate-css`** — shadcn animations depend on it.
 - **Images on Cloudflare bill per call.** Static images: pre-generate webp at build time and use plain `<img srcset>`, not `next/image`. User uploads: enable the IMAGES binding in `wrangler.jsonc` + a Cache Rule on `/_next/image*` (Edge TTL 1y), or every cache miss re-bills.
-- **pnpm 11 config lives in `pnpm-workspace.yaml`** (`.npmrc` is auth/registry only). `allowBuilds` replaces the old `*BuiltDependencies` keys; env vars are `pnpm_config_*` not `npm_config_*`. The version is pinned in `packageManager` (`package.json`); if `pnpm -v` differs, a standalone install is shadowing corepack's shim.
+- **pnpm 11 config lives in `pnpm-workspace.yaml`** (`.npmrc` is auth/registry only). `allowBuilds` replaces the old `*BuiltDependencies` keys; env vars are `pnpm_config_*` not `npm_config_*`. pnpm 11 defaults `minimumReleaseAge` to 24h for supply-chain protection — keep that default; wait a day after a fresh publish before bumping, or add a targeted `minimumReleaseAgeExclude` entry if you truly need same-day. The version is pinned in `packageManager` (`package.json`); if `pnpm -v` differs, a standalone install is shadowing corepack's shim.
 - **`package.json` scripts use bare commands** (`next build`, not `pnpm next build`) — pnpm is already the runner.
 
 ## shadcn workflow
