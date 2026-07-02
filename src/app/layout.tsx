@@ -1,5 +1,5 @@
-import { Providers } from '@/components/Providers'
-import { ThemeToggle } from '@/components/ThemeToggle'
+import { Providers } from '@/components/providers'
+import { ThemeToggle } from '@/components/theme-toggle'
 import { BASE_URL } from '@/lib/constants'
 import { type Metadata } from 'next'
 import { Geist, Geist_Mono } from 'next/font/google'
