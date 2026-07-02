@@ -35,6 +35,17 @@ Enabled via `cacheComponents: true`. Everything is dynamic (SSR) by default — 
 - `SITE_URL` (in `wrangler.jsonc`, defaults to `http://localhost:3000`) feeds `metadataBase`, sitemap, and robots via `src/lib/constants.ts`.
 - Never put secrets in `wrangler.jsonc` (it's committed) — use the Cloudflare dashboard or `pnpm exec wrangler secret put`.
 
+## Code style
+
+ESLint + Prettier enforce the baseline (`pnpm check`). Conventions beyond the linters:
+
+- Named exports only — use a default export only where Next.js/tooling requires one (`page`/`layout` and other special files, config files, `React.lazy`/`dynamic` targets).
+- No TS enums — use `as const` objects or union types. Prefer discriminated unions over boolean flags for mutually exclusive states.
+- Avoid `any`; if genuinely unavoidable, leave a one-line comment saying why. Don't paper over types with `as` casts or non-null `!` — fix at the definition.
+- Use `interface` for component props, colocated directly above the component.
+- Conventional commits: `type(scope): description` — lowercase, no period, tightly scoped; `!` before `:` for breaking changes.
+- Use `pnpm` for everything — never `npm`/`npx`/`yarn` (`packageManager` + corepack pin the version, but not the tool choice).
+
 ## Gotchas
 
 - **shadcn = Base UI, not Radix.** Imports differ from older examples and most components have no `asChild`. Check `src/components/ui/` before building custom UI.
