@@ -57,7 +57,7 @@ Style `base-nova` / `neutral` / Geist (`components.json`). Components install la
 ## React
 
 - React Compiler is on — let it handle memoization instead of reaching for `useMemo`/`useCallback`/`memo` by default. They're still legitimate escape hatches for effect-dependency stability or refs handed to non-compiled third-party code.
-- Avoid `useEffect` unless syncing with an external system (React's "You Might Not Need an Effect") — otherwise compute during render or in event handlers. Avoid `useRef` unless you need DOM access, imperative work, or a mutable value that shouldn't trigger a re-render.
+- Avoid `useRef` unless you need DOM access, imperative work, or a mutable value that shouldn't trigger a re-render.
 
 ## Styling
 
@@ -79,5 +79,3 @@ Style `base-nova` / `neutral` / Geist (`components.json`). Components install la
 - Reach for native CSS / Web Animations first — Tailwind covers most of it (`transition`/`animate-*`, `starting:` + `transition-discrete`, view transitions, scroll-driven animations); `tw-animate-css` powers shadcn's. Pull in Motion (npm `motion`, import `motion/react`) only for orchestration, gesture/interrupt control, or shared-element/layout animations.
 - Animate open/close to intrinsic height with the grid trick (`grid-rows-[0fr]` → `grid-rows-[1fr]`); transitioning to `h-auto` via `interpolate-size`/`calc-size()` is cleaner but Chromium-only (enhancement).
 - Animate only compositor-friendly props — transform utilities (`translate-*`/`scale-*`/`rotate-*`) and `opacity-*`. Avoid transitioning layout utilities (`w-`/`h-`/`inset`/`m-`).
-- Respect `prefers-reduced-motion` — gate non-essential motion behind `motion-safe:`; reduce/replace rather than strip.
-- Keep keyboard focus visible: style `focus-visible:` with `ring-*`/`outline-*`; never strip it (`outline-hidden`, `ring-0`) without a clear replacement.
