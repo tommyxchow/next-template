@@ -16,12 +16,12 @@ Next.js 16 (App Router) + React 19 template. Deploys to Vercel (zero-config) or 
 
 - `pnpm dev` / `pnpm build` / `pnpm start` — Node.js dev / build / prod server
 - `pnpm preview` / `pnpm deploy` — build + run/ship on Cloudflare Workers
-- `pnpm check` — typecheck + lint + format check + test + build (run before pushing)
+- `pnpm check` — typecheck + lint + format check + test + build (the same gate CI runs; locally prefer targeted runs, e.g. `pnpm typecheck` or `pnpm vitest run <file>`)
 - `pnpm ui:add <name>` / `pnpm ui:update <name...>` — add / refresh shadcn components
 
 ## Layout
 
-`src/app/` pages & layouts · `src/components/` (`ui/` = shadcn) · `src/lib/` utils & constants · `src/hooks/`. Tests colocated: `*.test.ts` (unit, node), `*.test.tsx` (integration, jsdom).
+`src/app/` pages & layouts · `src/components/` (`ui/` = shadcn) · `src/lib/` utils & constants · `src/hooks/` (aliased as `@/hooks`; create on first use). Tests colocated: `*.test.ts` (unit, node), `*.test.tsx` (integration, jsdom).
 
 ## Caching (Cache Components)
 
