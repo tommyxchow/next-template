@@ -1,15 +1,14 @@
-import eslintReact from '@eslint-react/eslint-plugin'
 import eslintJs from '@eslint/js'
 import nextPlugin from '@next/eslint-plugin-next'
 import prettier from 'eslint-config-prettier/flat'
 import betterTailwindcss from 'eslint-plugin-better-tailwindcss'
+import reactHooks from 'eslint-plugin-react-hooks'
 import reactYouMightNotNeedAnEffect from 'eslint-plugin-react-you-might-not-need-an-effect'
 import { defineConfig, globalIgnores } from 'eslint/config'
 import tseslint from 'typescript-eslint'
 
 export default defineConfig(
   globalIgnores([
-    'src/components/ui/', // Managed by shadcn (pnpm ui:add/ui:update)
     '.next/',
     '.open-next/',
     'out/**',
@@ -21,11 +20,17 @@ export default defineConfig(
 
   eslintJs.configs.recommended,
 
+  // TODO: switch both Next + hooks blocks to eslint-config-next once
+  // eslint-plugin-react supports ESLint 10. Track:
+  // https://github.com/jsx-eslint/eslint-plugin-react/issues/3977
+  // https://github.com/vercel/next.js/issues/89764
   // Next.js-specific rules (no-html-link-for-pages, no-img-element, etc.)
   {
     files: ['**/*.{ts,tsx}'],
     ...nextPlugin.configs['core-web-vitals'],
   },
+
+  reactHooks.configs.flat.recommended,
 
   {
     files: ['**/*.{ts,tsx}'],
@@ -38,8 +43,6 @@ export default defineConfig(
     },
     extends: [
       tseslint.configs.recommendedTypeChecked,
-      tseslint.configs.stylisticTypeChecked,
-      eslintReact.configs['recommended-type-checked'],
       reactYouMightNotNeedAnEffect.configs.recommended,
     ],
     rules: {
@@ -75,6 +78,7 @@ export default defineConfig(
         'error',
         { ignorePrimitives: { string: true } },
       ],
+      '@typescript-eslint/prefer-optional-chain': 'error',
       '@typescript-eslint/no-misused-promises': [
         'error',
         { checksVoidReturn: { attributes: false } },
@@ -82,7 +86,6 @@ export default defineConfig(
       '@typescript-eslint/only-throw-error': 'error',
       '@typescript-eslint/return-await': ['error', 'in-try-catch'],
       '@typescript-eslint/no-array-delete': 'error',
-      '@eslint-react/no-array-index-key': 'warn',
 
       'no-restricted-syntax': [
         'error',
@@ -92,10 +95,8 @@ export default defineConfig(
         },
       ],
 
-      // Server components calling cookies()/headers() are not impure
-      '@eslint-react/purity': 'off',
-      // Redundant with react-you-might-not-need-an-effect
-      '@eslint-react/set-state-in-effect': 'off',
+      // Next App Router: cookies()/headers() during render are legitimate
+      'react-hooks/purity': 'off',
     },
   },
 

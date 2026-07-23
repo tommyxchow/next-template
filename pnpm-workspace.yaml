@@ -2,7 +2,8 @@ packages: []
 allowBuilds:
   esbuild: true
   msw: true
-  sharp: true
+  sharp: false
+  unrs-resolver: false
   workerd: true
 verifyDepsBeforeRun: install
 engineStrict: true

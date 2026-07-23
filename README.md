@@ -28,7 +28,7 @@ A tailored Next.js starter for shipping fast with AI-ready defaults. Deploys to 
 **Tooling**
 
 - [Vitest](https://vitest.dev/) — unit + integration tests
-- [ESLint](https://eslint.org/) — strict type-aware rules + [Prettier](https://prettier.io/)
+- [ESLint](https://eslint.org/) — Next + React hooks/Compiler, type-aware TS + [Prettier](https://prettier.io/)
 
 **Infrastructure**
 
