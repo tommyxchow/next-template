@@ -5,10 +5,10 @@ import { useEffect } from 'react'
 
 export default function Error({
   error,
-  reset,
+  retry,
 }: {
   error: Error & { digest?: string }
-  reset: () => void
+  retry: () => void
 }) {
   useEffect(() => {
     // Surface the error for observability (Cloudflare Workers logs).
@@ -24,7 +24,7 @@ export default function Error({
         An unexpected error occurred. Try again, and if it keeps happening,
         reload the page.
       </p>
-      <Button onClick={reset}>Try again</Button>
+      <Button onClick={retry}>Try again</Button>
     </div>
   )
 }

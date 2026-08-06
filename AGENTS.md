@@ -2,15 +2,17 @@
 
 <!-- BEGIN:nextjs-agent-rules -->
 
-# Next.js: ALWAYS read docs before coding
+# This is NOT the Next.js you know
 
-Before any Next.js work, find and read the relevant doc in `node_modules/next/dist/docs/`. Your training data is outdated — the docs are the source of truth.
+This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` (resolved from this file's directory; in monorepos the `next` package may not be visible from the repo root) before writing any code. Heed deprecation notices.
+
+This block is written and re-added by `next dev` — verify at `node_modules/next/dist/server/lib/generate-agent-files.js`. Removing it from a diff only re-creates the uncommitted change; committing it with your work keeps the tree clean.
 
 <!-- END:nextjs-agent-rules -->
 
 ---
 
-Next.js 16 (App Router) + React 19 template. Deploys to Vercel (zero-config) or Cloudflare Workers via `@opennextjs/cloudflare`. Node >= 24, pnpm 11. React Compiler and typed routes are on. Deployment, setup, and the full script table live in `README.md`.
+Next.js 16.3 (App Router) + React 19 template. Deploys to Vercel (zero-config) or Cloudflare Workers via `@opennextjs/cloudflare`. Node >= 24, pnpm 11. React Compiler and typed routes are on. Deployment, setup, and the full script table live in `README.md`.
 
 ## Commands
 
@@ -29,6 +31,12 @@ Enabled via `cacheComponents: true`. Everything is dynamic (SSR) by default — 
 
 `cacheComponents` also enables React `<Activity>` for route-level UI state: navigating away and back no longer unmounts the previous route, so `useState`, form inputs, and scroll position persist. Dropdowns/dialogs/forms that should reset on return need explicit reset logic.
 
+## Prefetching (Partial Prefetching)
+
+`partialPrefetching: true` (requires `cacheComponents`) makes every `<Link>` prefetch one reusable App Shell per route — the route's static plus URL-independent cached content — instead of a per-link prefetch. `<Link prefetch={true}>` additionally resolves per-link runtime data (`params`, `searchParams`, full URL); only reach for it when the destination actually reads URL data, since a shell already covers static/cached content. `cookies()`/`headers()` vary per session, not per link, so they stay in the shell.
+
+Dev surfaces instant-navigation insights (dev-only, never build-breaking) when a route can't produce a useful shell — usually URL data read outside `<Suspense>`. Fix by wrapping the read in `<Suspense>` or caching it; `export const instant = false` opts a route out of the validation.
+
 ## Environment
 
 - `process.env.X` is typed globally in `src/env.d.ts` — use it directly, no validation lib.
@@ -45,6 +53,10 @@ Enabled via `cacheComponents: true`. Everything is dynamic (SSR) by default — 
 - **Images on Cloudflare bill per call.** Static images: pre-generate webp at build time and use plain `<img srcset>`, not `next/image`. User uploads: enable the IMAGES binding in `wrangler.jsonc` + a Cache Rule on `/_next/image*` (Edge TTL 1y), or every cache miss re-bills.
 - **pnpm 11 config lives in `pnpm-workspace.yaml`** (`.npmrc` is auth/registry only). `allowBuilds` replaces the old `onlyBuiltDependencies`/`neverBuiltDependencies`/`ignoredBuiltDependencies` keys; env vars are `pnpm_config_*` not `npm_config_*`. Defaults `minimumReleaseAge` to 24h for supply-chain protection — keep that default; wait a day after a fresh publish before bumping, or add a targeted `minimumReleaseAgeExclude` entry if you truly need same-day.
 - **pnpm version is pinned in `packageManager`** (`package.json`) — if `pnpm -v` differs, a standalone install is shadowing corepack's shim. (`pmOnFail: error` in `pnpm-workspace.yaml` turns that mismatch into a hard failure instead of a silent one — a team-wide behavior change, so ask before adding it, don't add it preemptively.)
+- **`error.tsx` takes `retry`, not `reset`** (stable since 16.3). `retry()` re-fetches and re-renders the boundary's children, including failed Server Components; `reset()` only clears client error state and still exists for that narrow case.
+- **Next won't scaffold a root `CLAUDE.md`** while this `AGENTS.md` exists — that's why the project's own lives at `.claude/CLAUDE.md`. Deleting `AGENTS.md` makes `next dev` create both at the root.
+- **TypeScript is pinned to 6.x on purpose.** TS 7 is ~10x faster but `typescript-eslint` peers `<6.1.0` and crashes on it — TS 7 has no stable programmatic API until 7.1. Don't bump until typescript-eslint ships support.
+- **Two other majors are held back deliberately** — don't "fix" them with `pnpm update --latest`. `@types/node` tracks the runtime major (`.nvmrc` = 24), so v26 would typecheck against APIs Node 24 doesn't have. `jsdom` 30 needs Node `^24.15.0`, which `engineStrict: true` turns into a hard install failure — bump Node first, then jsdom.
 
 ## shadcn workflow
 

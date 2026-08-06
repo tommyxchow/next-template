@@ -6,7 +6,7 @@ A tailored Next.js starter for shipping fast with AI-ready defaults. Deploys to 
 
 **Framework**
 
-- [Next.js 16](https://nextjs.org/) — App Router, React Compiler, Typed Routes
+- [Next.js 16](https://nextjs.org/) — App Router, React Compiler, Typed Routes, Cache Components, Partial Prefetching
 - [React 19](https://react.dev/)
 - [TypeScript](https://www.typescriptlang.org/) — strict mode + `noUncheckedIndexedAccess`
 

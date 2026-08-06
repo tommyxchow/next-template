@@ -9,10 +9,10 @@ import { useEffect } from 'react'
  */
 export default function GlobalError({
   error,
-  reset,
+  retry,
 }: {
   error: Error & { digest?: string }
-  reset: () => void
+  retry: () => void
 }) {
   useEffect(() => {
     // Surface the error for observability (Cloudflare Workers logs).
@@ -41,7 +41,7 @@ export default function GlobalError({
           A critical error occurred. Please reload the page.
         </p>
         <button
-          onClick={reset}
+          onClick={retry}
           style={{
             cursor: 'pointer',
             borderRadius: '0.375rem',

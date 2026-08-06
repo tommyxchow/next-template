@@ -16,6 +16,7 @@ const nextConfig: NextConfig = {
     },
     browserToTerminal: 'warn',
   },
+  partialPrefetching: true,
 }
 
 export default nextConfig
