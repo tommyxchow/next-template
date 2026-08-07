@@ -23,7 +23,8 @@
     "test:coverage": "vitest run --coverage",
     "check": "tsc --noEmit && eslint && prettier . --check && vitest run && next build",
     "ui:add": "shadcn add --yes",
-    "ui:update": "shadcn add --overwrite --yes"
+    "ui:update": "shadcn add --overwrite --yes",
+    "ui:diff": "node -e \"const fs=require('fs'),{spawnSync}=require('child_process');const ui=fs.existsSync('src/components/ui')?fs.readdirSync('src/components/ui').filter(f=>f.endsWith('.tsx')).map(f=>f.slice(0,-4)):[];const items=[...ui,...(fs.existsSync('src/hooks/use-mobile.ts')?['use-mobile']:[]),'utils'];spawnSync('shadcn add '+items.join(' ')+' --dry-run',{stdio:'inherit',shell:true})\""
   },
   "dependencies": {
     "@base-ui/react": "^1.7.0",
