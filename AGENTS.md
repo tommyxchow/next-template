@@ -20,6 +20,7 @@ Next.js 16.3 (App Router) + React 19 template. Deploys to Vercel (zero-config) o
 - `pnpm preview` / `pnpm deploy` — build + run/ship on Cloudflare Workers
 - `pnpm check` — typecheck + lint + format check + test + build (what CI runs)
 - `pnpm ui:add <name>` / `pnpm ui:update <name...>` — add / refresh shadcn components
+- `pnpm ui:diff` — report installed shadcn items against the registry
 
 ## Layout
 
@@ -64,30 +65,13 @@ Style `base-nova` / `neutral` / Geist (`components.json`). Components install la
 
 1. `pnpm ui:add <name>` adds, `pnpm ui:update <name...>` refreshes. These run the local `shadcn` (bump it in `package.json` to upgrade), never `pnpm dlx shadcn@latest`.
 2. **Never `shadcn apply` or `shadcn add --all`** — `apply` rewrites files outside `ui/` with its own style and duplicates imports; `--all` installs the entire registry.
-3. If `ui:update` skips more files than expected, `globals.css` is probably missing a theme token — shadcn silently strips classes that reference unknown `--*` vars. Check `shadcn info` for CSS vars, then regenerate a fresh reference via `shadcn init` in a scratch dir (check the current CLI flags first — historically it wanted the bare preset name, not the combined `base-nova` from `components.json`), diff `globals.css` against it, add the missing tokens, re-run.
+3. `pnpm ui:diff` reports every installed item against the registry in one table (`= skip (identical)` vs `~ overwrite`). Inspect anything listed `overwrite` with `pnpm exec shadcn add <name> --diff`, and take the change only if the registry genuinely superseded yours. `src/lib/utils.ts` always shows `overwrite` — `src/lib/` isn't prettier-ignored, so `prettier-plugin-organize-imports` reorders the `clsx` import after install. Cosmetic.
+4. **Never `shadcn diff`** — the CLI marks it `[DEPRECATED]` and it returns false negatives, reporting "No updates found" for files that `add --diff` shows real hunks for. `add --diff` with no arguments is no help either: it opens an interactive picker over the whole registry instead of your installed items.
+5. `utils` (and `use-mobile`, once a component pulls it in) are registry _dependencies_ of other components — e.g. `pnpm ui:update sidebar` rewrites `src/hooks/use-mobile.ts`. Always `pnpm ui:diff` before and `git diff` after a refresh.
+6. If `ui:update` skips more files than expected, `globals.css` is probably missing a theme token — shadcn silently strips classes that reference unknown `--*` vars. Check `shadcn info` for CSS vars, then regenerate a fresh reference via `shadcn init` in a scratch dir (check the current CLI flags first — historically it wanted the bare preset name, not the combined `base-nova` from `components.json`), diff `globals.css` against it, add the missing tokens, re-run.
 
-## React
+## Conventions
 
-- React Compiler is on — let it handle memoization instead of reaching for `useMemo`/`useCallback`/`memo` by default. They're still legitimate escape hatches for effect-dependency stability or refs handed to non-compiled third-party code.
-- Avoid `useRef` unless you need DOM access, imperative work, or a mutable value that shouldn't trigger a re-render.
-
-## Styling
-
-- Use the project `cn()` (shadcn's `@/lib/utils`) for conditional/merged class lists, not string concatenation.
-- Style from the theme tokens in `globals.css` (`bg-background`, `text-foreground`), not scattered raw palette. Arbitrary values (`w-[37px]`) are an escape hatch; extract a repeated class string into a component/variant rather than `@apply`.
-- The default scale (`p-4`, `text-lg`, `gap-2`) is rem-based — lean on it. Use fixed px only for things meant to stay put on zoom (hairline borders/dividers `border`/`h-px`, decorative underlines `decoration-2`).
-- Default to logical utilities (`ms`/`me`/`ps`/`pe`, logical `inset`) over physical (`ml`/`mr`) for RTL-readiness.
-- Full-height layouts: `min-h-svh` over `min-h-screen`/`100vh` (which overflows under mobile browser chrome). Use `dvh` only to track the bar live (can jank); fixed `h-svh` only for app shells with internal scroll.
-- For a component reused at different widths (or heights), prefer container queries (`@container`, `@sm:`/`@md:`, `@container-size` + `cqh`/`cqb` for height-aware) over viewport breakpoints.
-- Translucent fill/border: a color/alpha utility (`bg-black/50`, `border-white/20`) or a solid token, not `opacity-*` (which fades children too). Keep `opacity-*` for fading a whole element/state.
-- `tabular-nums` for numbers that update in place or align in columns (timers, counters, prices, tables).
-- `text-balance` on headings, `text-pretty` on body copy (`pretty` not in Firefox yet — progressive enhancement).
-- Tracking scales inversely with size: widen all-caps/eyebrow labels (`tracking-wider`/`tracking-widest`), tighten large display headings (`tracking-tight`/`tracking-tighter`), leave body alone.
-- Don't hard-cut overflow: `truncate`/`line-clamp-*` for text, a fade (`mask-*` gradient)/shadow/peek edge for scrollable regions.
-- Reserve space to avoid CLS: `aspect-*` (or `size-*`/`w-`/`h-`) on media, fixed skeleton dims, `scrollbar-gutter-stable` on scroll containers/modals.
-
-## Animation
-
-- Reach for native CSS / Web Animations first — Tailwind covers most of it (`transition`/`animate-*`, `starting:` + `transition-discrete`, view transitions, scroll-driven animations); `tw-animate-css` powers shadcn's. Pull in Motion (npm `motion`, import `motion/react`) only for orchestration, gesture/interrupt control, or shared-element/layout animations.
-- Animate open/close to intrinsic height with the grid trick (`grid-rows-[0fr]` → `grid-rows-[1fr]`); transitioning to `h-auto` via `interpolate-size`/`calc-size()` is cleaner but Chromium-only (enhancement).
-- Animate only compositor-friendly props — transform utilities (`translate-*`/`scale-*`/`rotate-*`) and `opacity-*`. Avoid transitioning layout utilities (`w-`/`h-`/`inset`/`m-`).
+- React Compiler is on — let it handle memoization. `useMemo`/`useCallback`/`memo` remain escape hatches for effect-dependency stability or refs handed to non-compiled third-party code.
+- Use the project `cn()` (`@/lib/utils`) for conditional/merged class lists, and style from the theme tokens in `globals.css` (`bg-background`, `text-foreground`) rather than raw palette values.
+- `tw-animate-css` powers shadcn's animations; `motion` (import from `motion/react`) is installed for orchestration, gesture/interrupt control, and shared-element transitions. Reach for CSS first — Tailwind covers `starting:` + `transition-discrete`, view transitions, and scroll-driven animations.
