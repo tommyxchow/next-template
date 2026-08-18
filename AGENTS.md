@@ -24,7 +24,7 @@ Next.js 16.3 (App Router) + React 19 template. Deploys to Vercel (zero-config) o
 
 ## Layout
 
-`src/app/` pages & layouts · `src/components/` (`ui/` = shadcn) · `src/lib/` utils & constants · `src/hooks/` (aliased as `@/hooks`; create on first use). Tests colocated: `*.test.ts` (unit, node), `*.test.tsx` (integration, jsdom).
+`src/app/` pages & layouts · `src/components/` (`ui/` = shadcn) · `src/lib/` utils & constants · `src/hooks/` (aliased as `@/hooks`). Tests colocated: `*.test.ts` (unit, node), `*.test.tsx` (integration, jsdom).
 
 ## Caching (Cache Components)
 
@@ -41,7 +41,7 @@ Dev surfaces instant-navigation insights (dev-only, never build-breaking) when a
 ## Environment
 
 - `process.env.X` is typed globally in `src/env.d.ts` — use it directly, no validation lib.
-- `SITE_URL` (in `wrangler.jsonc`, defaults to `http://localhost:3000`) feeds `metadataBase`, sitemap, and robots via `src/lib/constants.ts`.
+- `SITE_URL` (in `wrangler.jsonc`, defaults to `http://localhost:3000`) feeds `metadataBase`, sitemap, and robots via `src/lib/constants.ts`. `src/env.d.ts` types it `string | undefined` on purpose: `cloudflare-env.d.ts` otherwise types it as the wrangler literal, and TS treats the `??` fallback as dead even though `pnpm dev` needs it.
 - Never put secrets in `wrangler.jsonc` (it's committed) — use the Cloudflare dashboard or `pnpm exec wrangler secret put`.
 
 ## Gotchas
@@ -65,9 +65,9 @@ Style `base-nova` / `neutral` / Geist (`components.json`). Components install la
 
 1. `pnpm ui:add <name>` adds, `pnpm ui:update <name...>` refreshes. These run the local `shadcn` (bump it in `package.json` to upgrade), never `pnpm dlx shadcn@latest`.
 2. **Never `shadcn apply` or `shadcn add --all`** — `apply` rewrites files outside `ui/` with its own style and duplicates imports; `--all` installs the entire registry.
-3. `pnpm ui:diff` reports every installed item against the registry in one table (`= skip (identical)` vs `~ overwrite`). Inspect anything listed `overwrite` with `pnpm exec shadcn add <name> --diff`, and take the change only if the registry genuinely superseded yours. `src/lib/utils.ts` always shows `overwrite` — `src/lib/` isn't prettier-ignored, so `prettier-plugin-organize-imports` reorders the `clsx` import after install. Cosmetic.
+3. `pnpm ui:diff` reports every installed item against the registry in one table (`= skip (identical)` vs `~ overwrite`). Inspect anything listed `overwrite` with `pnpm exec shadcn add <name> --diff`, and take the change only if the registry genuinely superseded yours. Two files always show `overwrite`: `src/lib/utils.ts` (prettier reorders the `clsx` import; cosmetic) and `src/hooks/use-mobile.ts` (registry still uses `useState` + setState-in-effect, which flashes and trips `react-hooks/set-state-in-effect`; ours is `useSyncExternalStore`). Don't take those unless the registry actually superseded the local version.
 4. **Never `shadcn diff`** — the CLI marks it `[DEPRECATED]` and it returns false negatives, reporting "No updates found" for files that `add --diff` shows real hunks for. `add --diff` with no arguments is no help either: it opens an interactive picker over the whole registry instead of your installed items.
-5. `utils` (and `use-mobile`, once a component pulls it in) are registry _dependencies_ of other components — e.g. `pnpm ui:update sidebar` rewrites `src/hooks/use-mobile.ts`. Always `pnpm ui:diff` before and `git diff` after a refresh.
+5. `utils` and `use-mobile` are registry _dependencies_ of other components — e.g. `pnpm ui:update sidebar` rewrites `src/hooks/use-mobile.ts`. Always `pnpm ui:diff` before and `git diff` after a refresh.
 6. If `ui:update` skips more files than expected, `globals.css` is probably missing a theme token — shadcn silently strips classes that reference unknown `--*` vars. Check `shadcn info` for CSS vars, then regenerate a fresh reference via `shadcn init` in a scratch dir (check the current CLI flags first — historically it wanted the bare preset name, not the combined `base-nova` from `components.json`), diff `globals.css` against it, add the missing tokens, re-run.
 
 ## Conventions
