@@ -13,6 +13,8 @@ publicHoistPattern:
 # Keep `pnpm add` / `pnpm update` writing `=x.y.z` so a later add cannot reintroduce carets.
 savePrefix: '='
 minimumReleaseAgeExclude:
+  # 0.3.0 drops tw-animate classes. 0.3.2 was still inside the 24h delay.
+  - cn@0.3.2
   - nanoid@3.3.18
   - qs@6.15.4 || 6.16.0
   - fast-uri@3.1.6

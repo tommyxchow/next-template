@@ -4,6 +4,6 @@
   "semi": false,
   "organizeImportsTypeOrder": "inline",
   "tailwindStylesheet": "./src/app/globals.css",
-  "tailwindFunctions": ["cn", "clsx", "cva", "twMerge"],
+  "tailwindFunctions": ["cn", "cva"],
   "plugins": ["prettier-plugin-organize-imports", "prettier-plugin-tailwindcss"]
 }

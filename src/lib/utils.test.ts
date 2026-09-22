@@ -14,4 +14,10 @@ describe('cn', () => {
     expect(cn('')).toBe('')
     expect(cn(undefined, null)).toBe('')
   })
+
+  test('keeps tw-animate classes', () => {
+    expect(cn('animate-in', 'fade-in', 'animate-out')).toBe(
+      'animate-in fade-in animate-out',
+    )
+  })
 })

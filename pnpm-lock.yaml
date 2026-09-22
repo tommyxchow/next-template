@@ -20,9 +20,9 @@ importers:
       class-variance-authority:
         specifier: '=0.7.1'
         version: 0.7.1
-      clsx:
-        specifier: '=2.1.1'
-        version: 2.1.1
+      cn:
+        specifier: '=0.3.2'
+        version: 0.3.2
       lucide-react:
         specifier: '=1.47.0'
         version: 1.47.0(react@19.3.0)
@@ -44,9 +44,6 @@ importers:
       react-hook-form:
         specifier: '=7.88.0'
         version: 7.88.0(react@19.3.0)
-      tailwind-merge:
-        specifier: '=3.7.0'
-        version: 3.7.0
       tw-animate-css:
         specifier: '=1.4.0'
         version: 1.4.0
@@ -2383,6 +2380,11 @@ packages:
     engines: {node: '>=20'}
     hasBin: true
 
+  cn@0.3.2:
+    resolution: {integrity: sha512-RKzY5Edavc8B2Ka6tjJecKFC4nm0p7lADY72xzICmiJSf4TkaxWXt0fHsib2P2G4FkFyXfSDi9oDtIBuCZvY2g==}
+    engines: {node: '>=20'}
+    hasBin: true
+
   code-block-writer@13.0.3:
     resolution: {integrity: sha512-Oofo0pq3IKnsFtuHqSF7TqBfr71aeyZDVJ0HpmqB7FBM2qEigL0iPONSCZSO9pE9dZTAxANe5XHG9Uy0YMv8cg==}
 
@@ -4182,9 +4184,6 @@ packages:
     peerDependenciesMeta:
       '@eslint/css':
         optional: true
-
-  tailwind-merge@3.7.0:
-    resolution: {integrity: sha512-XPPUyAc+cvspz3lHTcR/QgPfW2A0lv/xQNIjX3HGhLR+Nq2lHaLq5MtTesHn8GUr3W3DguT2KT5x3NVgRtYwmA==}
 
   tailwindcss@4.3.3:
     resolution: {integrity: sha512-gOhV3P7ufE62QDGg1zVaTgCR+EtPv92k2nIhVcVKcLmxT1sUBsQGhnZj175j+MqRt4zLF7ic+sCYjfhxMxj7YQ==}
@@ -6943,6 +6942,8 @@ snapshots:
 
   cn@0.2.6: {}
 
+  cn@0.3.2: {}
+
   code-block-writer@13.0.3: {}
 
   color-convert@2.0.1:
@@ -8682,8 +8683,6 @@ snapshots:
     optional: true
 
   tailwind-csstree@0.3.3: {}
-
-  tailwind-merge@3.7.0: {}
 
   tailwindcss@4.3.3: {}
 
